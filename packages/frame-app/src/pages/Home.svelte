@@ -2,7 +2,7 @@
   import { FrameCommunicator } from "./../../utils/FrameCommunicator";
   import { onMount } from "svelte";
   import SafeAppsSDK from "@gnosis.pm/safe-apps-sdk";
-  import {Buffer} from "buffer";
+  import { Buffer } from "buffer";
   import {
     getSDKVersion,
     SDKMessageEvent,
@@ -43,12 +43,12 @@
     profileData = window.authApi.getDataFromLocalStorage();
 
     if (profileData?.privateKey) {
-      const privateKey = Buffer.from(profileData.privateKey, 'hex');
+      const privateKey = Buffer.from(profileData.privateKey, "hex");
       const privateKeyBuffer = new Uint8Array(privateKey);
-      console.log('privateKeyBuffer', privateKeyBuffer)
+      console.log("privateKeyBuffer", privateKeyBuffer);
       const signKey = new ethers.utils.SigningKey(privateKeyBuffer);
 
-      const publicKeyBuffer = new Uint8Array(Buffer.from(signKey.publicKey, 'hex'));
+      const publicKeyBuffer = new Uint8Array(Buffer.from(signKey.publicKey, "hex"));
 
       const provider = new Ed25519Provider(privateKeyBuffer, publicKeyBuffer);
 

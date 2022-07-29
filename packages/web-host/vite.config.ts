@@ -4,8 +4,13 @@ import { defineConfig } from 'vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  optimizeDeps: {
+    esbuildOptions: {
+      target: "es2020"
+    }
+  },
   build: {
-    target: "es2020",
+    target: "es2020"
   },
   plugins: [svelte()],
   css: {

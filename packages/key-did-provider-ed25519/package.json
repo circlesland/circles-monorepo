@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
-    "build": "./node_modules/.bin/tsc --project tsconfig.build.json",
+    "build": "npx tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run build",
     "prebuild": "npm run clean",
     "lint": "./node_modules/.bin/eslint ./src --ext .js,.ts",

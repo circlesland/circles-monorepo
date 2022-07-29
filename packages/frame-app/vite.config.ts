@@ -3,10 +3,17 @@ import { defineConfig } from 'vite';
 
 import postcss from './postcss.config.mjs';
 
-// https://vitejs.dev/config/
 export default defineConfig({
+  optimizeDeps: {
+    esbuildOptions: {
+      target: "es2020"
+    }
+  },
+  build: {
+    target: "es2020"
+  },
   plugins: [svelte()],
   css: {
     postcss,
-  },
+  }
 });

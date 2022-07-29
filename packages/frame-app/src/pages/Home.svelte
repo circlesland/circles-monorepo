@@ -2,6 +2,7 @@
   import { FrameCommunicator } from "./../../utils/FrameCommunicator";
   import { onMount } from "svelte";
   import SafeAppsSDK from "@gnosis.pm/safe-apps-sdk";
+  import {Buffer} from "buffer";
   import {
     getSDKVersion,
     SDKMessageEvent,
@@ -38,17 +39,16 @@
 
   const datastore = new DIDDataStore({ ceramic, model: aliases });
 
-  const fromHexString = (hexString) => Uint8Array.from(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
-
   const loadProfileData = async () => {
     profileData = window.authApi.getDataFromLocalStorage();
 
     if (profileData?.privateKey) {
-      const privateKey = profileData.privateKey;
-      const privateKeyBuffer = fromHexString(privateKey);
+      const privateKey = Buffer.from(profileData.privateKey, 'hex');
+      const privateKeyBuffer = new Uint8Array(privateKey);
+      console.log('privateKeyBuffer', privateKeyBuffer)
       const signKey = new ethers.utils.SigningKey(privateKeyBuffer);
 
-      const publicKeyBuffer = fromHexString(signKey.publicKey);
+      const publicKeyBuffer = new Uint8Array(Buffer.from(signKey.publicKey, 'hex'));
 
       const provider = new Ed25519Provider(privateKeyBuffer, publicKeyBuffer);
 
@@ -117,5 +117,5 @@
     <div><button on:click={(e) => login(e, 0)}>login test account 1</button></div>
     <div><button on:click={logout}>logout</button></div>
   </div> -->
-  <!-- <iframe src={appUrl} frameborder="0" width="100%" height="100%" class="h-screen w-screen" id="myIframe" /> -->
+  <iframe src={appUrl} frameborder="0" width="100%" height="100%" class="h-screen w-screen" id="myIframe" />
 </div>

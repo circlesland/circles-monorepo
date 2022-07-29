@@ -1,7 +1,6 @@
 <script lang="ts">
   import { FrameCommunicator } from "./../../utils/FrameCommunicator";
   import { onMount } from "svelte";
-  import { ethers } from "ethers";
   import SafeAppsSDK from "@gnosis.pm/safe-apps-sdk";
   import {
     getSDKVersion,
@@ -14,21 +13,51 @@
     BaseTransaction,
     RPCPayload,
   } from "@gnosis.pm/safe-apps-sdk";
+  import { CeramicClient } from "@ceramicnetwork/http-client";
+  import { DIDDataStore } from "@glazed/did-datastore";
+  import { DID } from "dids";
+  import { ethers, Wallet } from "ethers";
+  import { Ed25519Provider } from "key-did-provider-ed25519";
+  import KeyResolver from "key-did-resolver";
 
   let profileData;
   let address: string;
   let appUrl = "https://framedapp.circles.land";
 
+  const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
+
+  const aliases = {
+    schemas: {
+      basicProfile: "ceramic://k3y52l7qbv1frxt706gqfzmq6cbqdkptzk8uudaryhlkf6ly9vx21hqu4r6k1jqio",
+    },
+    definitions: {
+      BasicProfile: "kjzl6cwe1jw145cjbeko9kil8g9bxszjhyde21ob8epxuxkaon1izyqsu8wgcic",
+    },
+    tiles: {},
+  };
+
+  const datastore = new DIDDataStore({ ceramic, model: aliases });
+
+  const fromHexString = (hexString) => Uint8Array.from(hexString.match(/.{1,2}/g).map((byte) => parseInt(byte, 16)));
+
   const loadProfileData = async () => {
     profileData = window.authApi.getDataFromLocalStorage();
 
     if (profileData?.privateKey) {
-      const privateKey = "0x" + profileData.privateKey;
-      const wallet = new ethers.Wallet(privateKey);
-      address = wallet.address;
-      const signature = await wallet.signMessage("my awesome message");
-      console.log("signed msg", signature);
-      // const signingKey = new ethers.utils.SigningKey(privateKey);
+      const privateKey = profileData.privateKey;
+      const privateKeyBuffer = fromHexString(privateKey);
+      const signKey = new ethers.utils.SigningKey(privateKeyBuffer);
+
+      const publicKeyBuffer = fromHexString(signKey.publicKey);
+
+      const provider = new Ed25519Provider(privateKeyBuffer, publicKeyBuffer);
+
+      const did = new DID({ provider, resolver: KeyResolver.getResolver() });
+      await did.authenticate();
+
+      console.log("did", did);
+
+      ceramic.setDID(did);
     }
   };
 
@@ -88,6 +117,5 @@
     <div><button on:click={(e) => login(e, 0)}>login test account 1</button></div>
     <div><button on:click={logout}>logout</button></div>
   </div> -->
-
-  <iframe src={appUrl} frameborder="0" width="100%" height="100%" class="h-screen w-screen" id="myIframe" />
+  <!-- <iframe src={appUrl} frameborder="0" width="100%" height="100%" class="h-screen w-screen" id="myIframe" /> -->
 </div>

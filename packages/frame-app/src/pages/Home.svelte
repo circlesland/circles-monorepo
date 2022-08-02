@@ -1,23 +1,10 @@
 <script lang="ts">
+  import { ceramic, getCeramicSeed, getProfileFromCeramic, updateProfileOnCeramic } from "./../../utils/CeramicHelpers";
   import { FrameCommunicator } from "./../../utils/FrameCommunicator";
   import { onMount } from "svelte";
-  import SafeAppsSDK from "@gnosis.pm/safe-apps-sdk";
-  import { Buffer } from "buffer";
-  import {
-    getSDKVersion,
-    SDKMessageEvent,
-    MethodToResponse,
-    Methods,
-    SafeInfo,
-    MessageFormatter,
-    RequestId,
-    BaseTransaction,
-    RPCPayload,
-  } from "@gnosis.pm/safe-apps-sdk";
-  import { CeramicClient } from "@ceramicnetwork/http-client";
-  import { DIDDataStore } from "@glazed/did-datastore";
+
   import { DID } from "dids";
-  import { ethers, Wallet } from "ethers";
+
   import { Ed25519Provider } from "key-did-provider-ed25519";
   import KeyResolver from "key-did-resolver";
 
@@ -25,39 +12,21 @@
   let address: string;
   let appUrl = "https://framedapp.circles.land";
 
-  const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
-
-  const aliases = {
-    schemas: {
-      basicProfile: "ceramic://k3y52l7qbv1frxt706gqfzmq6cbqdkptzk8uudaryhlkf6ly9vx21hqu4r6k1jqio",
-    },
-    definitions: {
-      BasicProfile: "kjzl6cwe1jw145cjbeko9kil8g9bxszjhyde21ob8epxuxkaon1izyqsu8wgcic",
-    },
-    tiles: {},
-  };
-
-  const datastore = new DIDDataStore({ ceramic, model: aliases });
-
   const loadProfileData = async () => {
     profileData = window.authApi.getDataFromLocalStorage();
+    const privateKey = profileData?.privateKey;
+    if (privateKey) {
+      const signature = await getCeramicSeed(privateKey);
 
-    if (profileData?.privateKey) {
-      const privateKey = Buffer.from(profileData.privateKey, "hex");
-      const privateKeyBuffer = new Uint8Array(privateKey);
-      console.log("privateKeyBuffer", privateKeyBuffer);
-      const signKey = new ethers.utils.SigningKey(privateKeyBuffer);
-
-      const publicKeyBuffer = new Uint8Array(Buffer.from(signKey.publicKey, "hex"));
-
-      const provider = new Ed25519Provider(privateKeyBuffer, publicKeyBuffer);
+      const provider = new Ed25519Provider(signature);
 
       const did = new DID({ provider, resolver: KeyResolver.getResolver() });
       await did.authenticate();
 
-      console.log("did", did);
-
       ceramic.setDID(did);
+
+      const res = await getProfileFromCeramic();
+      console.log("update res", res);
     }
   };
 

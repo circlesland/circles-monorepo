@@ -1,7 +1,6 @@
 import { CeramicClient } from '@ceramicnetwork/http-client';
 import { DIDDataStore } from '@glazed/did-datastore';
 import { Buffer } from 'buffer';
-import { ethers } from 'ethers';
 
 export const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
 
@@ -18,10 +17,8 @@ const aliases = {
 export const datastore = new DIDDataStore({ ceramic, model: aliases });
 
 export const getCeramicSeed = async (privateKey: string) => {
-  const wallet = new ethers.Wallet(privateKey);
-  const signature = await wallet.signMessage("my awesome message");
-
-  return new Uint8Array(Buffer.from(signature.slice(2), "hex")).slice(0, 32);
+  const privateKeyBuffer = Buffer.from(privateKey, "hex");
+  return new Uint8Array(privateKeyBuffer).slice(0, 32);
 };
 
 export const getProfileFromCeramic = async () => {

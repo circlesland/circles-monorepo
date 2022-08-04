@@ -1,4 +1,5 @@
 <script lang="ts">
+  import CompleteProfileForm from "./../components/CompleteProfileForm.svelte";
   import { ceramic, getCeramicSeed, getProfileFromCeramic, updateProfileOnCeramic } from "./../../utils/CeramicHelpers";
   import { FrameCommunicator } from "./../../utils/FrameCommunicator";
   import { onMount } from "svelte";
@@ -36,7 +37,7 @@
     const userDataParam = _url.searchParams.get("user_data");
     if (userDataParam) window.authApi.processAuth(userDataParam);
 
-    loadProfileData();
+    // loadProfileData();
 
     const iframeEl = document.getElementById("myIframe");
 
@@ -71,6 +72,15 @@
     window.authApi.logout();
     window.location.reload();
   };
+
+  import { interpret } from "xstate";
+  import { toggleMachine } from "../../xstate/machine";
+
+  const toggleService = interpret(toggleMachine).start();
+
+  toggleService.onTransition((state) => {
+    console.log(state.value);
+  });
 </script>
 
 <div>
@@ -86,5 +96,12 @@
     <div><button on:click={(e) => login(e, 0)}>login test account 1</button></div>
     <div><button on:click={logout}>logout</button></div>
   </div>
+
+  {#if $toggleService?.value === "success"}
+    <p>{$toggleService?.context?.profile?.name}</p>
+  {:else}
+    <CompleteProfileForm />
+  {/if}
+
   <!-- <iframe src={appUrl} frameborder="0" width="100%" height="100%" class="h-screen w-screen" id="myIframe" /> -->
 </div>

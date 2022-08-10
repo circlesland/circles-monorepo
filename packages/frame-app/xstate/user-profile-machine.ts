@@ -24,7 +24,6 @@ const fetchProfile = async () => {
 };
 
 const isProfileCompleted = (context, event) => {
-  console.log(event.data);
   return !!event?.data?.name;
 };
 

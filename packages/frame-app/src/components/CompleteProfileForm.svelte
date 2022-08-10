@@ -1,7 +1,7 @@
 <script lang="ts">
   import { updateProfileOnCeramic } from "../../utils/CeramicHelpers";
   import { interpret } from "xstate";
-  import { toggleMachine } from "../../xstate/machine";
+  import { toggleMachine } from "../../xstate/user-profile-machine";
 
   const toggleService = interpret(toggleMachine);
 

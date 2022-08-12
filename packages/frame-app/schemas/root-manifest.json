@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Applications",
+  "description": "A list of applications that will be loaded inside the frame",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string"
+      },
+      "label": {
+        "type": "string"
+      },
+      "icon": {
+        "type": "string"
+      },
+      "url": {
+        "type": "string"
+      },
+      "manifest": {
+        "type": "string"
+      }
+    },
+    "required": ["id", "label", "icon", "url", "manifest"]
+  },
+  "minItems": 1,
+  "uniqueItems": true
+}

@@ -1,16 +1,8 @@
 <script lang="ts">
   import AuthGuard from "./../components/AuthGuard.svelte";
   import CompleteProfileForm from "./../components/CompleteProfileForm.svelte";
-
-  import { onMount } from "svelte";
-
-  onMount(async () => {
-    // Get user data base64 string from url and save it to localStorage
-    const _url = new URL(window.location.toString());
-    const userDataParam = _url.searchParams.get("user_data");
-    if (userDataParam) window.authApi.processAuth(userDataParam);
-  });
-
+  import rootManifest from "../../apps/root.json";
+  import { link } from "svelte-spa-router";
   const logout = () => {
     window.authApi.logout();
     window.location.reload();
@@ -22,14 +14,18 @@
   const toggleService = interpret(toggleMachine).start();
 </script>
 
-<AuthGuard>
-  <div>
-    <div><button on:click={logout}>logout</button></div>
+<div>
+  <div><button on:click={logout}>logout</button></div>
 
-    {#if $toggleService?.value === "success"}
-      <p>Welcome to the loader {$toggleService?.context?.profile?.name}</p>
-    {:else}
-      <CompleteProfileForm />
-    {/if}
-  </div>
-</AuthGuard>
+  {#if $toggleService?.value === "success"}
+    <p>Welcome to the loader {$toggleService?.context?.profile?.name}</p>
+
+    <div class="flex items-center space-x-16">
+      {#each rootManifest as app}
+        <div class="p-8 border border-blue-100"><a href={"/app/" + app.id} use:link>{app.label}</a></div>
+      {/each}
+    </div>
+  {:else}
+    <CompleteProfileForm />
+  {/if}
+</div>

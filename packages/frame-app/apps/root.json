@@ -1,0 +1,16 @@
+[
+  {
+    "id": "123123",
+    "label": "Wallet dApp",
+    "icon": "https://circles.land/logos/circles.png",
+    "url": "https://example.com",
+    "manifest": "https://dummyjson.com/products/1"
+  },
+  {
+    "id": "123126",
+    "label": "Marketplace",
+    "icon": "https://circles.land/logos/circles.png",
+    "url": "https://circles.land",
+    "manifest": "https://dummyjson.com/products/1"
+  }
+]

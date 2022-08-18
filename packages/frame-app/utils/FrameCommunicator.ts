@@ -1,142 +1,80 @@
-import {
-    BaseTransaction,
-    getSDKVersion,
-    MessageFormatter,
-    Methods,
-    MethodToResponse,
-    RequestId,
-    RPCPayload,
-    SDKMessageEvent,
-    SignMessageParams,
-} from '@gnosis.pm/safe-apps-sdk';
-import { providers } from 'ethers';
-
-import { chainIdToNetwork } from './chainIdToNetwork';
-import { sendTransaction, signMessage } from './SendTransactions';
-
-interface Account {
-  chainId: number;
-  address: string;
+interface IMessagePayload {
+  method: Methods;
+  params: any;
+  requestId: string;
 }
 
-type LegacyMethods = "getEnvInfo";
-type SDKMethods = Methods | LegacyMethods;
-
-export interface MessageHandlers {
-  onTransactionProposal: (transactions: BaseTransaction[], requestId: RequestId) => void;
+export enum Methods {
+  init = "init",
+  sendTransaction = "sendTransaction",
+  editProfile = "editProfile",
 }
 
 export class FrameCommunicator {
-  private account: Account;
-  private appUrl: string;
-  private iframe: HTMLIFrameElement;
-  constructor(account: Account, appUrl: string, iframe: HTMLIFrameElement) {
-    this.account = account;
-    this.appUrl = appUrl;
-    this.iframe = iframe;
+  private _frame: HTMLIFrameElement | undefined;
+  private appUrl: string | undefined;
+  private handlers = new Map<Methods, (payload: any) => any>();
+
+  get frame(): HTMLIFrameElement | undefined {
+    return this._frame;
   }
 
-  handleMessage(message: SDKMessageEvent) {
-    const { method, params, id: requestId }: { method: SDKMethods; params: unknown; id: RequestId } = message.data;
+  on(method: Methods, callback: (payload: any) => any) {
+    this.handlers.set(method, callback);
 
-    if (!method) {
-      console.error("ThirdPartyApp: A message was received without message id.");
-      return;
-    }
-    console.log(`Received ${method} with ${JSON.stringify(params)}`);
-
-    switch (method as SDKMethods) {
-      case "sendTransactions": {
-        if (params) {
-          console.log("do tx", method, params, requestId);
-          // @ts-ignore
-          const { txs } = params;
-          sendTransaction(txs);
-        }
-        break;
-      }
-
-      case "signMessage": {
-        const { message } = params as SignMessageParams;
-        signMessage(message).then((signature) => {
-          this.sendResponse(signature, requestId);
-        });
-        break;
-      }
-
-      case "getEnvInfo": {
-        this.sendResponse({ txServiceUrl: "https://safe-transaction.xdai.gnosis.io/api/v1" }, requestId);
-        break;
-      }
-
-      // @ts-ignore
-      case "getPrivateKey": {
-        // @ts-ignore
-        const profileData = window.authApi.getDataFromLocalStorage();
-        // @ts-ignore
-        this.sendResponse(profileData, requestId);
-        break;
-      }
-
-      case "getSafeInfo": {
-        this.sendResponse(
-          {
-            safeAddress: "0xa6105f87497ad659b104bebb5a736956642588e7" || this.account.address,
-            chainId: this.account.chainId,
-            network: chainIdToNetwork[this.account.chainId],
-          },
-          requestId
-        );
-        break;
-      }
-
-      case "getChainInfo": {
-        this.sendResponse(
-          {
-            chainName: "Gnosis Chain",
-            chainId: "0x64",
-            shortName: "Gnosis",
-            nativeCurrency: "xDai",
-            blockExplorerUriTemplate: "https://blockscout.com/xdai/mainnet",
-          },
-          requestId
-        );
-        break;
-      }
-
-      case "rpcCall": {
-        const payload = params as RPCPayload;
-        const provider = new providers.JsonRpcProvider("https://rpc.gnosischain.com");
-        provider!!.send(payload.call, payload.params).then((resp: any) => {
-          this.sendResponse(resp, requestId);
-        });
-        console.log("rpc call", payload);
-        break;
-      }
-
-      default: {
-        console.error(`ThirdPartyApp: A message was received with an unknown method ${method}.`);
-        break;
-      }
-    }
+    return this;
   }
 
-  onMessage(message: SDKMessageEvent) {
-    if (message.source === window) {
+  async handleMsg({ method, params, requestId }: IMessagePayload) {
+    if (!method || !requestId) {
+      console.error("Message received without method or requestId");
       return;
     }
-    if (!this.appUrl.includes(message.origin)) {
-      console.error(`ThirdPartyApp: A message was received from an unknown origin ${message.origin}`);
+
+    const callback = this.handlers.get(method);
+
+    if (!callback) {
       return;
     }
-    this.handleMessage(message);
+
+    const response = await Promise.resolve(callback(params));
+    this.sendResponse(method, response, requestId);
   }
 
-  sendResponse(data: MethodToResponse[Methods], requestId: RequestId) {
-    const frameWindow = this.iframe.contentWindow;
+  onMessage(msg: MessageEvent) {
+    if (msg.source === window) {
+      return;
+    }
+
+    if (!this.appUrl?.includes(msg.origin)) {
+      console.log("Message received from unknown origin " + msg.origin);
+    }
+
+    this.handleMsg(msg.data);
+  }
+
+  sendResponse(method: Methods, response: any, requestId: string) {
+    const frameWindow = this?._frame?.contentWindow;
     if (!frameWindow) return;
-    const sdkVersion = getSDKVersion();
-    const msg = MessageFormatter.makeResponse(requestId, data, sdkVersion);
-    frameWindow.postMessage(msg, this.appUrl);
+    const msg = {
+      method,
+      success: true,
+      requestId,
+      response,
+    };
+    frameWindow.postMessage(msg, this.appUrl as string);
+  }
+
+  connect(frame: HTMLIFrameElement, defaultWindow?: Window) {
+    this._frame = frame;
+    this.appUrl = frame.src;
+    const eventWindow = defaultWindow || this._frame.contentWindow;
+    if (!eventWindow) return;
+    const callback = (e: MessageEvent) => this.onMessage(e);
+
+    eventWindow.addEventListener("message", callback);
+    return () => {
+      eventWindow.removeEventListener("message", callback);
+    };
   }
 }

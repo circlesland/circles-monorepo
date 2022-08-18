@@ -25,7 +25,5 @@
         <div class="p-8 border border-blue-100"><a href={"/app/" + app.id} use:link>{app.label}</a></div>
       {/each}
     </div>
-  {:else}
-    <CompleteProfileForm />
   {/if}
 </div>

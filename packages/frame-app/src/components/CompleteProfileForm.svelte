@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { updateProfileOnCeramic } from "../../utils/CeramicHelpers";
+  import { updateProfileOnCeramic, getProfileFromCeramic } from "../../utils/CeramicHelpers";
   import { interpret } from "xstate";
   import { toggleMachine } from "../../xstate/user-profile-machine";
+  import { onDestroy, onMount } from "svelte";
 
-  const toggleService = interpret(toggleMachine);
+  export let profile;
 
   async function onSubmit(e) {
     const formData = new FormData(e.target);
@@ -16,8 +17,19 @@
 
     await updateProfileOnCeramic(data);
 
-    toggleService.start();
+    window.location.reload();
   }
+
+  onMount(() => {
+    (async () => {
+      const nameInput = document.getElementById("name");
+      const countryInput = document.getElementById("country");
+      const genderInput = document.getElementById("gender");
+      nameInput.value = profile?.name;
+      countryInput.value = profile?.country;
+      genderInput.value = profile?.gender;
+    })();
+  });
 </script>
 
 <div>

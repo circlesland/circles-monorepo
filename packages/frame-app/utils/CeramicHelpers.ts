@@ -1,6 +1,7 @@
 import { CeramicClient } from '@ceramicnetwork/http-client';
 import { DIDDataStore } from '@glazed/did-datastore';
 import { Buffer } from 'buffer';
+import { ethers } from 'ethers';
 
 export const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
 
@@ -45,4 +46,12 @@ export const updateProfileOnCeramic = async ({ name, country, gender }) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getWallet = () => {
+  // @ts-ignore
+  const profileData = window.authApi.getDataFromLocalStorage();
+  const wallet = new ethers.Wallet(profileData?.privateKey);
+
+  return [wallet.address, profileData?.privateKey];
 };

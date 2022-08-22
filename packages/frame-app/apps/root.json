@@ -3,7 +3,7 @@
     "id": "123123",
     "label": "Wallet dApp",
     "icon": "https://circles.land/logos/circles.png",
-    "url": "https://example.com",
+    "url": "http://localhost:3001",
     "manifest": "https://dummyjson.com/products/1"
   },
   {

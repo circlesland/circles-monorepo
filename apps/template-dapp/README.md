@@ -19,3 +19,7 @@ Run `npm run test` in the app directory to run unit tests. Unit tests are writte
 # Build
 
 Run `npm run build` to build the application. The binaries will be located in the `dist` directory after the build is finished.
+
+# Storybook
+
+Each component should contain stories written in order to display them in **Storybook**. You can write component stories by using the ```<component-name>.stories.ts``` file structure. Storybook searches automatically for ***.stories.ts** files and displays the associated components.

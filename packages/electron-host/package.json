@@ -37,7 +37,8 @@
     "vite": "^3.0.4"
   },
   "dependencies": {
-    "@circlesland/frame-app": "^0.0.5",
+    "@circlesland/frame-app": "^0.0.8",
+    "electron-deeplink": "^1.0.10",
     "electron-squirrel-startup": "^1.0.0"
   },
   "config": {

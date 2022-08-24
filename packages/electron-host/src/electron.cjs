@@ -1,5 +1,6 @@
 const path = require("path");
 const { app, BrowserWindow } = require("electron");
+const { Deeplink } = require("electron-deeplink");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
@@ -7,6 +8,8 @@ if (require("electron-squirrel-startup")) {
 }
 
 const isDev = process.env.IS_DEV === "true";
+
+const protocol = isDev ? "dev-app" : "prod-app";
 
 let mainWindow;
 
@@ -23,7 +26,7 @@ function createWindow() {
 
   // Open the DevTools.
   if (isDev) {
-    mainWindow.loadURL("http://localhost:3000");
+    mainWindow.loadURL("http://localhost:5173");
     mainWindow.webContents.openDevTools();
   } else {
     // mainWindow.removeMenu();
@@ -41,6 +44,20 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+
+  new Deeplink({ app, mainWindow, protocol, isDev });
+
+  // Get the deep link data and inject it into localStorage
+  // deeplink.on("received", (link) => {
+  //   const _url = new URL(link);
+  //   const userData = _url.searchParams.get("user_data");
+  //   console.log("opened", link);
+
+  //   if (mainWindow)
+  //     mainWindow.webContents.executeJavaScript(`window.authApi.processAuth("${userData}")`, true).then((result) => {
+  //       mainWindow.reload();
+  //     });
+  // });
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -52,8 +69,8 @@ app.on("window-all-closed", () => {
   }
 });
 
-// Get the deep link data and inject it into localStorage
 app.on("open-url", (event, url) => {
+  console.log("opened", url);
   const _url = new URL(url);
   const userData = _url.searchParams.get("user_data");
 

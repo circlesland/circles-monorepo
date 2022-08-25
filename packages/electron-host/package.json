@@ -1,5 +1,5 @@
 {
-  "name": "electron-host",
+  "name": "@circlesland/electron-host",
   "private": true,
   "version": "0.0.0",
   "type": "module",

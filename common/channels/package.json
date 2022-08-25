@@ -1,0 +1,21 @@
+{
+  "name": "@circlesland/channels",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "test": "ts-jest -u --watch"
+  },
+  "devDependencies": {
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.8"
+  },
+  "dependencies": {
+    "@circlesland/interfaces-channels": "1.0.0"
+  }
+}

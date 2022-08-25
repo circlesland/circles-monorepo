@@ -1,5 +1,5 @@
 {
-  "name": "capacitor-host",
+  "name": "@circlesland/capacitor-host",
   "private": true,
   "version": "0.0.0",
   "type": "module",

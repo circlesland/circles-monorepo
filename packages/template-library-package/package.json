@@ -1,0 +1,17 @@
+{
+  "name": "@circlesland/template-library-package",
+  "version": "1.0.0",
+  "description": "A library template with TypeScript support",
+  "svelte": "src/index.ts",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "jest -u --watch"
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
+}

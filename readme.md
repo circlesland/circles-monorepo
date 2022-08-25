@@ -6,6 +6,10 @@ Lerna monorepo that enables development for apps and libraries using Svelte and 
 
 The repository contains an ```apps``` directory use to create Dapp while library packages will be found under ```packages```. Packages are automatically linked together, meaning you can do cross-package work with this repository.
 
+# Dependency installation
+
+We are using "yarn" as a package manager together with larna to take account of the "workspaces" feature that they come up with.
+
 # Development
 
 Each Dapp can be started separately in its own webserver. For more information on how to run each DApp locally, please visit the associated DApp readme file.
@@ -28,8 +32,7 @@ We are aiming for each reusable entity (component, XState flow) to define a set 
 
 Later on, the stories from storybook will be used for automation testing purposes.
 
-##  Basic Development
-1. `npm i # installs lerna and all top-level dev dependencies`
-2. `npx lerna bootstrap`
-3. `cd packages/web-host`
-4. `npm run dev`
+##  Basic Development (Web Host)
+1. `yarn # installs lerna and all top-level dev dependencies`
+2. `cd packages/web-host`
+3. `yarn dev`

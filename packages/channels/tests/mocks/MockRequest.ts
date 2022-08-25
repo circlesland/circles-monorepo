@@ -3,7 +3,7 @@ import {IUniqueEvent} from "@circlesland/interfaces-channels/src/IUniqueEvent";
 export class MockIdCounter {
   private static counter: number = 0;
   static next() :number {
-    return this.counter++;
+    return ++this.counter;
   }
 }
 

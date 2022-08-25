@@ -11,7 +11,7 @@ export class StatefulEndpoint implements IStatefulEndpoint {
   readonly requests: {[uniqueEventId: string]: IRequest} = {};
   readonly defaultTimeout: number;
 
-  private processTimeoutsIntervalHandle?: number;
+  private processTimeoutsIntervalHandle?: any;
 
   /**
    * Creates a new instance on top of an existing IEndpoint

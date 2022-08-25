@@ -1,0 +1,9 @@
+{
+  "transform": {
+    "^.+\\.ts$": "ts-jest",
+    "^.+\\.js$": "babel-jest"
+  },
+  "moduleFileExtensions": ["js", "ts"],
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
+}

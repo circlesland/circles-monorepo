@@ -1,5 +1,4 @@
 import {IEndpoint} from "./IEndpoint";
-import {IEvent} from "./IEvent";
 import {IUniqueEvent} from "./IUniqueEvent";
 
 /**

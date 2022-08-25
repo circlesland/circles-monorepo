@@ -1,6 +1,6 @@
 # Template UI Package Library
 
-This template should help you get started developing new UI Package Libraries Svelte and Typescript in Vite.
+This template should help you get started developing new UI Package Libraries using Svelte and Typescript in Vite.
 
 # Setup
 
@@ -13,12 +13,12 @@ This template should help you get started developing new UI Package Libraries Sv
 By default, importing components from this library will take the files under the ```src``` directory. For example, using ```import Counter from @circlesland/template-ui-library-package``` will import it from ```packages/template-ui-library-package```.
 
 # Testing
-Run `npm run test` in the app directory to run unit tests. Unit tests are written using `jest`. There is a sample test file under `/lib/Counter.test.ts` that you can use as a reference.
+Run `yarn test` in the app directory to run unit tests. Unit tests are written using `jest`. There is a sample test file under `/src/Counter.test.ts` that you can use as a reference.
 
 
 # Build
 
-Run `npm run build` to build the package. The binaries will be located in the `dist` directory after the build is finished.
+Run `yarn build` to build the package. The binaries will be located in the `dist` directory after the build is finished.
 
 # Storybook
 

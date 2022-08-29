@@ -1,0 +1,1 @@
+export { default as LocalizeService } from './localize-service';

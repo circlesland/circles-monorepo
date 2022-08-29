@@ -1,5 +1,6 @@
 {
   "name": "@circlesland/localization",
+  "private": true,
   "version": "1.0.0",
   "description": "Library that provides support for localization",
   "svelte": "src/index.ts",
@@ -15,7 +16,6 @@
     "dist"
   ],
   "dependencies": {
-    "@circlesland/localization-interfaces": "1.0.0",
     "moment": "^2.29.4"
   }
 }

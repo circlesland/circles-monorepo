@@ -1,1 +1,2 @@
-export { default } from './localize-service';
+export * from './services';
+export type { ILocalizeService } from './interfaces';

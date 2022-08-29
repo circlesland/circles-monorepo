@@ -1,5 +1,5 @@
-import type { ILocalizeService } from '@circlesland/localization-interfaces';
-import type { LocalizationMap } from './types/localization-map';
+import type { ILocalizeService } from '../interfaces';
+import type { LocalizationMap } from '../types/localization-map';
 import moment from 'moment';
 
 class LocalizeService implements ILocalizeService {
@@ -8,9 +8,8 @@ class LocalizeService implements ILocalizeService {
 
     constructor(locale: string) {
         this.locale = locale;
-    
     }
-
+    
     public registerAppLocalization(appName: string, localizationKeys: { [key: string]: string }) {
         const appLocalization = this.localizationMap.appName;
         if (appLocalization) {
@@ -30,12 +29,29 @@ class LocalizeService implements ILocalizeService {
         return localizedValue ?? localizationKey;
     }
 
-    public getLocalizedNumber(number: string): number | string {
-        return 1234;
+    public getLocalizedNumber(number: number): string {
+        // Use the default browser Intl support to localize numbers
+        return Intl.NumberFormat(this.locale).format(number);
     }
 
-    public getLocalizedDate(date: number | Date): string {
-        return moment(date, 'DD/MM/YYYY').toString();
+    public getLocalizedDate(date: Date): string {
+        return moment(date).locale(this.locale).format('L');
+    }
+
+    public getLocalizedDateString(date: Date): string {
+        return moment(date).locale(this.locale).format('LL');
+    }
+
+    public getLocalizedDateFullString(date: Date) {
+        return moment(date).locale(this.locale).format('LLL');
+    }
+
+    public getLocalizedTime(date: Date): string {
+        return moment(date).locale(this.locale).format('LT');
+    }
+
+    public getLocalizedTimeWithSeconds(date: Date): string {
+        return moment(date).locale(this.locale).format('LTS');
     }
 }
 

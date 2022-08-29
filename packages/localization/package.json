@@ -1,0 +1,21 @@
+{
+  "name": "@circlesland/localization",
+  "version": "1.0.0",
+  "description": "Library that provides support for localization",
+  "svelte": "src/index.ts",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "jest -u --watch"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "@circlesland/localization-interfaces": "1.0.0",
+    "moment": "^2.29.4"
+  }
+}

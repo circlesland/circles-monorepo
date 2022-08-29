@@ -14,10 +14,11 @@
      * 
      * @param { string } appName - The application name
      * @param { string } localizationKey - The localization key
+     * @param { { [key: string]: string | number } } [params] - Optional Insert parameters.
      * 
      * @returns { string } The localized string, or the localization key if the localizedstring is not found.
      */
-    getLocalizedString: (appName: string, localizationKey: string) => string;
+    getLocalizedString: (appName: string, localizationKey: string, params?: { [key: string]: string | number }) => string;
 
     /**
      * Retrieve a localized number based on the currently configured locale

@@ -7,6 +7,7 @@ describe('Localize Service', () => {
   const localizationKeys = {
     'app.title': 'AppTitle',
     'app.button.label': 'AppLabel',
+    'with.insert.params': 'A string with {count} insert params of type {type}.'
   };
 
   beforeAll(() => {
@@ -23,6 +24,18 @@ describe('Localize Service', () => {
       );
 
       expect(localizedString).toEqual(localizationKeys[localizationKey]);
+    });
+
+    it('should corectly localize a string with insert parameters', () => {
+      const localizationKey = 'with.insert.params';
+      const insertParams = {
+        count: 2,
+        type: 'number and string'
+      };
+      const localizedString = service.getLocalizedString(appName, localizationKey, insertParams);
+
+      const expectedLocalizedString = 'A string with 2 insert params of type number and string.';
+      expect(localizedString).toEqual(expectedLocalizedString);
     });
 
     it('should return localization key if app name is not registered', () => {

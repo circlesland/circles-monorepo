@@ -20,12 +20,22 @@ class LocalizeService implements ILocalizeService {
         }
     }
 
-    public getLocalizedString(appName: string, localizationKey: string): string {
+    public getLocalizedString(appName: string, localizationKey: string, params?: { [key: string]: string | number }): string {
         const appLocalization = this.localizationMap[appName];
         if (!appLocalization) {
             return localizationKey;
         }
-        const localizedValue = appLocalization[localizationKey];
+        let localizedValue = appLocalization[localizationKey];
+        if (localizedValue && params) {
+            let formattedValue = localizedValue;
+            for (const param in params) {
+                const insertValue = params[param];
+                if (insertValue) {
+                    formattedValue = formattedValue.replace(`{${param}}`, insertValue.toString());
+                }
+            }
+            localizedValue = formattedValue;
+        }
         return localizedValue ?? localizationKey;
     }
 

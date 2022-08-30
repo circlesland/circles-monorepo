@@ -24,6 +24,10 @@ export class CeramicClient implements ICeramicReader, ICeramicWriter {
     this.schema = schema;
   }
 
+  /**
+   * We use this method to authenticate the user on the Ceramic Network using his private key
+   * @param privateKey - this is the private key that we use to connect to the Ceramic Network
+   */
   async connect(privateKey: string) {
     const privateKeyBuffer = Buffer.from(privateKey, "hex");
     const privateKeyUint8Array = new Uint8Array(privateKeyBuffer).slice(0, 32);

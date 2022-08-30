@@ -1,25 +1,20 @@
-import { DID } from 'dids';
-import { Ed25519Provider } from 'key-did-provider-ed25519';
-import KeyResolver from 'key-did-resolver';
+import { CeramicClient } from '@circlesland/ceramic/src/CeramicClient';
+import { CeramicSchema } from '@circlesland/ceramic/src/types';
 import { assign, createMachine } from 'xstate';
 
-import { ceramic, getCeramicSeed, getProfileFromCeramic } from '../utils/CeramicHelpers';
-
-const fetchProfile = async () => {
+export const fetchProfile = async () => {
   // @ts-ignore
   const profileData = window.authApi.getDataFromLocalStorage();
   const privateKey = profileData?.privateKey;
   if (privateKey) {
-    const signature = await getCeramicSeed(privateKey);
+    try {
+      const ceramicClient = new CeramicClient(CeramicSchema.basicProfile);
+      await ceramicClient.connect(privateKey);
 
-    const provider = new Ed25519Provider(signature);
-
-    const did = new DID({ provider, resolver: KeyResolver.getResolver() });
-    await did.authenticate();
-
-    ceramic.setDID(did);
-
-    return getProfileFromCeramic();
+      return ceramicClient.getData();
+    } catch (e) {
+      console.log("fetch ceramic profile error", e);
+    }
   }
 };
 

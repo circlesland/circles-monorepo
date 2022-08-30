@@ -1,9 +1,11 @@
 <script lang="ts">
   import { updateProfileOnCeramic, getProfileFromCeramic } from "../../utils/CeramicHelpers";
+  import { CeramicClient } from "@circlesland/ceramic/src/CeramicClient";
+
   import { interpret } from "xstate";
   import { toggleMachine } from "../../xstate/user-profile-machine";
   import { onDestroy, onMount } from "svelte";
-
+  import { BasicProfile, CeramicSchema } from "@circlesland/ceramic/src/types";
   export let profile;
 
   async function onSubmit(e) {
@@ -15,7 +17,18 @@
       data[key] = value;
     }
 
-    await updateProfileOnCeramic(data);
+    const profileData = window.authApi.getDataFromLocalStorage();
+    const privateKey = profileData?.privateKey;
+    if (privateKey) {
+      try {
+        const ceramicClient = new CeramicClient(CeramicSchema.basicProfile);
+        await ceramicClient.connect(privateKey);
+
+        await ceramicClient.updateData(data as BasicProfile);
+      } catch (e) {
+        console.log("fetch ceramic profile error", e);
+      }
+    }
 
     window.location.reload();
   }
@@ -33,7 +46,7 @@
 </script>
 
 <div>
-  <form on:submit|preventDefault="{onSubmit}">
+  <form on:submit|preventDefault={onSubmit}>
     <div class="formfield">
       <label class="formLabel" for="name">Name:</label>
       <input class="forminput" type="text" id="name" name="name" placeholder="John Doe" />

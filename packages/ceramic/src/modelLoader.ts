@@ -1,8 +1,8 @@
-import { CeramicSchemas } from '@circlesland/interfaces-ceramic/src/Schemas';
+import { CeramicSchema } from './types';
 
-export default function modelLoader(schema: CeramicSchemas) {
+export default function modelLoader(schema: CeramicSchema) {
   switch (schema) {
-    case CeramicSchemas.basicProfile: {
+    case CeramicSchema.basicProfile: {
       return {
         schemas: {
           basicProfile: "ceramic://k3y52l7qbv1frxt706gqfzmq6cbqdkptzk8uudaryhlkf6ly9vx21hqu4r6k1jqio",

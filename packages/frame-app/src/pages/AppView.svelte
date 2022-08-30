@@ -11,7 +11,7 @@
 
   import Center from "../components/Center.svelte";
   import CompleteProfileForm from "../components/CompleteProfileForm.svelte";
-
+  import { fetchProfile } from "../../xstate/user-profile-machine";
   const toggleService = interpret(toggleMachine).start();
 
   let appManifest;
@@ -30,7 +30,7 @@
       frameCommunicator = new FrameCommunicator();
       frameCommunicatorDestroy = frameCommunicator.connect(iframeEl, window);
 
-      ceramicProfile = await getProfileFromCeramic();
+      ceramicProfile = await fetchProfile();
 
       const [address] = getWallet();
 

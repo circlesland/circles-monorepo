@@ -1,4 +1,4 @@
-import type { CeramicDataType } from "./data-types";
+import type { CeramicDataType } from "src/types";
 
 export interface ICeramicReader {
   getData: () => Promise<CeramicDataType | null>;

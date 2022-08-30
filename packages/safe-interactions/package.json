@@ -1,0 +1,20 @@
+{
+  "name": "@circlesland/safe-interactions",
+  "version": "1.0.0",
+  "description": "A library that defines support for safe interaction",
+  "svelte": "src/index.ts",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "jest -u --watch"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "@circlesland/interfaces-channels": "1.0.0"
+  }
+}

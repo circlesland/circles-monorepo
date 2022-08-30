@@ -2,19 +2,57 @@ import {MockStatefulEndpoint} from "./mocks/MockStatefulEndpoint";
 import {MockRequest} from "./mocks/MockRequest";
 import {MockDeadEndRequest} from "./mocks/MockDeadEndRequest";
 
-it('should respond to requests', async function () {
-  const mockRequest = new MockRequest();
-  const mockResponse = await new MockStatefulEndpoint().request(mockRequest);
+describe("StatefulEndpoint", () => {
 
-  expect(mockResponse._id == mockRequest._id);
+  it('should respond to requests', async function () {
+    const mockRequest = new MockRequest();
+    const mockResponse = await new MockStatefulEndpoint().request(mockRequest);
+
+    expect(mockResponse._id == mockRequest._id);
+  });
+
+  it(`should time out when no response was sent within the specified time`, async function () {
+    const start = Date.now();
+    const specifiedTimeout = 234;
+    let failed: boolean = false;
+    try {
+      const deadEndEvent = new MockDeadEndRequest();
+      await new MockStatefulEndpoint().request(deadEndEvent, specifiedTimeout);
+      failed = true;
+    } catch (e) {
+      const end = Date.now();
+      expect(end-start >= specifiedTimeout); // Not earlier than timeout
+      expect(end-start <= specifiedTimeout + 50);  // Not later than 50 ms after timeout
+      expect(e.message.indexOf("The request timed out") > -1);
+    }
+    if (failed) {
+      throw new Error(`Timout wasn't triggered after ${specifiedTimeout} ms without a response`);
+    }
+  })
+
+  it('should not allow subsequent requests with the same ID', async () => {
+    let failed: boolean = false;
+    try {
+      const deadEndEvent = new MockDeadEndRequest();
+      const mockEndpoint = new MockStatefulEndpoint();
+      await Promise.all([
+        mockEndpoint.request(deadEndEvent),
+        mockEndpoint.request(deadEndEvent)
+      ]);
+      failed = true;
+    } catch (e) {
+      failed = e.message.indexOf("The request timed out") > -1;
+      if (!failed) {
+        expect(e.message.indexOf("is a duplicate") > -1);
+      }
+    }
+    if (failed) {
+      throw new Error(`The StatefulEndpoint accepted subsequent duplicate requests.`);
+    }
+  });
+
+  it('should ignore events with no handler', async function () {
+    const mockRequest = new MockDeadEndRequest();
+    new MockStatefulEndpoint().endpoint.source.emit(mockRequest);
+  });
 });
-
-it(`should time out when no response was sent in time`, async function () {
-  try {
-    const deadEndEvent = new MockDeadEndRequest();
-    const mockResponse = await new MockStatefulEndpoint().request(deadEndEvent);
-    console.error(`Timout wasn't triggered after 1000 ms without a response`);
-  } catch (e) {
-    expect(e.message.indexOf("The request timed out") > -1);
-  }
-})

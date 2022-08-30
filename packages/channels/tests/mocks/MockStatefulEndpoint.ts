@@ -9,7 +9,7 @@ export class MockStatefulEndpoint implements IStatefulEndpoint {
   readonly endpoint: IEndpoint;
   private readonly wrappedStatefulEndpoint: StatefulEndpoint;
 
-  constructor() {
+  constructor(defaultTimeout?:number) {
     this.endpoint = MockEndpoint.instance;
 
     // Register a loopback sink only for MockRequests
@@ -17,7 +17,7 @@ export class MockStatefulEndpoint implements IStatefulEndpoint {
       this.endpoint.source.emit(new MockResponse(event._id));
     });
 
-    this.wrappedStatefulEndpoint = new StatefulEndpoint(this.endpoint, 1000);
+    this.wrappedStatefulEndpoint = new StatefulEndpoint(this.endpoint, defaultTimeout ?? 1000);
   }
 
   request(request: IUniqueEvent, timeoutIn?: number): Promise<IUniqueEvent> {

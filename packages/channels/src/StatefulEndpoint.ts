@@ -61,6 +61,10 @@ export class StatefulEndpoint implements IStatefulEndpoint {
 
     // Register the result handler that resolves the promise on response
     this.endpoint.sink.receive("*", (responseEvent: IUniqueEvent) => {
+      if (responseEvent == requestEvent) {
+        // Ignore reflection
+        return;
+      }
       if (!this.requests[responseEvent._id]) {
         return;
       }
@@ -90,6 +94,7 @@ export class StatefulEndpoint implements IStatefulEndpoint {
       const timedOutRequestIds = pendingRequestIds.filter(requestId => this.requests[requestId].timeout.getTime() < now);
 
       timedOutRequestIds.forEach(timedOutRequestId => {
+        console.log(`Task ${timedOutRequestId} timed out at ${now}.`)
         const timedOutRequest = this.requests[timedOutRequestId];
         delete this.requests[timedOutRequestId];
         timedOutRequest.error(timeoutError);
@@ -99,10 +104,6 @@ export class StatefulEndpoint implements IStatefulEndpoint {
 
   // Whenever there aren't any pending requests stop watching for timeouts.
   private removeTimeoutHandler() {
-    if (!this.processTimeoutsIntervalHandle){
-      throw new Error(`Removing a timeout handler that doesn't exit!`);
-    }
-
     clearInterval(this.processTimeoutsIntervalHandle);
     this.processTimeoutsIntervalHandle = undefined;
   }

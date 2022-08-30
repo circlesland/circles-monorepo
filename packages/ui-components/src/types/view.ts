@@ -1,3 +1,5 @@
+import type { ValidatorFn } from "./validator";
+
 /**
  * An interface that defines currently supported view types
  */
@@ -14,5 +16,7 @@ export interface View {
     testId: string;
     type: ViewType;
     args: { [key: string]: any };
-    children?: View[]
+    validators?: ValidatorFn[];
+    children?: View[];
+    valueChange?: (value: any) => void;
 }

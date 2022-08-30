@@ -11,11 +11,13 @@ export class MockStatefulEndpoint implements IStatefulEndpoint {
 
   constructor() {
     this.endpoint = MockEndpoint.instance;
-    this.wrappedStatefulEndpoint = new StatefulEndpoint(this.endpoint, 1000);
 
-    // Register a loopback sink
-    this.wrappedStatefulEndpoint.endpoint.sink.receive(MockRequest.type,
-      (event) => this.wrappedStatefulEndpoint.endpoint.source.emit(event));
+    // Register a loopback sink only for MockRequests
+    this.endpoint.sink.receive(MockRequest.type, (event) => {
+      this.endpoint.source.emit(event);
+    });
+
+    this.wrappedStatefulEndpoint = new StatefulEndpoint(this.endpoint, 1000);
   }
 
   request(request: IUniqueEvent, timeoutIn?: number): Promise<IUniqueEvent> {

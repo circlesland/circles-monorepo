@@ -59,6 +59,9 @@ export class StatefulEndpoint implements IStatefulEndpoint {
       this.setupTimeoutHandler();
     }
 
+    // Send the request
+    this.endpoint.source.emit(requestEvent);
+
     // Register the result handler that resolves the promise on response
     this.endpoint.sink.receive(requestEvent._type, (responseEvent: IUniqueEvent) => {
       if (!this.requests[responseEvent._id]) {
@@ -67,9 +70,6 @@ export class StatefulEndpoint implements IStatefulEndpoint {
       this.requests[responseEvent._id].response(responseEvent);
       delete this.requests[responseEvent._id];
     });
-
-    // Send the request
-    this.endpoint.source.emit(requestEvent);
 
     // Return the result promise that either resolves with the event or times-out
     return responseOrTimeoutPromise;

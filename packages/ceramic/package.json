@@ -1,5 +1,6 @@
 {
   "name": "@circlesland/ceramic",
+  "private": true,
   "version": "1.0.0",
   "description": "A library template with TypeScript support",
   "svelte": "src/index.ts",
@@ -18,7 +19,8 @@
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c",
-    "test": "jest -u --watch"
+    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
+    "test:dev": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"
   },
   "files": [
     "src",

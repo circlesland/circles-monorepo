@@ -1,14 +1,14 @@
-import {IStatefulEndpoint} from "@circlesland/interfaces-channels/src/IStatefulEndpoint";
-import {IUniqueEvent} from "@circlesland/interfaces-channels/src/IUniqueEvent";
-import {IEndpoint} from "@circlesland/interfaces-channels/src/IEndpoint";
-import {IRequest} from "@circlesland/interfaces-channels/src/IRequest";
+import type { IStatefulEndpoint } from '@circlesland/interfaces-channels';
+import type { IUniqueEvent } from '@circlesland/interfaces-channels';
+import type { IEndpoint } from '@circlesland/interfaces-channels';
+import type { IRequest } from '@circlesland/interfaces-channels';
 
 /**
  * A special endpoint that's used for request/response scenarios.
  */
 export class StatefulEndpoint implements IStatefulEndpoint {
   readonly endpoint: IEndpoint;
-  readonly requests: {[uniqueEventId: string]: IRequest} = {};
+  readonly requests: { [uniqueEventId: string]: IRequest } = {};
   readonly defaultTimeout: number;
 
   private processTimeoutsIntervalHandle?: any;
@@ -28,7 +28,10 @@ export class StatefulEndpoint implements IStatefulEndpoint {
    * @param requestEvent
    * @param timeoutIn
    */
-  request(requestEvent: IUniqueEvent, timeoutIn?:number): Promise<IUniqueEvent> {
+  request(
+    requestEvent: IUniqueEvent,
+    timeoutIn?: number
+  ): Promise<IUniqueEvent> {
     if (this.requests[requestEvent._id]) {
       throw new Error(`Request with _id '${requestEvent._id}' is a duplicate.`);
     }
@@ -38,20 +41,22 @@ export class StatefulEndpoint implements IStatefulEndpoint {
     const timeout = new Date(now + (timeoutIn ?? this.defaultTimeout));
 
     // Set up the promise that represents the response (either the response event or a timeout)
-    let resolveHandler: (response:IUniqueEvent) => void;
+    let resolveHandler: (response: IUniqueEvent) => void;
     let rejectHandler: (error: Error) => void;
 
-    const responseOrTimeoutPromise = new Promise<IUniqueEvent>((resolve, reject) => {
-      resolveHandler = resolve;
-      rejectHandler = reject;
-    });
+    const responseOrTimeoutPromise = new Promise<IUniqueEvent>(
+      (resolve, reject) => {
+        resolveHandler = resolve;
+        rejectHandler = reject;
+      }
+    );
 
     // Remember the request
     this.requests[requestEvent._id] = {
       error: rejectHandler,
       response: resolveHandler,
       request: requestEvent,
-      timeout: timeout
+      timeout: timeout,
     };
 
     // If there aren't already any timeout handlers, set one up
@@ -60,7 +65,7 @@ export class StatefulEndpoint implements IStatefulEndpoint {
     }
 
     // Register the result handler that resolves the promise on response
-    this.endpoint.sink.receive("*", (responseEvent: IUniqueEvent) => {
+    this.endpoint.sink.receive('*', (responseEvent: IUniqueEvent) => {
       if (responseEvent == requestEvent) {
         // Ignore reflection
         return;
@@ -90,11 +95,15 @@ export class StatefulEndpoint implements IStatefulEndpoint {
       }
 
       const now = new Date().getTime();
-      const timeoutError = new Error(`The request timed out at ${new Date(now).toJSON()}`);
-      const timedOutRequestIds = pendingRequestIds.filter(requestId => this.requests[requestId].timeout.getTime() < now);
+      const timeoutError = new Error(
+        `The request timed out at ${new Date(now).toJSON()}`
+      );
+      const timedOutRequestIds = pendingRequestIds.filter(
+        (requestId) => this.requests[requestId].timeout.getTime() < now
+      );
 
-      timedOutRequestIds.forEach(timedOutRequestId => {
-        console.log(`Task ${timedOutRequestId} timed out at ${now}.`)
+      timedOutRequestIds.forEach((timedOutRequestId) => {
+        console.log(`Task ${timedOutRequestId} timed out at ${now}.`);
         const timedOutRequest = this.requests[timedOutRequestId];
         delete this.requests[timedOutRequestId];
         timedOutRequest.error(timeoutError);

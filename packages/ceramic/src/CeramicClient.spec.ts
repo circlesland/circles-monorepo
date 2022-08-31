@@ -10,6 +10,10 @@ describe('Ceramic Profile', () => {
     await ceramicClient.connect(dummyTestAccounts[0]);
   });
 
+  it('should connect to Ceramic', async () => {
+    expect(ceramicClient.did).toBeDefined();
+  });
+
   it('should set the name John Doe', async () => {
     const ceramicUpdateProfilePromise = ceramicClient.updateData({
       name: 'John Doe',

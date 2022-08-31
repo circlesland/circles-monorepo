@@ -3,7 +3,7 @@ import type { SafeMethod } from './SafeMethod';
 
 export interface SafeEvent<M extends SafeMethod = SafeMethod, P = unknown>
   extends IUniqueEvent {
-  _type: 'safe-event';
+  type: 'safe-event';
   id: string;
   method: M;
   params: P;

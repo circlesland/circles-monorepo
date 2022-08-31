@@ -3,7 +3,7 @@ import type { MethodToResponse } from './MethodToResponse';
 import type { SafeMethod } from './SafeMethod';
 
 export interface SafeResponse<T = MethodToResponse[SafeMethod]> extends IEvent {
-  _type: 'safe-response';
+  type: 'safe-response';
   id: string;
   data: T;
   version?: string;

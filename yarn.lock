@@ -1374,6 +1374,10 @@
   "resolved" "file:packages/interfaces-channels"
   "version" "1.0.0"
 
+"@circlesland/interfaces-xstate-flows@1.0.0", "@circlesland/interfaces-xstate-flows@file:/home/daniel/src/circles-monorepo/packages/interfaces-xstate-flows":
+  "resolved" "file:packages/interfaces-xstate-flows"
+  "version" "1.0.0"
+
 "@circlesland/localization@file:/home/daniel/src/circles-monorepo/packages/localization":
   "resolved" "file:packages/localization"
   "version" "1.0.0"
@@ -1411,6 +1415,12 @@
     "@circlesland/frame-app" "^0.0.8"
     "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
     "xstate" "^4.32.1"
+
+"@circlesland/xstate-flows@file:/home/daniel/src/circles-monorepo/packages/xstate-flows":
+  "resolved" "file:packages/xstate-flows"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-xstate-flows" "1.0.0"
 
 "@cnakazawa/watch@^1.0.3":
   "integrity" "sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ=="

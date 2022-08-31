@@ -1,0 +1,21 @@
+{
+  "name": "@circlesland/xstate-flows",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Interfaces for channels",
+  "svelte": "src/index.ts",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@circlesland/interfaces-xstate-flows": "1.0.0"
+  },
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "rollup -c",
+    "test": "jest -u --watch"
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
+}

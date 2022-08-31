@@ -1,4 +1,4 @@
-import type { IEvent } from '@circlesland/interfaces-channels/src/IEvent';
+import type { IEvent } from '@circlesland/interfaces-channels';
 import type { SafeMethod } from './SafeMethod';
 
 export interface SafeEvent<M extends SafeMethod = SafeMethod, P = unknown>

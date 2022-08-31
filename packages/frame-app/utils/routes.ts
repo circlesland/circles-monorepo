@@ -5,15 +5,17 @@ import FinishLoginSvelte from '../src/pages/FinishLogin.svelte';
 import Home from '../src/pages/Home.svelte';
 import LoginSvelte from '../src/pages/Login.svelte';
 import NotFound from '../src/pages/NotFound.svelte';
+import type { ICirclesCustomWindow } from "../types/types";
+
+declare global {
+  interface Window extends ICirclesCustomWindow {}
+}
 
 const isAuth = () => {
   const profileData = window.authApi.getDataFromLocalStorage();
   const privateKey = profileData?.privateKey;
-  if (privateKey) {
-    return true;
-  }
 
-  return false;
+  return !!privateKey;
 };
 
 export const routes = {
@@ -21,7 +23,7 @@ export const routes = {
     component: Home,
 
     conditions: [
-      (detail) => {
+      (_) => {
         return isAuth();
       },
     ],
@@ -33,7 +35,7 @@ export const routes = {
     component: LoginSvelte,
 
     conditions: [
-      (detail) => {
+      (_) => {
         return !isAuth();
       },
     ],
@@ -43,7 +45,7 @@ export const routes = {
     component: AppViewSvelte,
 
     conditions: [
-      (detail) => {
+      (_) => {
         return isAuth();
       },
     ],

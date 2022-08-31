@@ -1,5 +1,6 @@
 {
   "name": "@circlesland/frame-interactions",
+  "private": true,
   "version": "1.0.0",
   "description": "A library that defines support for frame interaction",
   "svelte": "src/index.ts",

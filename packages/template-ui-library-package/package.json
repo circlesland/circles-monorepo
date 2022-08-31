@@ -1,5 +1,6 @@
 {
   "name": "@circlesland/template-ui-library-package",
+  "private": true,
   "version": "1.0.0",
   "description": "A Svelte component library template with TypeScript support",
   "svelte": "src/index.ts",

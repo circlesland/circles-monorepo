@@ -1,3 +1,3 @@
 export enum CeramicSchema {
-  basicProfile = "BasicProfile",
+  basicProfile = 'BasicProfile',
 }

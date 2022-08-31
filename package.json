@@ -56,6 +56,7 @@
     "generate-types": "json2ts -i 'packages/frame-app/schemas/*.json' -o 'packages/frame-app/types'",
     "generate-dependency-graph": "nx dep-graph",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "build:packages": "lerna run --scope @circlesland/* build"
   }
 }

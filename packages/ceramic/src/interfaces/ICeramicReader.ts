@@ -1,4 +1,4 @@
-import type { CeramicDataType } from "src/types";
+import type { CeramicDataType } from '../types';
 
 export interface ICeramicReader {
   /**

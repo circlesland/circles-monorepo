@@ -1,3 +1,3 @@
-import type { BasicProfile } from "./BasicProfile";
+import type { BasicProfile } from './BasicProfile';
 
 export type CeramicDataType = BasicProfile;

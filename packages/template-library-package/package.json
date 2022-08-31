@@ -1,5 +1,6 @@
 {
   "name": "@circlesland/template-library-package",
+  "private": true,
   "version": "1.0.0",
   "description": "A library template with TypeScript support",
   "svelte": "src/index.ts",

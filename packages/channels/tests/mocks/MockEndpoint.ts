@@ -1,7 +1,7 @@
-import {IEventSource} from "@circlesland/interfaces-channels/src/IEventSource";
-import {IEventSink} from "@circlesland/interfaces-channels/src/IEventSink";
-import {IEvent} from "@circlesland/interfaces-channels/src/IEvent";
-import {IEndpoint} from "@circlesland/interfaces-channels/src/IEndpoint";
+import type { IEventSource } from '@circlesland/interfaces-channels';
+import type { IEventSink } from '@circlesland/interfaces-channels';
+import type { IEvent } from '@circlesland/interfaces-channels';
+import type { IEndpoint } from '@circlesland/interfaces-channels';
 
 export class MockEndpoint implements IEndpoint {
   static get instance(): MockEndpoint {
@@ -13,16 +13,17 @@ export class MockEndpoint implements IEndpoint {
 
   private static _instance?: MockEndpoint;
 
-  private static readonly receivers: { [type: string]: (event: IEvent) => void } = {};
+  private static readonly receivers: {
+    [type: string]: (event: IEvent) => void;
+  } = {};
 
-  private constructor() {
-  }
+  private constructor() {}
 
   sink: IEventSink = {
     receive(type: string, handler: (event: IEvent) => void) {
       MockEndpoint.receivers[type] = handler;
-    }
-  }
+    },
+  };
 
   source: IEventSource = {
     emit(event: IEvent) {
@@ -31,10 +32,10 @@ export class MockEndpoint implements IEndpoint {
         receiver(event);
       }
 
-      const catchAllReceiver = MockEndpoint.receivers["*"];
+      const catchAllReceiver = MockEndpoint.receivers['*'];
       if (catchAllReceiver) {
-        catchAllReceiver(event)
+        catchAllReceiver(event);
       }
-    }
+    },
   };
 }

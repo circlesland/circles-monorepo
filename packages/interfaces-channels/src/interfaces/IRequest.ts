@@ -1,4 +1,4 @@
-import {IUniqueEvent} from "./IUniqueEvent";
+import type { IUniqueEvent } from './IUniqueEvent';
 
 export interface IRequest {
   timeout: Date;

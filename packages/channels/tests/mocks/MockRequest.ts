@@ -8,21 +8,21 @@ export class MockIdCounter {
 }
 
 export class MockRequest implements IUniqueEvent {
-  _id: string;
+  id: string;
   static readonly type: string = 'mock_request';
   readonly _type: string = MockRequest.type;
 
   constructor() {
-    this._id = MockIdCounter.next().toString();
+    this.id = MockIdCounter.next().toString();
   }
 }
 
 export class MockResponse implements IUniqueEvent {
-  _id: string;
+  id: string;
   static readonly type: string = 'mock_response';
   readonly _type: string = MockResponse.type;
 
   constructor(id: string) {
-    this._id = id;
+    this.id = id;
   }
 }

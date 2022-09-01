@@ -1,5 +1,5 @@
 {
-  "name": "@circlesland/safe-interactions",
+  "name": "@circlesland/xstate-service",
   "version": "1.0.0",
   "description": "A library that defines support for safe interaction",
   "svelte": "src/index.ts",

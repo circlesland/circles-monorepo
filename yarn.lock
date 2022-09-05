@@ -1377,6 +1377,8 @@
 "@circlesland/interfaces-xstate-flows@1.0.0", "@circlesland/interfaces-xstate-flows@file:/home/daniel/src/circles-monorepo/packages/interfaces-xstate-flows":
   "resolved" "file:packages/interfaces-xstate-flows"
   "version" "1.0.0"
+  dependencies:
+    "xstate" "^4.33.4"
 
 "@circlesland/localization@file:/home/daniel/src/circles-monorepo/packages/localization":
   "resolved" "file:packages/localization"

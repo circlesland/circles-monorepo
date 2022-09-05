@@ -11,6 +11,9 @@
     "build": "rollup -c",
     "test": "jest -u --watch"
   },
+  "dependencies": {
+    "xstate": "^4.33.4"
+  },
   "files": [
     "src",
     "dist"

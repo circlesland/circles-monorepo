@@ -1,7 +1,6 @@
-import type {Invocation} from "./flowRepository";
 import type {InvokeConfig, StateNodeConfig} from "xstate";
 import type {InvokeSourceDefinition} from "xstate/lib/types";
-import type {IFlowVisitor} from "@circlesland/interfaces-xstate-flows";
+import type {IFlowVisitor,Invocation} from "@circlesland/interfaces-xstate-flows";
 
 /**
  * Walks down the invocation (invoke:{src:"x"},...) tree of a IFlowManifest's flow and collects all Invocation dependencies.

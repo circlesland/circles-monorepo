@@ -1,4 +1,5 @@
 import { CeramicClient } from '@circlesland/ceramic';
+import { CeramicSchema } from '@circlesland/ceramic';
 import { assign, createMachine } from 'xstate';
 
 export const fetchProfile = async () => {

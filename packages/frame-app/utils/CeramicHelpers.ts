@@ -6,6 +6,8 @@ import { ethers } from 'ethers';
 import { Ed25519Provider } from 'key-did-provider-ed25519';
 import KeyResolver from 'key-did-resolver';
 
+import { AuthService } from '../services/AuthService';
+
 interface ICeramicBasicProfile {
   name: string;
   country: string;
@@ -14,7 +16,7 @@ interface ICeramicBasicProfile {
 
 type CeramicDataTypes = ICeramicBasicProfile;
 
-type CeramicSchema = "BasicProfile";
+type CeramicSchema = 'BasicProfile';
 
 interface ICeramicReader {
   getData: () => Promise<CeramicDataTypes>;
@@ -29,13 +31,15 @@ class CirclesCeramicClient implements ICeramicReader, ICeramicWriter {
   private ceramic: CeramicClient;
   private datastore: DIDDataStore;
   constructor() {
-    this.ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
+    this.ceramic = new CeramicClient('https://ceramic-clay.3boxlabs.com');
     const aliases = {
       schemas: {
-        basicProfile: "ceramic://k3y52l7qbv1frxt706gqfzmq6cbqdkptzk8uudaryhlkf6ly9vx21hqu4r6k1jqio",
+        basicProfile:
+          'ceramic://k3y52l7qbv1frxt706gqfzmq6cbqdkptzk8uudaryhlkf6ly9vx21hqu4r6k1jqio',
       },
       definitions: {
-        BasicProfile: "kjzl6cwe1jw145cjbeko9kil8g9bxszjhyde21ob8epxuxkaon1izyqsu8wgcic",
+        BasicProfile:
+          'kjzl6cwe1jw145cjbeko9kil8g9bxszjhyde21ob8epxuxkaon1izyqsu8wgcic',
       },
       tiles: {},
     };
@@ -44,7 +48,7 @@ class CirclesCeramicClient implements ICeramicReader, ICeramicWriter {
   }
 
   async connect(privateKey: string) {
-    const privateKeyBuffer = Buffer.from(privateKey, "hex");
+    const privateKeyBuffer = Buffer.from(privateKey, 'hex');
     const privateKeyUint8Array = new Uint8Array(privateKeyBuffer).slice(0, 32);
     const provider = new Ed25519Provider(privateKeyUint8Array);
     const did = new DID({ provider, resolver: KeyResolver.getResolver() });
@@ -54,9 +58,9 @@ class CirclesCeramicClient implements ICeramicReader, ICeramicWriter {
   }
 
   async getData() {
-    if (!this.ceramic.did) throw new Error("You need to connect first");
+    if (!this.ceramic.did) throw new Error('You need to connect first');
     try {
-      const profile = await datastore.get("BasicProfile");
+      const profile = await datastore.get('BasicProfile');
 
       return profile;
     } catch (error) {
@@ -65,7 +69,7 @@ class CirclesCeramicClient implements ICeramicReader, ICeramicWriter {
   }
 
   async updateData(schema: CeramicSchema, data: CeramicDataTypes) {
-    if (!this.ceramic.did) throw new Error("You need to connect first");
+    if (!this.ceramic.did) throw new Error('You need to connect first');
     try {
       await datastore.merge(schema, data);
     } catch (error) {
@@ -76,14 +80,16 @@ class CirclesCeramicClient implements ICeramicReader, ICeramicWriter {
 
 // -------------------------------------------------------------------------
 
-export const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
+export const ceramic = new CeramicClient('https://ceramic-clay.3boxlabs.com');
 
 const aliases = {
   schemas: {
-    basicProfile: "ceramic://k3y52l7qbv1frxt706gqfzmq6cbqdkptzk8uudaryhlkf6ly9vx21hqu4r6k1jqio",
+    basicProfile:
+      'ceramic://k3y52l7qbv1frxt706gqfzmq6cbqdkptzk8uudaryhlkf6ly9vx21hqu4r6k1jqio',
   },
   definitions: {
-    BasicProfile: "kjzl6cwe1jw145cjbeko9kil8g9bxszjhyde21ob8epxuxkaon1izyqsu8wgcic",
+    BasicProfile:
+      'kjzl6cwe1jw145cjbeko9kil8g9bxszjhyde21ob8epxuxkaon1izyqsu8wgcic',
   },
   tiles: {},
 };
@@ -91,13 +97,13 @@ const aliases = {
 export const datastore = new DIDDataStore({ ceramic, model: aliases });
 
 export const getCeramicSeed = async (privateKey: string) => {
-  const privateKeyBuffer = Buffer.from(privateKey, "hex");
+  const privateKeyBuffer = Buffer.from(privateKey, 'hex');
   return new Uint8Array(privateKeyBuffer).slice(0, 32);
 };
 
 export const getProfileFromCeramic = async () => {
   try {
-    const profile = await datastore.get("BasicProfile");
+    const profile = await datastore.get('BasicProfile');
 
     return profile;
   } catch (error) {
@@ -113,7 +119,7 @@ export const updateProfileOnCeramic = async ({ name, country, gender }) => {
       gender,
     };
 
-    await datastore.merge("BasicProfile", updatedProfile);
+    await datastore.merge('BasicProfile', updatedProfile);
 
     return updatedProfile;
   } catch (error) {
@@ -123,8 +129,8 @@ export const updateProfileOnCeramic = async ({ name, country, gender }) => {
 
 export const getWallet = () => {
   // @ts-ignore
-  const profileData = window.authApi.getDataFromLocalStorage();
-  const wallet = new ethers.Wallet(profileData?.privateKey);
+  const profileData = AuthService.getDataFromLocalStorage();
+  const wallet = new ethers.Wallet(profileData?.privateKey as string);
 
   return [wallet.address, profileData?.privateKey];
 };

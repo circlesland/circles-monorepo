@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { AuthService } from '../../services/AuthService';
+
+  import { onMount } from 'svelte';
   let isUserAuth = false;
   const isAuth = () => {
-    const profileData = window.authApi.getDataFromLocalStorage();
+    const profileData = AuthService.getDataFromLocalStorage();
     const privateKey = profileData?.privateKey;
     if (privateKey) {
       return true;
@@ -13,7 +15,7 @@
 
   const doLogin = (e?: any) => {
     if (e) e.preventDefault();
-    window.authApi.login();
+    AuthService.login();
   };
 
   onMount(() => {

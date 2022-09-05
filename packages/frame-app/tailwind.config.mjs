@@ -4,12 +4,12 @@ export default {
     extend: {},
   },
   content: [
-    "./index.html",
-    "./src/**/*.{svelte,js,ts}",
-    "../frame-app/src/**/*.{svelte,js,ts}",
+    './index.html',
+    './src/**/*.{svelte,js,ts}',
+    '../frame-app/src/**/*.{svelte,js,ts}',
   ], // for unused CSS
   variants: {
     extend: {},
   },
-  darkMode: "media", // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
 };

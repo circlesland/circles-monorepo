@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { AuthService } from "./../../services/AuthService";
   import { createEventDispatcher, onMount } from "svelte";
 
   export let icon: string;
@@ -9,15 +10,15 @@
 
   const login = (e: any, testAccount?: number) => {
     e.preventDefault();
-    window.authApi.login(testAccount);
+    AuthService.login(testAccount);
   };
   const logout = () => {
-    window.authApi.logout();
+    AuthService.logout();
     window.location.reload();
   };
 
   const loadProfileData = async () => {
-    profileData = window.authApi.getDataFromLocalStorage();
+    profileData = AuthService.getDataFromLocalStorage();
     console.log("profile", profileData);
   };
 

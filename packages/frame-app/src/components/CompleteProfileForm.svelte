@@ -1,11 +1,15 @@
 <script lang="ts">
-  import { updateProfileOnCeramic, getProfileFromCeramic } from "../../utils/CeramicHelpers";
-  import { CeramicClient } from "@circlesland/ceramic/src/CeramicClient";
+  import {
+    updateProfileOnCeramic,
+    getProfileFromCeramic,
+  } from '../../utils/CeramicHelpers';
+  import { CeramicClient } from '@circlesland/ceramic/src/CeramicClient';
 
-  import { interpret } from "xstate";
-  import { toggleMachine } from "../../xstate/user-profile-machine";
-  import { onDestroy, onMount } from "svelte";
-  import { BasicProfile, CeramicSchema } from "@circlesland/ceramic/src/types";
+  import { interpret } from 'xstate';
+  import { toggleMachine } from '../../xstate/user-profile-machine';
+  import { onDestroy, onMount } from 'svelte';
+  import { BasicProfile, CeramicSchema } from '@circlesland/ceramic/src/types';
+  import { AuthService } from '../../services/AuthService';
   export let profile;
 
   async function onSubmit(e) {
@@ -17,7 +21,7 @@
       data[key] = value;
     }
 
-    const profileData = window.authApi.getDataFromLocalStorage();
+    const profileData = AuthService.getDataFromLocalStorage();
     const privateKey = profileData?.privateKey;
     if (privateKey) {
       try {
@@ -26,7 +30,7 @@
 
         await ceramicClient.updateData(data as BasicProfile);
       } catch (e) {
-        console.log("fetch ceramic profile error", e);
+        console.log('fetch ceramic profile error', e);
       }
     }
 
@@ -35,9 +39,9 @@
 
   onMount(() => {
     (async () => {
-      const nameInput = document.getElementById("name");
-      const countryInput = document.getElementById("country");
-      const genderInput = document.getElementById("gender");
+      const nameInput = document.getElementById('name');
+      const countryInput = document.getElementById('country');
+      const genderInput = document.getElementById('gender');
       nameInput.value = profile?.name;
       countryInput.value = profile?.country;
       genderInput.value = profile?.gender;
@@ -49,11 +53,23 @@
   <form on:submit|preventDefault={onSubmit}>
     <div class="formfield">
       <label class="formLabel" for="name">Name:</label>
-      <input class="forminput" type="text" id="name" name="name" placeholder="John Doe" />
+      <input
+        class="forminput"
+        type="text"
+        id="name"
+        name="name"
+        placeholder="John Doe"
+      />
     </div>
     <div class="formfield">
       <label class="formLabel" for="country">Country:</label>
-      <input class="forminput" type="text" id="country" name="country" placeholder="USA" />
+      <input
+        class="forminput"
+        type="text"
+        id="country"
+        name="country"
+        placeholder="USA"
+      />
     </div>
     <div class="formfield">
       <label class="formLabel" for="gender">Gender:</label>

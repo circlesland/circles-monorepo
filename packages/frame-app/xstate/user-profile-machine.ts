@@ -1,5 +1,4 @@
-import { CeramicClient } from '@circlesland/ceramic/src/CeramicClient';
-import { CeramicSchema } from '@circlesland/ceramic/src/types';
+import { CeramicClient } from '@circlesland/ceramic';
 import { assign, createMachine } from 'xstate';
 
 export const fetchProfile = async () => {
@@ -13,7 +12,7 @@ export const fetchProfile = async () => {
 
       return ceramicClient.getData();
     } catch (e) {
-      console.log("fetch ceramic profile error", e);
+      console.log('fetch ceramic profile error', e);
     }
   }
 };
@@ -24,8 +23,8 @@ const isProfileCompleted = (context, event) => {
 
 // This machine is completely decoupled from Svelte
 export const toggleMachine = createMachine({
-  id: "profile",
-  initial: "loading",
+  id: 'profile',
+  initial: 'loading',
   context: {
     profile: undefined,
     error: undefined,
@@ -33,20 +32,20 @@ export const toggleMachine = createMachine({
   states: {
     loading: {
       invoke: {
-        id: "getUser",
+        id: 'getUser',
         src: (context, event) => fetchProfile(),
         onDone: [
           {
-            target: "success",
+            target: 'success',
             actions: assign({ profile: (context, event) => event.data }),
             cond: isProfileCompleted,
           },
           {
-            target: "no_profile",
+            target: 'no_profile',
           },
         ],
         onError: {
-          target: "failure",
+          target: 'failure',
           actions: assign({ profile: (context, event) => event.data }),
         },
       },
@@ -55,7 +54,7 @@ export const toggleMachine = createMachine({
     no_profile: {},
     failure: {
       on: {
-        RETRY: { target: "loading" },
+        RETRY: { target: 'loading' },
       },
     },
   },

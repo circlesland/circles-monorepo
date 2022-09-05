@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c",
+    "build:dev": "vite build",
     "test": "jest -u --watch"
   },
   "files": [
@@ -16,6 +17,7 @@
     "dist"
   ],
   "dependencies": {
-    "@circlesland/interfaces-channels": "1.0.0"
+    "@circlesland/interfaces-channels": "1.0.0",
+    "@circlesland/ceramic": "1.0.0"
   }
 }

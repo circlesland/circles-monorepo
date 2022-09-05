@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { ThemeHelper } from './../../utils/ThemeHelper.ts';
   import AuthGuard from './../components/AuthGuard.svelte';
   import CompleteProfileForm from './../components/CompleteProfileForm.svelte';
   import rootManifest from '../../apps/root.json';
@@ -15,7 +16,7 @@
   const toggleService = interpret(toggleMachine).start();
 </script>
 
-<div>
+<div class="bg-maximus">
   <div><button on:click={logout}>logout</button></div>
 
   {#if $toggleService?.value === 'success'}

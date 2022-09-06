@@ -14,7 +14,7 @@ export class MockStatefulEndpoint implements IStatefulEndpoint {
 
     // Register a loopback sink only for MockRequests
     this.endpoint.sink.receive(MockRequest.type, (event: IUniqueEvent) => {
-      this.endpoint.source.emit(new MockResponse(event._id));
+      this.endpoint.source.emit(new MockResponse(event.id));
     });
 
     this.wrappedStatefulEndpoint = new StatefulEndpoint(

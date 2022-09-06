@@ -1,6 +1,6 @@
 import type {IFlowTriggerEnvironment} from "@circlesland/interfaces-flow-runner";
-import type {ITrigger} from "@circlesland/interfaces-triggers/src";
-import type {IFlowRepository} from "@circlesland/interfaces-flow-repository/src";
+import type {ITrigger} from "@circlesland/interfaces-triggers";
+import type {IFlowRepository} from "@circlesland/interfaces-flow-repository";
 import {FlowDependencySearch} from "./flowDependencySearch";
 import { createMachine, StateMachine, interpret} from 'xstate';
 

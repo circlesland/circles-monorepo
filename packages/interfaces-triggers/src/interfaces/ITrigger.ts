@@ -1,5 +1,5 @@
-import type {ITriggerEnvironment} from "./ITriggerEnvironment";
+import type {ITriggerCommand} from "./ITriggerCommand";
 
-export interface ITrigger<TTriggerEnvironment extends ITriggerEnvironment> {
-  execute(environment: TTriggerEnvironment) : Promise<any> ;
+export interface ITrigger<TTriggerEnvironment extends ITriggerCommand> {
+  execute(environment: TTriggerEnvironment) : Promise<void>;
 }

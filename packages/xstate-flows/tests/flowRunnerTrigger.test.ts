@@ -1,8 +1,8 @@
 import {FlowRepository} from "../src";
 import {nop} from "./flows/nop";
 import {getRandomInteger} from "./flows/getRandomInteger";
-import {FlowRunner} from "../src/flowRunner";
-import {IFlowTriggerEnvironment} from "@circlesland/interfaces-flow-runner/src";
+import {FlowRunnerTrigger} from "../src/flowRunnerTrigger";
+import {IFlowTriggerCommand} from "@circlesland/interfaces-flow-runner/src";
 import {test} from "./flows/test-flow";
 
 describe("FlowRunner", () => {
@@ -12,8 +12,8 @@ describe("FlowRunner", () => {
   repo.add(test);
 
   it("should be able to start a flow", async () => {
-    const runner = new FlowRunner("test_runner");
-    const triggerEnv = <IFlowTriggerEnvironment>{
+    const runner = new FlowRunnerTrigger("test_runner");
+    const triggerEnv = <IFlowTriggerCommand>{
       repository: repo,
       flowId: test.id,
       context: {}

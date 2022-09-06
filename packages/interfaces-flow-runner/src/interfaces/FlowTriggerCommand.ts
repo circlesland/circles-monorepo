@@ -1,7 +1,7 @@
-import type {ITriggerEnvironment} from "@circlesland/interfaces-triggers";
 import type {IFlowRepository} from "@circlesland/interfaces-flow-repository";
+import type {ITriggerCommand} from "@circlesland/interfaces-triggers";
 
-export interface IFlowTriggerEnvironment extends ITriggerEnvironment {
+export interface IFlowTriggerCommand extends ITriggerCommand {
   repository: IFlowRepository;
   flowId: string;
   context: {[x:string]:any}

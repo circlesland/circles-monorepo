@@ -15,7 +15,6 @@ export const nop = <IFlowManifest<NopFlowContext, any>> {
     initial: "return",
     states: {
       "return": {
-        entry: () => console.log(`... Nop nop nop ...`),
         type: "final",
         data: (context) => context
       }

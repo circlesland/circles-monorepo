@@ -2,7 +2,7 @@ import type { IStatefulEndpoint } from '@circlesland/interfaces-channels';
 import type { IEndpoint } from '@circlesland/interfaces-channels';
 import type { IUniqueEvent } from '@circlesland/interfaces-channels';
 import { MockEndpoint } from './MockEndpoint';
-import { StatefulEndpoint } from '../../src/StatefulEndpoint';
+import { StatefulEndpoint } from '../../src';
 import { MockRequest, MockResponse } from './MockRequest';
 
 export class MockStatefulEndpoint implements IStatefulEndpoint {

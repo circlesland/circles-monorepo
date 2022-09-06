@@ -1,17 +1,17 @@
-import type {IFlowTriggerEnvironment} from "@circlesland/interfaces-flow-runner";
+import type {IFlowTriggerCommand} from "@circlesland/interfaces-flow-runner";
 import type {ITrigger} from "@circlesland/interfaces-triggers";
 import type {IFlowRepository} from "@circlesland/interfaces-flow-repository";
 import {FlowDependencySearch} from "./flowDependencySearch";
 import { createMachine, StateMachine, interpret} from 'xstate';
 
-export class FlowRunner implements ITrigger<IFlowTriggerEnvironment> {
+export class FlowRunnerTrigger implements ITrigger<IFlowTriggerCommand> {
   readonly id:string;
 
   constructor(id:string) {
     this.id = id;
   }
 
-  execute(environment: IFlowTriggerEnvironment) : Promise<any> {
+  execute(environment: IFlowTriggerCommand) : Promise<any> {
     const repo: IFlowRepository = environment.repository;
     const flowId: string = environment.flowId;
     const dependencyGraph = FlowDependencySearch.findDependencies(repo, flowId);
@@ -40,8 +40,6 @@ export class FlowRunner implements ITrigger<IFlowTriggerEnvironment> {
       // TODO: Handle the error case
       interpret(machine)
         .onTransition((state, event) => {
-          console.info(`Got event: `, event);
-          console.info("New state: ", state);
           if (state.done) {
             resolve("done");
             console.log("flow finished")

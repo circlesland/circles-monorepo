@@ -2,7 +2,7 @@ import {FlowRepository} from "../src";
 import {nop} from "./flows/nop";
 import {getRandomInteger} from "./flows/getRandomInteger";
 import {missingService} from "./flows/missingService";
-import {test} from "./flows/test";
+import {test} from "./flows/test-flow";
 
 describe("FlowRepository", () => {
 

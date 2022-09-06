@@ -3,7 +3,7 @@ import {nop} from "./flows/nop";
 import {getRandomInteger} from "./flows/getRandomInteger";
 import {FlowRunner} from "../src/flowRunner";
 import {IFlowTriggerEnvironment} from "@circlesland/interfaces-flow-runner/src";
-import {test} from "./flows/test";
+import {test} from "./flows/test-flow";
 
 describe("FlowRunner", () => {
   const repo = new FlowRepository("flow_runner_test_repo");

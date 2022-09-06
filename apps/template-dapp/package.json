@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "test": "jest -u --watch"
+    "test": "jest -u --watch",
+    "test:prod": "jest --passWithNoTests"
   },
   "dependencies": {
     "@circlesland/template-ui-library-package": "1.0.0"

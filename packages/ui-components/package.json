@@ -12,7 +12,8 @@
     "build": "vite build && npm run build:svelte",
     "build:svelte": "svelte-strip strip src/ dist",
     "prepublishOnly": "npm run svelte-check && npm run build",
-    "test": "jest -u --watch"
+    "test": "jest -u --watch",
+    "test:prod": "jest --passWithNoTests"
   },
   "keywords": [
     "component",

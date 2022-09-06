@@ -9,7 +9,6 @@
     "^.+\\.ts$": "ts-jest",
     "^.+\\.js$": "babel-jest"
   },
-  "roots": ["./src"],
   "moduleFileExtensions": ["svelte", "js", "ts"],
   "testEnvironment": "jsdom",
   "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]

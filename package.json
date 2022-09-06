@@ -59,7 +59,8 @@
     "generate-dependency-graph": "nx dep-graph",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build:packages": "lerna run --scope @circlesland/* build"
+    "build:packages": "lerna run --scope @circlesland/* build",
+    "test:packages": "lerna run --scope @circlesland/* test:prod"
   },
   "dependencies": {
     "path": "^0.12.7"

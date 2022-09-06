@@ -1,4 +1,4 @@
-import type { IEvent } from '@circlesland/interfaces-channels/src/IEvent';
+import type { IEvent } from '@circlesland/interfaces-channels';
 import type { MethodToResponse } from './MethodToResponse';
 import type { SafeMethod } from './SafeMethod';
 

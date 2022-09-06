@@ -6,7 +6,11 @@ import {test} from "./flows/test";
 
 describe("FlowRepository", () => {
 
-  const repo = new FlowRepository();
+  const repo = new FlowRepository("repository_test_repo");
+
+  it("should have the id that was set in the constructor", () => {
+    expect(repo.id).toBe("repository_test_repo");
+  });
 
   describe('add', function () {
     it("should add all test flows", () => {
@@ -29,23 +33,6 @@ describe("FlowRepository", () => {
     });
     it("should return 'undefined' for unknown flows", () => {
       expect(repo.tryGet("i.dont.exist")).toBe(undefined);
-    });
-  });
-
-  describe("findDependencies", function () {
-    it("should throw if a referenced flow doesn't exist", () => {
-      expect(() => repo.findDependencies("xstate-flows.tests.missing_service_flow"))
-        .toThrow();
-    });
-
-    it("should return all dependencies of a flow", () => {
-      const deps = repo.findDependencies("xstate-flows.tests.test_flow");
-      expect(deps["xstate-flows.tests.test_flow"]).not.toBeUndefined();
-      expect(deps["xstate-flows.tests.test_flow"].dependencies).not.toBeUndefined();
-      expect(deps["xstate-flows.tests.test_flow"].dependencies["xstate-flows.tests.get_random_integer"]).not.toBeUndefined();
-      expect(deps["xstate-flows.tests.get_random_integer"]).not.toBeUndefined();
-      expect(deps["xstate-flows.tests.get_random_integer"].dependencies).not.toBeUndefined();
-      expect(deps["xstate-flows.tests.get_random_integer"].dependencies["xstate-flows.tests.nop"]).not.toBeUndefined();
     });
   });
 });

@@ -1,4 +1,4 @@
-import type {IFlowManifest} from "@circlesland/interfaces-xstate-flows";
+import type {IFlowManifest} from "@circlesland/interfaces-flow-repository";
 import type {IEvent} from "@circlesland/interfaces-channels";
 import type {MachineConfig} from "xstate";
 
@@ -15,6 +15,7 @@ export const nop = <IFlowManifest<NopFlowContext, any>> {
     initial: "return",
     states: {
       "return": {
+        entry: () => console.log(`... Nop nop nop ...`),
         type: "final",
         data: (context) => context
       }

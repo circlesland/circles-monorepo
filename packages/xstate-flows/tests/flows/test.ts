@@ -1,4 +1,4 @@
-import type {IFlowManifest} from "@circlesland/interfaces-xstate-flows";
+import type {IFlowManifest} from "@circlesland/interfaces-flow-repository";
 import type {IEvent} from "@circlesland/interfaces-channels";
 import {assign} from "xstate";
 import type {MachineConfig} from "xstate";
@@ -32,16 +32,16 @@ export const test = <IFlowManifest<TestFlowContext, any>> {
             }
           },
           "nop_2": {
+            type: "final",
             invoke: {
-              src: "xstate-flows.tests.nop",
-              onDone: "#name",
-              onError: "#name"
+              src: "xstate-flows.tests.nop"
             }
           }
-        }
+        },
+        onDone: "name",
+        onError: "name"
       },
       "name": {
-        id: "#name",
         entry: assign({
           name: () => "Static Name"
         }),
@@ -51,19 +51,12 @@ export const test = <IFlowManifest<TestFlowContext, any>> {
         invoke: {
           src: "xstate-flows.tests.get_random_integer",
           onError: "error",
-          onDone: [{
-            cond: (context, event) => event.data.randomNumber >= 18,
-            action: assign({
-              isAdult: () => true
+          onDone: {
+            actions: assign({
+              isAdult: (_, event: {type:string, data:{randomNumber:number}}) => event.data.randomNumber >= 18
             }),
             target: "summarize"
-          }, {
-            cond: (context, event) => event.data.randomNumber < 18,
-            action: assign({
-              isAdult: () => false
-            }),
-            target: "summarize"
-          }]
+          }
         }
       },
       "summarize": {
@@ -77,6 +70,7 @@ export const test = <IFlowManifest<TestFlowContext, any>> {
       },
       "error": {
         type: "final",
+        entry: (context,event) => console.error(`testflow in error state. Last event:`, event),
         data: (_, event) =>  event.data
       },
       "success": {

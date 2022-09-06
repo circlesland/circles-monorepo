@@ -1374,11 +1374,23 @@
   "resolved" "file:packages/interfaces-channels"
   "version" "1.0.0"
 
-"@circlesland/interfaces-xstate-flows@1.0.0", "@circlesland/interfaces-xstate-flows@file:/home/daniel/src/circles-monorepo/packages/interfaces-xstate-flows":
-  "resolved" "file:packages/interfaces-xstate-flows"
+"@circlesland/interfaces-flow-repository@1.0.0", "@circlesland/interfaces-flow-repository@file:/home/daniel/src/circles-monorepo/packages/interfaces-flow-repository":
+  "resolved" "file:packages/interfaces-flow-repository"
   "version" "1.0.0"
   dependencies:
     "xstate" "^4.33.4"
+
+"@circlesland/interfaces-flow-runner@1.0.0", "@circlesland/interfaces-flow-runner@file:/home/daniel/src/circles-monorepo/packages/interfaces-flow-runner":
+  "resolved" "file:packages/interfaces-flow-runner"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-flow-repository" "1.0.0"
+    "@circlesland/interfaces-triggers" "1.0.0"
+    "xstate" "^4.33.4"
+
+"@circlesland/interfaces-triggers@1.0.0", "@circlesland/interfaces-triggers@file:/home/daniel/src/circles-monorepo/packages/interfaces-triggers":
+  "resolved" "file:packages/interfaces-triggers"
+  "version" "1.0.0"
 
 "@circlesland/localization@file:/home/daniel/src/circles-monorepo/packages/localization":
   "resolved" "file:packages/localization"
@@ -1422,7 +1434,14 @@
   "resolved" "file:packages/xstate-flows"
   "version" "1.0.0"
   dependencies:
-    "@circlesland/interfaces-xstate-flows" "1.0.0"
+    "@circlesland/interfaces-flow-repository" "1.0.0"
+    "@circlesland/interfaces-flow-runner" "1.0.0"
+
+"@circlesland/xstate-service@file:/home/daniel/src/circles-monorepo/packages/xstate-services":
+  "resolved" "file:packages/xstate-services"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-channels" "1.0.0"
 
 "@cnakazawa/watch@^1.0.3":
   "integrity" "sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ=="

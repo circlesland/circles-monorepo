@@ -1,8 +1,10 @@
 import type {IFlowManifest} from "./IFlowManifest";
-import type {FlowInvocationMap} from "./FlowInvocationMap";
 
 export interface IFlowRepository {
+  /**
+   * Allowed character set: [a-z|\-|\.|_]
+   */
+  id: string;
   add(flowManifest: IFlowManifest<any, any>) : void;
   tryGet(flowId: string) : IFlowManifest<any, any>|undefined;
-  findDependencies(flowId: string) : FlowInvocationMap;
 }

@@ -1,4 +1,4 @@
-import type {IFlowManifest} from "@circlesland/interfaces-xstate-flows";
+import type {IFlowManifest} from "@circlesland/interfaces-flow-repository";
 import type {IEvent} from "@circlesland/interfaces-channels";
 import {assign} from "xstate";
 import type {MachineConfig} from "xstate";

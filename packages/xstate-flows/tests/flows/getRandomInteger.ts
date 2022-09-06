@@ -1,4 +1,4 @@
-import type {IFlowManifest} from "@circlesland/interfaces-xstate-flows";
+import type {IFlowManifest} from "@circlesland/interfaces-flow-repository";
 import type {IEvent} from "@circlesland/interfaces-channels";
 import {assign} from "xstate";
 import type {MachineConfig} from "xstate";
@@ -33,8 +33,9 @@ export const getRandomInteger = <IFlowManifest<GetRandomIntegerContext, any>> {
       },
       "generate": {
         entry: assign({
-          randomNumber: () => Math.floor(Math.random())
-        })
+          randomNumber: () => Math.floor(Math.random() * 100.0)
+        }),
+        always: "return"
       },
       "return": {
         type: "final",

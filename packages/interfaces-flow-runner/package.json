@@ -1,19 +1,20 @@
 {
-  "name": "@circlesland/xstate-flows",
+  "name": "@circlesland/interfaces-flow-runner",
   "private": true,
   "version": "1.0.0",
   "description": "Interfaces for channels",
   "svelte": "src/index.ts",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
-  "dependencies": {
-    "@circlesland/interfaces-flow-repository": "1.0.0",
-    "@circlesland/interfaces-flow-runner": "1.0.0"
-  },
   "scripts": {
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "test": "jest -u --watch"
+  },
+  "dependencies": {
+    "xstate": "^4.33.4",
+    "@circlesland/interfaces-triggers": "1.0.0",
+    "@circlesland/interfaces-flow-repository": "1.0.0"
   },
   "files": [
     "src",

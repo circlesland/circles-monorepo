@@ -1,8 +1,8 @@
 {
-  "name": "@circlesland/interfaces-xstate-flows",
+  "name": "@circlesland/interfaces-triggers",
   "private": true,
   "version": "1.0.0",
-  "description": "Interfaces for channels",
+  "description": "A library template with TypeScript support",
   "svelte": "src/index.ts",
   "module": "dist/index.mjs",
   "main": "dist/index.js",
@@ -10,9 +10,6 @@
     "dev": "rollup -c -w",
     "build": "rollup -c",
     "test": "jest -u --watch"
-  },
-  "dependencies": {
-    "xstate": "^4.33.4"
   },
   "files": [
     "src",

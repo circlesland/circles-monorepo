@@ -1,4 +1,4 @@
-import {IFlowManifest, IFlowVisitor} from "@circlesland/interfaces-xstate-flows";
+import type {IFlowManifest, IFlowVisitor} from "@circlesland/interfaces-flow-runner";
 import type {InvokeConfig, StateNodeConfig} from "xstate";
 
 export class FlowVisitor {

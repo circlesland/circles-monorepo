@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import tsConfigPaths from 'vite-tsconfig-paths';
 import dts from 'vite-plugin-dts';
-import * as path from 'path';
 
 export default defineConfig({
   build: {
@@ -17,13 +16,10 @@ export default defineConfig({
   plugins: [
     tsConfigPaths(),
     dts({
-      beforeWriteFile: (filePath, content) => {
-        const packageName = path.basename(__dirname);
-        return {
-          filePath: filePath.replace(`packages/${packageName}/src`, ''),
-          content,
-        };
-      },
+      beforeWriteFile: (filePath, content) => ({
+        filePath: filePath.replace('packages/xstate-services/src', ''),
+        content,
+      }),
     }),
   ],
 });

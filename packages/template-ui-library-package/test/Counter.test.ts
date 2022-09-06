@@ -1,4 +1,4 @@
-import Counter from './Counter.svelte';
+import Counter from '../src/Counter.svelte';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 
 describe('Counter', () => {

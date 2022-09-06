@@ -7,9 +7,10 @@
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "rollup -c -w",
+    "dev": "vite build -w",
     "svelte-check": "svelte-check",
-    "build": "rollup -c",
+    "build": "vite build && npm run build:svelte",
+    "build:svelte": "svelte-strip strip src/ dist",
     "prepublishOnly": "npm run svelte-check && npm run build",
     "test": "jest -u --watch"
   },

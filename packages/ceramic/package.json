@@ -24,8 +24,7 @@
     ]
   },
   "scripts": {
-    "dev": "rollup -c -w",
-    "build:dev": "rollup -c",
+    "dev": "vite build -w",
     "build": "vite build",
     "test": "NODE_OPTIONS=--experimental-vm-modules npx jest",
     "test:dev": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch"

@@ -27,7 +27,7 @@ export class MockEndpoint implements IEndpoint {
 
   source: IEventSource = {
     emit(event: IEvent) {
-      const receiver = MockEndpoint.receivers[event._type];
+      const receiver = MockEndpoint.receivers[event.type];
       if (receiver) {
         receiver(event);
       }

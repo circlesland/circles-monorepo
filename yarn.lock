@@ -1274,10 +1274,146 @@
   integrity sha512-KwfFJ1FGzsCbToH2res0Y5R38Wr24KyoKxt5Y3YfBBxfE6BBE/mFgo7rXP/54/Ix2/rIvvoapfoGeZNh4BaIaw==
   dependencies:
     "@ipld/dag-cbor" "^7.0.0"
+<<<<<<< HEAD
     multiformats "^9.5.8"
     typescript-memoize "^1.1.0"
     uint8arrays "^3.0.0"
     varint "^6.0.0"
+=======
+    "multiformats" "^9.5.8"
+    "typescript-memoize" "^1.1.0"
+    "uint8arrays" "^3.0.0"
+    "varint" "^6.0.0"
+
+"@circlesland/capacitor-host@file:/home/daniel/src/circles-monorepo/packages/capacitor-host":
+  "resolved" "file:packages/capacitor-host"
+  "version" "0.0.0"
+  dependencies:
+    "@capacitor/cli" "^3.6.0"
+    "@capacitor/core" "^3.6.0"
+    "@capacitor/ios" "^3.6.0"
+    "@circlesland/frame-app" "^0.0.8"
+
+"@circlesland/ceramic@1.0.0", "@circlesland/ceramic@file:/home/daniel/src/circles-monorepo/packages/ceramic":
+  "resolved" "file:packages/ceramic"
+  "version" "1.0.0"
+  dependencies:
+    "@ceramicnetwork/http-client" "^2.2.1"
+    "@glazed/did-datastore" "^0.3.1"
+    "dids" "^3.2.0"
+    "key-did-provider-ed25519" "^2.0.1"
+    "key-did-resolver" "^2.0.5"
+
+"@circlesland/channels@file:/home/daniel/src/circles-monorepo/packages/channels":
+  "resolved" "file:packages/channels"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-channels" "1.0.0"
+
+"@circlesland/electron-host@file:/home/daniel/src/circles-monorepo/packages/electron-host":
+  "resolved" "file:packages/electron-host"
+  "version" "0.0.0"
+  dependencies:
+    "@circlesland/frame-app" "^0.0.8"
+    "electron-deeplink" "^1.0.10"
+    "electron-squirrel-startup" "^1.0.0"
+
+"@circlesland/frame-app@^0.0.8", "@circlesland/frame-app@file:/home/daniel/src/circles-monorepo/packages/frame-app":
+  "resolved" "file:packages/frame-app"
+  "version" "0.0.8"
+  dependencies:
+    "@ceramicnetwork/http-client" "^2.2.1"
+    "@circlesland/ceramic" "1.0.0"
+    "@glazed/did-datastore" "^0.3.1"
+    "@gnosis.pm/safe-apps-sdk" "^7.5.0"
+    "@gnosis.pm/safe-core-sdk" "^2.2.1"
+    "@gnosis.pm/safe-ethers-lib" "^1.2.1"
+    "dids" "^3.2.0"
+    "ethers" "^5.6.9"
+    "key-did-provider-ed25519" "^2.0.1"
+    "key-did-resolver" "^2.0.5"
+    "svelte-spa-router" "^3.2.0"
+    "xstate" "^4.33.4"
+
+"@circlesland/frame-interactions@file:/home/daniel/src/circles-monorepo/packages/frame-interactions":
+  "resolved" "file:packages/frame-interactions"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/ui-components" "1.0.0"
+
+"@circlesland/interfaces-channels@1.0.0", "@circlesland/interfaces-channels@file:/home/daniel/src/circles-monorepo/packages/interfaces-channels":
+  "resolved" "file:packages/interfaces-channels"
+  "version" "1.0.0"
+
+"@circlesland/interfaces-flow-repository@1.0.0", "@circlesland/interfaces-flow-repository@file:/home/daniel/src/circles-monorepo/packages/interfaces-flow-repository":
+  "resolved" "file:packages/interfaces-flow-repository"
+  "version" "1.0.0"
+  dependencies:
+    "xstate" "^4.33.4"
+
+"@circlesland/interfaces-flow-runner@1.0.0", "@circlesland/interfaces-flow-runner@file:/home/daniel/src/circles-monorepo/packages/interfaces-flow-runner":
+  "resolved" "file:packages/interfaces-flow-runner"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-flow-repository" "1.0.0"
+    "@circlesland/interfaces-triggers" "1.0.0"
+    "xstate" "^4.33.4"
+
+"@circlesland/interfaces-triggers@1.0.0", "@circlesland/interfaces-triggers@file:/home/daniel/src/circles-monorepo/packages/interfaces-triggers":
+  "resolved" "file:packages/interfaces-triggers"
+  "version" "1.0.0"
+
+"@circlesland/localization@file:/home/daniel/src/circles-monorepo/packages/localization":
+  "resolved" "file:packages/localization"
+  "version" "1.0.0"
+  dependencies:
+    "moment" "^2.29.4"
+
+"@circlesland/safe-interactions@file:/home/daniel/src/circles-monorepo/packages/safe-interactions":
+  "resolved" "file:packages/safe-interactions"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-channels" "1.0.0"
+
+"@circlesland/template-library-package@file:/home/daniel/src/circles-monorepo/packages/template-library-package":
+  "resolved" "file:packages/template-library-package"
+  "version" "1.0.0"
+
+"@circlesland/template-ui-library-package@1.0.0", "@circlesland/template-ui-library-package@file:/home/daniel/src/circles-monorepo/packages/template-ui-library-package":
+  "resolved" "file:packages/template-ui-library-package"
+  "version" "1.0.0"
+
+"@circlesland/test-dapp@file:/home/daniel/src/circles-monorepo/apps/template-dapp":
+  "resolved" "file:apps/template-dapp"
+  "version" "0.0.0"
+  dependencies:
+    "@circlesland/template-ui-library-package" "1.0.0"
+
+"@circlesland/ui-components@1.0.0", "@circlesland/ui-components@file:/home/daniel/src/circles-monorepo/packages/ui-components":
+  "resolved" "file:packages/ui-components"
+  "version" "1.0.0"
+
+"@circlesland/web-host@file:/home/daniel/src/circles-monorepo/packages/web-host":
+  "resolved" "file:packages/web-host"
+  "version" "0.0.0"
+  dependencies:
+    "@circlesland/frame-app" "^0.0.8"
+    "@esbuild-plugins/node-globals-polyfill" "^0.1.1"
+    "xstate" "^4.32.1"
+>>>>>>> master
+
+"@circlesland/xstate-flows@file:/home/daniel/src/circles-monorepo/packages/xstate-flows":
+  "resolved" "file:packages/xstate-flows"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-flow-repository" "1.0.0"
+    "@circlesland/interfaces-flow-runner" "1.0.0"
+
+"@circlesland/xstate-service@file:/home/daniel/src/circles-monorepo/packages/xstate-services":
+  "resolved" "file:packages/xstate-services"
+  "version" "1.0.0"
+  dependencies:
+    "@circlesland/interfaces-channels" "1.0.0"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"

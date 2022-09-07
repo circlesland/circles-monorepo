@@ -1,11 +1,9 @@
 <script lang="ts">
-  import { updateProfileOnCeramic, getProfileFromCeramic } from "../../utils/CeramicHelpers";
-  import { CeramicClient } from "@circlesland/ceramic/src/CeramicClient";
+  import { CeramicClient } from '@circlesland/ceramic/src/CeramicClient';
 
-  import { interpret } from "xstate";
-  import { toggleMachine } from "../../xstate/user-profile-machine";
-  import { onDestroy, onMount } from "svelte";
-  import { BasicProfile, CeramicSchema } from "@circlesland/ceramic/src/types";
+  import { onMount } from 'svelte';
+  import { BasicProfile, CeramicSchema } from '@circlesland/ceramic/src/types';
+  import { AuthService } from 'services/AuthService';
   export let profile;
 
   async function onSubmit(e) {
@@ -38,8 +36,11 @@
       const nameInput = document.getElementById('name');
       const countryInput = document.getElementById('country');
       const genderInput = document.getElementById('gender');
+      // @ts-ignore
       nameInput.value = profile?.name;
+      // @ts-ignore
       countryInput.value = profile?.country;
+      // @ts-ignore
       genderInput.value = profile?.gender;
     })();
   });

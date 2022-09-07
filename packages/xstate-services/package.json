@@ -6,9 +6,10 @@
   "module": "dist/index.mjs",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "rollup -c -w",
-    "build": "rollup -c",
-    "test": "jest -u --watch"
+    "dev": "vite build -w",
+    "build": "vite build",
+    "test": "jest -u --watch",
+    "test:prod": "jest --passWithNoTests"
   },
   "files": [
     "src",

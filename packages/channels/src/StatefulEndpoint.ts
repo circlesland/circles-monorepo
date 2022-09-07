@@ -32,8 +32,8 @@ export class StatefulEndpoint implements IStatefulEndpoint {
     requestEvent: IUniqueEvent,
     timeoutIn?: number
   ): Promise<IUniqueEvent> {
-    if (this.requests[requestEvent._id]) {
-      throw new Error(`Request with _id '${requestEvent._id}' is a duplicate.`);
+    if (this.requests[requestEvent.id]) {
+      throw new Error(`Request with id '${requestEvent.id}' is a duplicate.`);
     }
 
     // Calculate the point in time when the request will time out
@@ -52,7 +52,7 @@ export class StatefulEndpoint implements IStatefulEndpoint {
     );
 
     // Remember the request
-    this.requests[requestEvent._id] = {
+    this.requests[requestEvent.id] = {
       error: rejectHandler,
       response: resolveHandler,
       request: requestEvent,
@@ -70,11 +70,11 @@ export class StatefulEndpoint implements IStatefulEndpoint {
         // Ignore reflection
         return;
       }
-      if (!this.requests[responseEvent._id]) {
+      if (!this.requests[responseEvent.id]) {
         return;
       }
-      this.requests[responseEvent._id].response(responseEvent);
-      delete this.requests[responseEvent._id];
+      this.requests[responseEvent.id].response(responseEvent);
+      delete this.requests[responseEvent.id];
     });
 
     // Send the request

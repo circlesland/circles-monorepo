@@ -1,0 +1,23 @@
+{
+  "name": "@circlesland/xstate-flows",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Interfaces for channels",
+  "svelte": "src/index.ts",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@circlesland/interfaces-flow-repository": "1.0.0",
+    "@circlesland/interfaces-flow-runner": "1.0.0"
+  },
+  "scripts": {
+    "dev": "vite build -w",
+    "build": "vite build",
+    "test": "jest -u --watch",
+    "test:prod": "jest --passWithNoTests"
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
+}

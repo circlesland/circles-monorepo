@@ -1,5 +1,5 @@
-import { CeramicClient } from '@circlesland/ceramic/src/CeramicClient';
-import { CeramicSchema } from '@circlesland/ceramic/src/types';
+import { CeramicClient } from '@circlesland/ceramic';
+import { CeramicSchema } from '@circlesland/ceramic';
 import { assign, createMachine } from 'xstate';
 
 import { AuthService } from '../services/AuthService';

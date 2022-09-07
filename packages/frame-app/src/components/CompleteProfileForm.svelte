@@ -1,15 +1,11 @@
 <script lang="ts">
-  import {
-    updateProfileOnCeramic,
-    getProfileFromCeramic,
-  } from '../../utils/CeramicHelpers';
-  import { CeramicClient } from '@circlesland/ceramic/src/CeramicClient';
+  import { updateProfileOnCeramic, getProfileFromCeramic } from "../../utils/CeramicHelpers";
+  import { CeramicClient } from "@circlesland/ceramic/src/CeramicClient";
 
-  import { interpret } from 'xstate';
-  import { toggleMachine } from '../../xstate/user-profile-machine';
-  import { onDestroy, onMount } from 'svelte';
-  import { BasicProfile, CeramicSchema } from '@circlesland/ceramic/src/types';
-  import { AuthService } from '../../services/AuthService';
+  import { interpret } from "xstate";
+  import { toggleMachine } from "../../xstate/user-profile-machine";
+  import { onDestroy, onMount } from "svelte";
+  import { BasicProfile, CeramicSchema } from "@circlesland/ceramic/src/types";
   export let profile;
 
   async function onSubmit(e) {

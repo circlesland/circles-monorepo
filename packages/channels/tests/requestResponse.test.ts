@@ -8,7 +8,7 @@ describe("StatefulEndpoint", () => {
     const mockRequest = new MockRequest();
     const mockResponse = await new MockStatefulEndpoint().request(mockRequest);
 
-    expect(mockResponse._id == mockRequest._id);
+    expect(mockResponse.id == mockRequest.id);
   });
 
   it(`should time out when no response was sent within the specified time`, async function () {

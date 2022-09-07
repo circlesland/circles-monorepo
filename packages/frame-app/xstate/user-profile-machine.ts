@@ -2,9 +2,11 @@ import { CeramicClient } from '@circlesland/ceramic';
 import { CeramicSchema } from '@circlesland/ceramic';
 import { assign, createMachine } from 'xstate';
 
+import { AuthService } from '../services/AuthService';
+
 export const fetchProfile = async () => {
   // @ts-ignore
-  const profileData = window.authApi.getDataFromLocalStorage();
+  const profileData = AuthService.getDataFromLocalStorage();
   const privateKey = profileData?.privateKey;
   if (privateKey) {
     try {

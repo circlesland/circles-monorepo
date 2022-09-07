@@ -1,7 +1,9 @@
 <script lang="ts">
+  import { AuthService } from '../../services/AuthService';
+
   const doLogin = (e?: any) => {
     if (e) e.preventDefault();
-    window.authApi.login();
+    AuthService.login();
   };
 </script>
 

@@ -1,9 +1,13 @@
+<script>
+import { AuthService } from "services/AuthService";
+
+</script>
 import { ethers } from 'ethers';
 
 export const sendTransaction = async (txs: any[]) => {
   const txToSend = txs?.[0];
   // @ts-ignore
-  const { privateKey } = window.authApi.getDataFromLocalStorage();
+  const { privateKey } = AuthService.getDataFromLocalStorage();
 
   const url = "https://rpc.gnosischain.com";
   const customHttpProvider = new ethers.providers.JsonRpcProvider(url);
@@ -27,7 +31,7 @@ export const sendTransaction = async (txs: any[]) => {
 
 export const signMessage = async (msg: string) => {
   // @ts-ignore
-  const { privateKey } = window.authApi.getDataFromLocalStorage();
+  const { privateKey } = AuthService.getDataFromLocalStorage();
   const wallet = new ethers.Wallet(privateKey);
   const signature = wallet.signMessage("my awesome message");
   return signature;

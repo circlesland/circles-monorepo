@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { CeramicClient } from '@circlesland/ceramic/src/CeramicClient';
+  import { CeramicClient } from '@circlesland/ceramic';
 
   import { onMount } from 'svelte';
-  import { BasicProfile, CeramicSchema } from '@circlesland/ceramic/src/types';
-  import { AuthService } from 'services/AuthService';
+  import { BasicProfile, CeramicSchema } from '@circlesland/ceramic';
+  import { AuthService } from '../../services/AuthService';
   export let profile;
 
   async function onSubmit(e) {

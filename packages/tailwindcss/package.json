@@ -8,7 +8,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite build -w",
-    "build": "vite build",
+    "build": "echo \"No build sir\"",
     "test": "jest -u --watch",
     "test:prod": "jest --passWithNoTests"
   },

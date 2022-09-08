@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "A library that defines tailwindcss confing and themes",
   "svelte": "src/index.ts",
-  "module": "dist/index.mjs",
-  "main": "dist/index.js",
+  "module": "src/index.mjs",
+  "main": "./index.js",
   "type": "module",
   "scripts": {
     "dev": "vite build -w",

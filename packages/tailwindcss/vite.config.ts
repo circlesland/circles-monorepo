@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import tsConfigPaths from 'vite-tsconfig-paths';
+import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import tsConfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   build: {
@@ -17,7 +17,7 @@ export default defineConfig({
     tsConfigPaths(),
     dts({
       beforeWriteFile: (filePath, content) => ({
-        filePath: filePath.replace('packages/xstate-services/src', ''),
+        filePath: filePath.replace('packages/tailwindcss/src', ''),
         content,
       }),
     }),

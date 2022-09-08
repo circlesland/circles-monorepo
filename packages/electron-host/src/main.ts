@@ -1,10 +1,10 @@
-import '@circlesland/frame-app/style/tailwind.scss';
+import '@circlesland/tailwindcss/src/tailwind.scss';
 
 import App from '@circlesland/frame-app/src/App.svelte';
 
 import { AUTH_API_CALLBACK, AUTH_API_URL } from '../config/api';
 
-import type { ICirclesCustomWindow } from "@circlesland/frame-app/types/types";
+import type { ICirclesCustomWindow } from '@circlesland/frame-app/types/types';
 declare global {
   interface Window extends ICirclesCustomWindow {
     electronApi: {
@@ -16,17 +16,17 @@ declare global {
 window.authApi = {
   login: (testAccount?: number) => {
     const redirectUrl = new URL(AUTH_API_URL);
-    redirectUrl.searchParams.set("callback", AUTH_API_CALLBACK);
-    redirectUrl.searchParams.set("platform", "electron");
+    redirectUrl.searchParams.set('callback', AUTH_API_CALLBACK);
+    redirectUrl.searchParams.set('platform', 'electron');
     if (testAccount !== undefined && testAccount !== null) {
-      redirectUrl.searchParams.set("test_account", `${testAccount}`);
+      redirectUrl.searchParams.set('test_account', `${testAccount}`);
     }
     console.log(redirectUrl.toString());
     window.electronApi.openExternalUrl(redirectUrl.toString());
   },
   logout: () => {
-    localStorage.removeItem("privateKey");
-    localStorage.removeItem("openlogin_store");
+    localStorage.removeItem('privateKey');
+    localStorage.removeItem('openlogin_store');
   },
   processAuth: (userDataParam) => {
     try {
@@ -45,8 +45,8 @@ window.authApi = {
     }
   },
   getDataFromLocalStorage: () => {
-    const privateKey = localStorage.getItem("privateKey");
-    const _accountData = localStorage.getItem("openlogin_store");
+    const privateKey = localStorage.getItem('privateKey');
+    const _accountData = localStorage.getItem('openlogin_store');
     if (privateKey && _accountData) {
       const accountData = JSON.parse(_accountData);
       return {
@@ -63,7 +63,7 @@ window.authApi = {
 };
 
 const app = new App({
-  target: document.getElementById("app"),
+  target: document.getElementById('app'),
 });
 
 export default app;

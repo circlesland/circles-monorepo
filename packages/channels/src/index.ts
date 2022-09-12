@@ -1,1 +1,1 @@
-export * from './StatefulEndpoint';
+export * from './statefulEndpoint';

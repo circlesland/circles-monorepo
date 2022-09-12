@@ -2,6 +2,7 @@ import type { IStatefulEndpoint } from '@circlesland/interfaces-channels';
 import type { IUniqueEvent } from '@circlesland/interfaces-channels';
 import type { IEndpoint } from '@circlesland/interfaces-channels';
 import type { IRequest } from '@circlesland/interfaces-channels';
+import {IEvent} from "@circlesland/interfaces-channels/src";
 
 /**
  * A special endpoint that's used for request/response scenarios.
@@ -14,13 +15,30 @@ export class StatefulEndpoint implements IStatefulEndpoint {
   private processTimeoutsIntervalHandle?: any;
 
   /**
-   * Creates a new instance on top of an existing IEndpoint
+   * Creates a new instance on top of an existing IChannel
    * @param endpoint
    * @param defaultTimeout
    */
   constructor(endpoint: IEndpoint, defaultTimeout: number) {
     this.endpoint = endpoint;
     this.defaultTimeout = defaultTimeout;
+  }
+
+  receiveNext(type:string, timeoutIn?: number) : Promise<IEvent> {
+    return new Promise<IEvent>((resolve, reject) => {
+      const th = setTimeout(() => {
+        const now = new Date().getTime();
+        const timeoutError = new Error(
+          `The receiveNext(${type}) call timed out at ${new Date(now).toJSON()}`
+        );
+        reject(timeoutError);
+      }, timeoutIn ?? this.defaultTimeout);
+
+      this.endpoint.receive(type, (event) => {
+        clearTimeout(th);
+        resolve(event);
+      });
+    });
   }
 
   /**
@@ -65,7 +83,7 @@ export class StatefulEndpoint implements IStatefulEndpoint {
     }
 
     // Register the result handler that resolves the promise on response
-    this.endpoint.sink.receive('*', (responseEvent: IUniqueEvent) => {
+    this.endpoint.receive('*', (responseEvent: IUniqueEvent) => {
       if (responseEvent == requestEvent) {
         // Ignore reflection
         return;
@@ -78,7 +96,7 @@ export class StatefulEndpoint implements IStatefulEndpoint {
     });
 
     // Send the request
-    this.endpoint.source.emit(requestEvent);
+    this.endpoint.send(requestEvent);
 
     // Return the result promise that either resolves with the event or times-out
     return responseOrTimeoutPromise;

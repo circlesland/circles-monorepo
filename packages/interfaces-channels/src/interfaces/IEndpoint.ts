@@ -1,7 +1,6 @@
-import type { IEventSource } from './IEventSource';
-import type { IEventSink } from './IEventSink';
+import {DestroyEventSinkSubscription, IEvent} from "@circlesland/interfaces-channels";
 
 export interface IEndpoint {
-  source: IEventSource;
-  sink: IEventSink;
+  send(event: IEvent):void;
+  receive(type: string, handler: (event: IEvent) => void): DestroyEventSinkSubscription;
 }

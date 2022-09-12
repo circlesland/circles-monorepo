@@ -65,10 +65,10 @@ export class FrameCommunicator {
     frameWindow.postMessage(msg, this.appUrl as string);
   }
 
-  connect(frame: HTMLIFrameElement, defaultWindow?: Window) {
-    this._frame = frame;
-    this.appUrl = frame.src;
-    const eventWindow = defaultWindow || this._frame.contentWindow;
+  connect(contentFrame: HTMLIFrameElement) {
+    this._frame = contentFrame;
+    this.appUrl = contentFrame.src;
+    const eventWindow = this._frame.contentWindow;
     if (!eventWindow) return;
     const callback = (e: MessageEvent) => this.onMessage(e);
 

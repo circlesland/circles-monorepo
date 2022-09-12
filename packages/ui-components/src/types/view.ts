@@ -28,7 +28,7 @@ export type HorizontalLayout = {
 
 export type Button = {
     type: ViewType.BUTTON;
-    args: {
+    args?: {
         labelConfig: {
             label: string;
             localizationKey: string;

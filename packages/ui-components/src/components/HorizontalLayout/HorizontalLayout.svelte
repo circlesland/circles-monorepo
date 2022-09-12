@@ -1,4 +1,3 @@
-<!-- svelteStrictMode: true -->
 <script lang="ts">
   import type { HorizontalLayout } from '../../types';
   import { SupportedViews }  from '../../types';
@@ -7,7 +6,6 @@
   export let view: View & HorizontalLayout;
 
   const classList = 'flex justify-around flex-wrap max-w-full';
-  console.log('HAHA:', SupportedViews);
 </script>
 
 {#if view && view.children}

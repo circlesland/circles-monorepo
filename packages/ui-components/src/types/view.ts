@@ -7,6 +7,7 @@ export enum ViewType {
   HORIZONTAL_LAYOUT = 'HorizontalLayout',
   VERTICAL_LAYOUT = 'VerticalLayout',
   BUTTON = 'Button',
+  TEXT_INPUT = 'TextInput',
 }
 
 /**
@@ -19,7 +20,7 @@ export type View = {
   args?: { [key: string]: any };
   validators?: ValidatorFn[];
   children?: View[];
-} & (HorizontalLayout | Button | VerticalLayout);
+} & (HorizontalLayout | Button | VerticalLayout | TextInput);
 
 export type HorizontalLayout = {
   type: ViewType.HORIZONTAL_LAYOUT;
@@ -38,5 +39,46 @@ export type Button = {
       label: string;
       localizationKey: string;
     };
+  };
+};
+
+type InputType =
+  | 'button'
+  | 'checkbox'
+  | 'color'
+  | 'date'
+  | 'datetime-local'
+  | 'email'
+  | 'file'
+  | 'hidden'
+  | 'image'
+  | 'month'
+  | 'number'
+  | 'password'
+  | 'radio'
+  | 'range'
+  | 'reset'
+  | 'search'
+  | 'submit'
+  | 'tel'
+  | 'text'
+  | 'time'
+  | 'url'
+  | 'week';
+
+export type TextInput = {
+  type: ViewType.TEXT_INPUT;
+  args: {
+    labelConfig: {
+      label: string;
+      localizationKey: string;
+    };
+    placeholderConfig: {
+      value: string;
+      localizationKey: string;
+    };
+    type: InputType;
+    minLength?: number;
+    maxLength?: number;
   };
 };

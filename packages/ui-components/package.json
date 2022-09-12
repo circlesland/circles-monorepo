@@ -1,6 +1,7 @@
 {
   "name": "@circlesland/ui-components",
   "private": true,
+  "type": "module",
   "version": "1.0.0",
   "description": "A Svelte component library for circlesland",
   "svelte": "src/index.ts",

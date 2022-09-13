@@ -8,6 +8,7 @@ export enum ViewType {
   VERTICAL_LAYOUT = 'VerticalLayout',
   BUTTON = 'Button',
   TEXT_INPUT = 'TextInput',
+  NUMERIC_INPUT = 'NumericInput',
 }
 
 /**
@@ -20,7 +21,7 @@ export type View = {
   args?: { [key: string]: any };
   validators?: ValidatorFn[];
   children?: View[];
-} & (HorizontalLayout | Button | VerticalLayout | TextInput);
+} & (HorizontalLayout | Button | VerticalLayout | TextInput | NumericInput);
 
 export type HorizontalLayout = {
   type: ViewType.HORIZONTAL_LAYOUT;
@@ -56,5 +57,19 @@ export type TextInput = {
       localizationKey: string;
     };
     type: TextInputType;
+  };
+};
+
+export type NumericInput = {
+  type: ViewType.NUMERIC_INPUT;
+  args: {
+    labelConfig: {
+      label: string;
+      localizationKey: string;
+    };
+    placeholderConfig: {
+      value: string;
+      localizationKey: string;
+    };
   };
 };

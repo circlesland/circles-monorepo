@@ -25,7 +25,6 @@ WithTypeText.args = {
         localizationKey: 'localization-key-placeholder',
       },
       type: 'text',
-      minLength: 10,
     },
   },
 };

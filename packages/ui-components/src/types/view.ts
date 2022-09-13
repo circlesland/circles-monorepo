@@ -42,29 +42,7 @@ export type Button = {
   };
 };
 
-type InputType =
-  | 'button'
-  | 'checkbox'
-  | 'color'
-  | 'date'
-  | 'datetime-local'
-  | 'email'
-  | 'file'
-  | 'hidden'
-  | 'image'
-  | 'month'
-  | 'number'
-  | 'password'
-  | 'radio'
-  | 'range'
-  | 'reset'
-  | 'search'
-  | 'submit'
-  | 'tel'
-  | 'text'
-  | 'time'
-  | 'url'
-  | 'week';
+type TextInputType = 'email' | 'password' | 'search' | 'tel' | 'text' | 'url';
 
 export type TextInput = {
   type: ViewType.TEXT_INPUT;
@@ -77,8 +55,6 @@ export type TextInput = {
       value: string;
       localizationKey: string;
     };
-    type: InputType;
-    minLength?: number;
-    maxLength?: number;
+    type: TextInputType;
   };
 };

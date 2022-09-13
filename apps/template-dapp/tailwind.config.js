@@ -1,28 +1,8 @@
-function withOpacity(cssVariable) {
-  return ({ opacityValue }) => {
-    return opacityValue
-      ? `rgba(var(${cssVariable}), ${opacityValue})`
-      : `rgb(var(${cssVariable}))`;
-  };
-}
+import config from '@circlesland/tailwindcss/src/config.cjs';
 
-export default {
-  plugins: [],
-  theme: {
-    extend: {},
-    colors: {
-      esther: withOpacity('--color-esther'),
-      maximus: withOpacity('--color-maximus'),
-      linx: withOpacity('--color-linx'),
-    },
-  },
-  content: [
-    './index.html',
-    './src/**/*.{svelte,js,ts}',
-    '../frame-app/src/**/*.{svelte,js,ts}',
-  ], // for unused CSS
-  variants: {
-    extend: {},
-  },
-  darkMode: 'media', // or 'media' or 'class'
-};
+const { generateConfig } = config;
+export default generateConfig([
+  './index.html',
+  './src/**/*.{svelte,js,ts}',
+  '../frame-app/src/**/*.{svelte,js,ts}',
+]);

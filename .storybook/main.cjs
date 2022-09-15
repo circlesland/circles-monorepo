@@ -33,20 +33,20 @@ const postcss = require('postcss');
 
 module.exports = {
   stories: [
-    "../apps/**/*.stories.mdx",
-        "../apps/**/*.stories.@(js|jsx|ts|tsx|svelte)",
-        // Stories from packages
-        "../packages/**/*.stories.mdx",
-        "../packages/**/*.stories.@(js|jsx|ts|tsx|svelte)"
+    '../apps/**/*.stories.mdx',
+    '../apps/**/*.stories.@(js|jsx|ts|tsx|svelte)',
+    // Stories from packages
+    '../packages/**/*.stories.mdx',
+    '../packages/**/*.stories.@(js|jsx|ts|tsx|svelte)',
   ],
   addons: [
-      '@storybook/addon-links',
-      '@storybook/addon-essentials',
-      '@storybook/addon-svelte-csf',
-      "@storybook/addon-postcss"
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-svelte-csf',
+    '@storybook/addon-postcss',
   ],
   framework: '@storybook/svelte',
   svelteOptions: {
-      preprocess: require('svelte-preprocess')({postcss: true})
-  }
+    preprocess: require('svelte-preprocess')({ postcss: true }),
+  },
 };

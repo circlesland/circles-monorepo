@@ -4,7 +4,7 @@
 
 @layer base {
   [data-theme='default'] {
-    --color-esther: 34, 39, 46;
+    --color-esther: 255, 99, 71;
     --color-maximus: 45, 51, 59;
     --color-linx: 55, 62, 71;
   }

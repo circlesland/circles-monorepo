@@ -1,22 +1,80 @@
 import {MockRequest} from "./mocks/MockRequest";
 import {StatefulEndpoint} from "../src";
 import {MockTwoWindowEnvironment} from "./mocks/MockTwoWindowEnvironment";
+import {MockWindow} from "./mocks/MockWindow";
 
 describe("StatefulEndpoint", () => {
 
   describe('with PostMessageChannels and MockWindows', function () {
 
+    it(`should mock window ..`, async function() {
+      const p1 = new Promise((resolve, reject) => {
+        const container = new MockWindow();
+        container.addEventListener("message", (e) => {
+          const payload = e.data;
+          console.log("container window: ", e);
+          resolve(null);
+        });
+
+        container.postMessage({
+          type: "connect"
+        });
+      });
+
+      const p2 = new Promise((resolve, reject) => {
+        const content = new MockWindow();
+        content.addEventListener("message", (e) => {
+          const payload = e.data;
+          console.log("content window: ", e);
+          resolve(null);
+        });
+
+        content.postMessage({
+          type: "connect"
+        });
+      });
+
+      await Promise.all([p1,p2]);
+    });
+
     it('should respond to requests', async function () {
-      const env = new MockTwoWindowEnvironment("https://left", "https://right");
-      const sentLeftEvent = new MockRequest();
+      jest.setTimeout(1000 * 60 * 60);
 
-      const rightStatefulEndpoint = new StatefulEndpoint(env.rightEndpoint, 100);
+      const container = window;
 
-      env.leftEndpoint.send(sentLeftEvent);
+      const frame:HTMLIFrameElement = window.document.createElement("iframe");
+      window.document.body.appendChild(frame);
+      frame.src = "http://localhost:8080/content.html";
 
+      const content = frame.contentWindow;
+
+
+      // Setup an environment which links the left to the right window
+      const env = new MockTwoWindowEnvironment(container, content);
+      const mockRequest = new MockRequest();
+
+      // Setup a stateful endpoint which can wait for specific events
+      const rightStatefulEndpoint = new StatefulEndpoint(env.rightEndpoint, 1000 * 60 * 60);
+
+      env.leftEndpoint.receive(MockRequest.type, (event) => {
+        console.info(`Received event at left endpoint!`, event);
+      });
+
+      env.rightEndpoint.receive(MockRequest.type, (event) => {
+        console.info(`Received event at right endpoint!`, event);
+      });
+
+      setTimeout(() => {
+
+        // Send the event from the left side ...
+        env.leftEndpoint.send(mockRequest);
+      });
+
+      // and expect it to appear on the right
       const receivedRightEvent = await rightStatefulEndpoint.receiveNext(MockRequest.type);
 
-      expect((<any>receivedRightEvent).id == sentLeftEvent.id);
+
+      expect((<any>receivedRightEvent).id == mockRequest.id);
     });
   });
 /*

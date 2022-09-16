@@ -4,7 +4,8 @@
   "workspaces": {
     "packages": [
       "apps/*",
-      "packages/*"
+      "packages/*",
+      "scratchpad/*"
     ]
   },
   "devDependencies": {
@@ -67,6 +68,20 @@
     "test:packages": "lerna run --scope @circlesland/* test:prod"
   },
   "dependencies": {
+    "http-server": "^14.1.1",
     "path": "^0.12.7"
-  }
+  },
+  "description": "Lerna monorepo that enables development for apps and libraries using Svelte and Typescript in CirclesLand.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/circlesland/circles-monorepo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/circlesland/circles-monorepo/issues"
+  },
+  "homepage": "https://github.com/circlesland/circles-monorepo#readme"
 }

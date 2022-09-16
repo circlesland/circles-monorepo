@@ -12,19 +12,33 @@ export class DuplexChannel implements IDuplexChannel {
 
   readonly left: IEndpoint = {
     send: (event: IEvent) => {
-      this.leftToRight.source.emit(event);
+      console.log(`DuplexChannel.left.send(): `, event);
+      setTimeout(() => {
+        this.leftToRight.source.emit(event);
+      });
     },
     receive: (type: string, handler: (event: IEvent) => void): DestroyEventSinkSubscription => {
-      return this.rightToLeft.sink.receive(type, handler);
+      const h = (e:IEvent) => {
+        console.log(`DuplexChannel.left.received(type: ${type}): `, e);
+        handler(e);
+      }
+      return this.rightToLeft.sink.receive(type, h);
     }
   };
 
   readonly right: IEndpoint = {
     send: (event: IEvent) => {
-      this.rightToLeft.source.emit(event);
+      console.log(`DuplexChannel.right.send(): `, event);
+      setTimeout(() => {
+        this.rightToLeft.source.emit(event);
+      });
     },
     receive: (type: string, handler: (event: IEvent) => void): DestroyEventSinkSubscription => {
-      return this.leftToRight.sink.receive(type, handler);
+      const h = (e:IEvent) => {
+        console.log(`DuplexChannel.right.received(type: ${type}): `, e);
+        handler(e);
+      }
+      return this.leftToRight.sink.receive(type, h);
     }
   };
 }

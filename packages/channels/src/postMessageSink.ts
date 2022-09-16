@@ -17,6 +17,7 @@ export class PostMessageSink implements IEventSink {
 
   receive(type: string, handler: (event: IEvent) => void): DestroyEventSinkSubscription {
     const filterAndSink = (e: MessageEvent) => {
+      console.log(`${this.sourceWindow.location.origin} received event of type ${type}:`, e);
       if (!e.source) {
         return; // No source
       }

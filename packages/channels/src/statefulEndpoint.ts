@@ -24,6 +24,11 @@ export class StatefulEndpoint implements IStatefulEndpoint {
     this.defaultTimeout = defaultTimeout;
   }
 
+  /**
+   * Waits for an event to arrive or times-out.
+   * @param type
+   * @param timeoutIn
+   */
   receiveNext(type:string, timeoutIn?: number) : Promise<IEvent> {
     return new Promise<IEvent>((resolve, reject) => {
       const th = setTimeout(() => {
@@ -34,6 +39,7 @@ export class StatefulEndpoint implements IStatefulEndpoint {
         reject(timeoutError);
       }, timeoutIn ?? this.defaultTimeout);
 
+      console.log(`Calling receive(type: ${type}) on endpoint.`);
       this.endpoint.receive(type, (event) => {
         clearTimeout(th);
         resolve(event);

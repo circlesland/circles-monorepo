@@ -9,6 +9,6 @@ export class PostMessageChannel implements IChannel {
 
   constructor(sourceWindow: IPostMessageWindow, sinkWindow: IPostMessageWindow) {
     this.source = new PostMessageSource(sinkWindow, sinkWindow.location.origin);
-    this.sink = new PostMessageSink(sourceWindow, sinkWindow.location.origin);
+    this.sink = new PostMessageSink(sourceWindow, sourceWindow.location.origin);
   }
 }

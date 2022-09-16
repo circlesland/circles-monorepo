@@ -25,23 +25,43 @@ export class MockWindow implements IPostMessageWindow {
 
   readonly _mockEventListeners: {type:string, listener: (this: any, ev: any) => any}[] = [];
 
+  private wrapInEvent(data:any, targetOrigin:string) {
+    return {
+      bubbles: false,
+      cancelBubble: false,
+      cancelable: false,
+      composed: false,
+      currentTarget: null,
+      data: data,
+      defaultPrevented: false,
+      eventPhase: 0,
+      explicitOriginalTarget: null,
+      isTrusted: true,
+      lastEventId: "",
+      origin: targetOrigin,
+      originalTarget: null,
+      ports: [],
+      returnValue: true,
+      source: this,
+      srcElement: this,
+      target: this,
+      timeStamp: Date.now(),
+      type: "message"
+    };
+  }
+
   postMessage(message: any, targetOrigin: string, transfer?: Transferable[]): void;
   postMessage(message: any, options?: WindowPostMessageOptions): void;
   postMessage(message: any, targetOrigin?: string | WindowPostMessageOptions, transfer?: Transferable[]): void {
-    setTimeout(() => {
-      this._mockEventListeners
-        .filter(o => o.type === "message")
-        .forEach(p => {
-          const ev = {
-            source: this,
-            origin: this.location.origin,
-            data: {
-              ...message
-            }
-          };
-          p.listener(ev);
-        });
-    }, 0);
+    console.log(`MockWindow origin:'${this.location.origin}' received event id:${message.id},  type:${message.type}`);
+    const e = this.wrapInEvent(message, targetOrigin as string);
+
+    this._mockEventListeners
+      .filter(o => o.type === "message")
+      .forEach(p => {
+        console.log(`MockWindow invoking listener ${p.type} for event: `, e);
+        p.listener(e);
+      });
   }
 
   addEventListener<K extends keyof WindowEventMap>(type: K, listener: (this: Window, ev: WindowEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;

@@ -13,6 +13,9 @@ export class MockChannel implements IChannel {
   sink: IEventSink = {
     receive(type: string, handler: (event: IEvent) => void) {
       MockChannel.receivers[type] = handler;
+      return () => {
+        delete MockChannel.receivers[type];
+      };
     },
   };
 

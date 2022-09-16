@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "circlesland",
   "private": true,
   "workspaces": {
     "packages": [
@@ -68,5 +68,6 @@
   },
   "dependencies": {
     "path": "^0.12.7"
-  }
+  },
+  "packageManager": "yarn@3.2.3"
 }

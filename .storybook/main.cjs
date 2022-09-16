@@ -30,6 +30,7 @@
 // }
 
 const postcss = require('postcss');
+const { typescript: svelteTS } = require('svelte-preprocess');
 
 module.exports = {
   stories: [
@@ -43,10 +44,14 @@ module.exports = {
       '@storybook/addon-links',
       '@storybook/addon-essentials',
       '@storybook/addon-svelte-csf',
+      "@storybook/addon-interactions",
       "@storybook/addon-postcss"
   ],
+  core: {
+    builder: "@storybook/builder-vite"
+  },
   framework: '@storybook/svelte',
   svelteOptions: {
-      preprocess: require('svelte-preprocess')({postcss: true})
+      preprocess: svelteTS({ postcss })
   }
 };

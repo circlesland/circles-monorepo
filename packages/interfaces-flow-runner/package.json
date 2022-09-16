@@ -13,9 +13,9 @@
     "test:prod": "jest --passWithNoTests"
   },
   "dependencies": {
-    "xstate": "^4.33.4",
+    "@circlesland/interfaces-flow-repository": "1.0.0",
     "@circlesland/interfaces-triggers": "1.0.0",
-    "@circlesland/interfaces-flow-repository": "1.0.0"
+    "xstate": "^4.33.4"
   },
   "files": [
     "src",

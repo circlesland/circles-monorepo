@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "@circlesland/frame-app": "^0.0.8",
+    "@circlesland/tailwindcss": "1.0.0",
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
-    "xstate": "^4.32.1",
-    "@circlesland/tailwindcss": "1.0.0"
+    "xstate": "^4.32.1"
   }
 }

@@ -25,3 +25,6 @@ dist-ssr
 
 # Build outputs
 storybook-static
+
+.yarn
+.yarnrc.yml

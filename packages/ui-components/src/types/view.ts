@@ -1,3 +1,5 @@
+import type { IconSource } from "svelte-hero-icons";
+import type { ButtonTypes, CustomButtonTheme } from "../components/Button";
 import type { ValidatorFn } from "./validator";
 
 /**
@@ -18,20 +20,25 @@ export type View = {
     type: ViewType;
     args?: { [key: string]: any };
     validators?: ValidatorFn[];
-    children?: View[];
-} & (HorizontalLayout | Button);
+    children?: (View & (HorizontalLayoutType | ButtonType))[];
+} & (HorizontalLayoutType | ButtonType);
 
-export type HorizontalLayout = {
+export type HorizontalLayoutType = {
     type: ViewType.HORIZONTAL_LAYOUT;
-    children?: View[];
 }
 
-export type Button = {
+export type ButtonType = {
     type: ViewType.BUTTON;
     args?: {
         labelConfig: {
             label: string;
             localizationKey: string;
-        }
+        },
+        type: ButtonTypes,
+        icon?: {
+            source: IconSource,
+            solid: boolean;
+        };
+        customTheme?: CustomButtonTheme
     }
 }

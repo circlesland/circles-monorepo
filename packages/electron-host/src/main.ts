@@ -1,4 +1,4 @@
-import '@circlesland/tailwindcss/src/tailwind.scss';
+import '@circlesland/tailwindcss/src/tailwind.css';
 
 import App from '@circlesland/frame-app/src/App.svelte';
 

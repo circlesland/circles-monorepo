@@ -13,7 +13,8 @@
   },
   "dependencies": {
     "@circlesland/template-ui-library-package": "1.0.0",
-    "@circlesland/ui-components": "1.0.0"
+    "@circlesland/ui-components": "1.0.0",
+    "@circlesland/tailwindcss": "1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.8",

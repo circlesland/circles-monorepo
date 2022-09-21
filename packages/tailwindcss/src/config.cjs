@@ -11,11 +11,12 @@ module.exports = {
     return {
       plugins: [],
       theme: {
-        extend: {},
-        colors: {
-          esther: withOpacity('--color-esther'),
-          maximus: withOpacity('--color-maximus'),
-          linx: withOpacity('--color-linx'),
+        extend: {
+          colors: {
+            primary: withOpacity('--color-esther'),
+            secondary: withOpacity('--color-maximus'),
+            other: withOpacity('--color-linx'),
+          },
         },
       },
       content: purgeContent, // for unused CSS

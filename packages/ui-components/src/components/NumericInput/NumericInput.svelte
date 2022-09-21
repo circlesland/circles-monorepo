@@ -6,8 +6,8 @@
   const { testId } = view;
   const { labelConfig, placeholderConfig } = view.args;
 
-  const inputClass = 'rounded-full bg-blue-500 py-2 px-4';
-  const labelClass = 'rounded-full bg-blue-500 py-2 px-4';
+  const inputClass = 'rounded-full bg-primary py-2 px-4';
+  const labelClass = 'rounded-full bg-secondary py-2 px-4';
 </script>
 
 {#if view}

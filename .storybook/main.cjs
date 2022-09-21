@@ -34,11 +34,11 @@ const { typescript: svelteTS } = require('svelte-preprocess');
 
 module.exports = {
   stories: [
-    "../apps/**/*.stories.mdx",
-        "../apps/**/*.stories.@(js|jsx|ts|tsx|svelte)",
-        // Stories from packages
-        "../packages/**/*.stories.mdx",
-        "../packages/**/*.stories.@(js|jsx|ts|tsx|svelte)"
+    '../apps/**/*.stories.mdx',
+    '../apps/**/*.stories.@(js|jsx|ts|tsx|svelte)',
+    // Stories from packages
+    '../packages/**/*.stories.mdx',
+    '../packages/**/*.stories.@(js|jsx|ts|tsx|svelte)',
   ],
   addons: [
       '@storybook/addon-links',
@@ -46,6 +46,7 @@ module.exports = {
       '@storybook/addon-svelte-csf',
       "@storybook/addon-interactions",
       "@storybook/addon-postcss"
+
   ],
   core: {
     builder: "@storybook/builder-vite"

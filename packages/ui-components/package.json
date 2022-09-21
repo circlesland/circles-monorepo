@@ -30,12 +30,6 @@
     ]
   },
   "devDependencies": {
-    "@krowten/svelte-heroicons": "^0.0.6",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/svelte": "^3.2.1",
-    "@types/jest": "^29.0.3",
-    "jest": "^29.0.3",
-    "svelte-jester": "^2.3.2",
-    "ts-jest": "^29.0.1"
+    "@krowten/svelte-heroicons": "^0.0.6"
   }
 }

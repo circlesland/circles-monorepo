@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import {MockStatefulEndpoint} from "./mocks/MockStatefulEndpoint";
 import {MockRequest} from "./mocks/MockRequest";
 import {MockDeadEndRequest} from "./mocks/MockDeadEndRequest";
@@ -25,9 +29,7 @@ describe("StatefulEndpoint", () => {
       expect(end-start <= specifiedTimeout + 50);  // Not later than 50 ms after timeout
       expect(e.message.indexOf("The request timed out") > -1);
     }
-    if (failed) {
-      throw new Error(`Timout wasn't triggered after ${specifiedTimeout} ms without a response`);
-    }
+    expect(failed).toBeFalsy();
   })
 
   it('should not allow subsequent requests with the same ID', async () => {
@@ -46,9 +48,7 @@ describe("StatefulEndpoint", () => {
         expect(e.message.indexOf("is a duplicate") > -1);
       }
     }
-    if (failed) {
-      throw new Error(`The StatefulEndpoint accepted subsequent duplicate requests.`);
-    }
+    expect(failed).toBeFalsy();
   });
 
   it('should ignore events with no handler', async function () {

@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { render, screen } from '@testing-library/svelte';
 
 import { ViewType } from '../../types';

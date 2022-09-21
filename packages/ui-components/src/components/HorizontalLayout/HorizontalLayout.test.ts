@@ -1,5 +1,8 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { render, screen } from '@testing-library/svelte';
-import { AcademicCap } from '@steeze-ui/heroicons';
 import type { View, HorizontalLayoutType } from '../../types';
 import { ViewType } from '../../types';
 import { ButtonTypes } from '../Button';
@@ -61,12 +64,8 @@ describe('HorizontalLayout', () => {
           type: ViewType.BUTTON,
           testId: 'button-test-id',
           args: {
-            labelConfig: {
-              label: 'Button',
-              localizationKey: 'btn-localization-key',
-            },
             icon: {
-              source: AcademicCap,
+              source: 'academic-cap',
               solid: true
             },
             type: ButtonTypes.CircularWithIcon
@@ -81,6 +80,5 @@ describe('HorizontalLayout', () => {
 
     const button = screen.getByTestId('button-test-id');
     expect(button).toBeDefined();
-    expect(button.textContent).toEqual('Button');
   });
 });

@@ -1,7 +1,6 @@
 import { ViewType } from '../../types';
 import Button from './Button.svelte';
 import { ButtonTypes } from './types';
-import { AcademicCap } from '@steeze-ui/heroicons';
 
 export default {
   component: Button,
@@ -37,7 +36,7 @@ CircularWithIcon.args = {
     args: {
       type: ButtonTypes.CircularWithIcon,
       icon: {
-        source: AcademicCap,
+        source: 'academic-cap',
         solid: true
       }
     }
@@ -52,12 +51,12 @@ IconText.args = {
     type: ViewType.BUTTON,
     args: {
       labelConfig: {
-        label: 'Button',
+        label: 'Button with icon',
         localizationKey: 'btn-localization-key'
       },
       type: ButtonTypes.IconText,
       icon: {
-        source: AcademicCap,
+        source: 'academic-cap',
         solid: true
       }
     }

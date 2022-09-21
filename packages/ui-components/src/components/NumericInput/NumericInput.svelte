@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
   import type { View, NumericInput } from '../../types';
 
   export let view: View & NumericInput;

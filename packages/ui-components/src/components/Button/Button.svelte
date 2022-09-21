@@ -2,7 +2,7 @@
 	import { DEFAULT_CIRCULAR_BUTTON_WIDTH, DEFAULT_CIRCULAR_BUTTON_HEIGHT} from './constants';
   import type { View, ButtonType } from "../../types";
   import { ButtonTypes, type CustomButtonTheme } from "./types";
-  import { Icon } from '@steeze-ui/svelte-icon';
+  import Icon from '@krowten/svelte-heroicons/Icon.svelte';
 
   export let view: View & ButtonType;
 
@@ -29,7 +29,7 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
 
   function getButtonClass(type: ButtonTypes): string {
     // TODO: Return theme colors
-    const baseClass = 'bg-blue-300 hover:bg-blue-700 text-white cursor-pointer';
+    const baseClass = 'bg-blue-300 hover:bg-blue-700 text-white cursor-pointer text-sm';
     switch(type) {
       case ButtonTypes.CircularWithIcon: {
         const width = getCircularButtonWidth(customTheme);
@@ -37,7 +37,7 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
         return `${baseClass} w-${width} h-${height} rounded-full flex justify-center items-center`;
       }
       case ButtonTypes.IconText: {
-        return `${baseClass} font-bold py-2 px-4 rounded-full inline-flex items-center`;
+        return `${baseClass} px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2 font-bold py-2.5 px-5 rounded-full flex justify-center items-center text-center`;
       }
       default: return `${baseClass} font-bold py-2 px-4 rounded-full`;
     }
@@ -47,16 +47,17 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
 {#if view}
   {#if type === ButtonTypes.CircularWithIcon}
     <button class={getButtonClass(type)} data-testId={testId}>
-      <Icon src="{icon.source}" size="24" solid="{icon.solid}" />
+      <Icon data-testid={`${testId}-icon`} class="ml-1 mt-1 w-6 h-6" name="{icon.source}" solid="{icon.solid}" />
     </button>
   {:else if type === ButtonTypes.IconText}
     <button
       class={getButtonClass(type)}
       data-testId={testId}
       data-i18n-key={localizationKey}>
-        <Icon class="mr-2" src="{icon.source}" size="24" solid="{icon.solid}" />
+        <Icon data-testid={`${testId}-icon`} class="mr-1.5 -ml-1.5 mt-1 w-6 h-6" name="{icon.source}" solid="{icon.solid}" />
         {label}
     </button>
+    
   {:else}
       <button
       class={getButtonClass(type)}

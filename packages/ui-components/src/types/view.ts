@@ -1,4 +1,3 @@
-import type { IconSource } from "svelte-hero-icons";
 import type { ButtonTypes, CustomButtonTheme } from "../components/Button";
 import type { ValidatorFn } from "./validator";
 
@@ -23,9 +22,9 @@ export type View = {
     args?: { [key: string]: any };
     validators?: ValidatorFn[];
     children?: View[];
-  } & (HorizontalLayout | ButtonType | VerticalLayout | TextInput | NumericInput);
+  } & (HorizontalLayoutType | ButtonType | VerticalLayout | TextInput | NumericInput);
 
-export type HorizontalLayout = {
+export type HorizontalLayoutType = {
   type: ViewType.HORIZONTAL_LAYOUT;
   children?: View[];
 };
@@ -38,13 +37,13 @@ export type VerticalLayout = {
 export type ButtonType = {
     type: ViewType.BUTTON;
     args?: {
-        labelConfig: {
+        labelConfig?: {
             label: string;
             localizationKey: string;
         },
         type: ButtonTypes,
         icon?: {
-            source: IconSource,
+            source: string,
             solid: boolean;
         };
         customTheme?: CustomButtonTheme
@@ -56,7 +55,7 @@ type TextInputType = 'email' | 'password' | 'search' | 'tel' | 'text' | 'url';
 export type TextInput = {
   type: ViewType.TEXT_INPUT;
   args: {
-    labelConfig: {
+    labelConfig?: {
       label: string;
       localizationKey: string;
     };

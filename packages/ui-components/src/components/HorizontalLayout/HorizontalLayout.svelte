@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { HorizontalLayout } from '../../types';
-  import { SupportedViews }  from '../../types';
-  import type { View } from '../../types';
+  import type { HorizontalLayoutType, View } from '../../types';
+  import { ViewType, SupportedViews } from '../../types';
 
-  export let view: View & HorizontalLayout;
+  export let view: View & HorizontalLayoutType;
 
   const classList = 'flex justify-around flex-wrap max-w-full';
 </script>
@@ -11,7 +10,12 @@
 {#if view && view.children}
   <div data-testId={view.testId} class={classList}>
     {#each view.children as child}
-      <svelte:component this={SupportedViews[child.type]} view={child} />
+      <!-- Container Views(Ex: Layouts) need to be verified by type explicitly to avoid circular dependencies -->
+      {#if child.type === ViewType.HORIZONTAL_LAYOUT}
+        <svelte:self view={child} />
+      {:else}
+        <svelte:component this={SupportedViews[child.type]} view={child} />
+      {/if}
     {/each}
   </div>
 {/if}

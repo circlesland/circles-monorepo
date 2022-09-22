@@ -1,9 +1,15 @@
+/**
+ * @jest-environment jsdom
+ */
+
+
 import { render, screen } from '@testing-library/svelte';
 
 import { ViewType } from '../../types';
 import VerticalLayout from './VerticalLayout.svelte';
 
 import type { View } from '../../types';
+import { ButtonTypes } from '../Button';
 describe('VerticalLayout', () => {
   const setup = (view: View | VerticalLayout) => {
     render(VerticalLayout, { view });
@@ -33,6 +39,7 @@ describe('VerticalLayout', () => {
           type: ViewType.BUTTON,
           testId: 'button-test-id',
           args: {
+            type: ButtonTypes.Default,
             labelConfig: {
               label: 'Button',
               localizationKey: 'btn-localization-key',

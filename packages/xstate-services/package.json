@@ -9,7 +9,8 @@
     "dev": "vite build -w",
     "build": "vite build",
     "test": "jest -u --watch",
-    "test:prod": "jest --passWithNoTests"
+    "test:prod": "jest --passWithNoTests",
+    "lint": "eslint --fix --ext .js,.jsx,.ts ."
   },
   "files": [
     "src",

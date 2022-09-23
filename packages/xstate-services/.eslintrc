@@ -1,0 +1,6 @@
+{
+  "extends": ["@circlesland/eslint-config"],
+  "parserOptions": {
+    "project": ["./tsconfig.json"]
+  }
+}

@@ -1,1 +1,1 @@
-export type { IInteractionEvent } from './iinteraction-event';
+export type { IInteractionEvent } from './IInteractionEvent';

@@ -1,5 +1,5 @@
 import type { ILocalizeService } from '../interfaces';
-import LocalizeService from './localize-service';
+import LocalizeService from './localizeService';
 
 describe('Localize Service', () => {
   let service: ILocalizeService = new LocalizeService('en-US');

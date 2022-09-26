@@ -1,1 +1,1 @@
-export { default as LocalizeService } from './localize-service';
+export { default as LocalizeService } from './localizeService';

@@ -31,5 +31,8 @@
   },
   "devDependencies": {
     "@krowten/svelte-heroicons": "^0.0.6"
+  },
+  "dependencies": {
+    "@circlesland/xstate-validators": "1.0.0"
   }
 }

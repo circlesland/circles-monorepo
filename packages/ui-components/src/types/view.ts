@@ -10,6 +10,8 @@ export enum ViewType {
   BUTTON = 'Button',
   TEXT_INPUT = 'TextInput',
   NUMERIC_INPUT = 'NumericInput',
+  MULTI_LINE_TEXT_INPUT = 'MultiLineTextInput',
+  ENUM_INPUT = 'EnumInput',
 }
 
 /**
@@ -28,6 +30,8 @@ export type View = {
   | VerticalLayout
   | TextInput
   | NumericInput
+  | MultiLineTextInput
+  | EnumInput
 );
 
 export type HorizontalLayoutType = {
@@ -84,5 +88,44 @@ export type NumericInput = {
       value: string;
       localizationKey: string;
     };
+  };
+};
+
+export type MultiLineTextInput = {
+  type: ViewType.MULTI_LINE_TEXT_INPUT;
+  args: {
+    labelConfig?: {
+      label: string;
+      localizationKey: string;
+    };
+    placeholderConfig: {
+      value: string;
+      localizationKey: string;
+    };
+    rows?: number;
+    cols?: number;
+  };
+};
+
+export type EnumInputType = 'radio' | 'select' | 'multiselect';
+
+export type EnumInputItem = {
+  value: string;
+  localizationKey: string;
+};
+
+export type EnumInput = {
+  type: ViewType.ENUM_INPUT;
+  args: {
+    labelConfig?: {
+      label: string;
+      localizationKey: string;
+    };
+    placeholderConfig: {
+      value: string;
+      localizationKey: string;
+    };
+    type: EnumInputType;
+    items: EnumInputItem[];
   };
 };

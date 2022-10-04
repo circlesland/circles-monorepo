@@ -4,51 +4,167 @@
 import { render, screen } from '@testing-library/svelte';
 
 import { ViewType } from '../../types';
-import MultiLineTextInputComponent from './MultiLineTextInput.svelte';
+import EnumInputComponent from './EnumInput.svelte';
 
-import type { View, MultiLineTextInput } from '../../types';
+import type { View, EnumInput } from '../../types';
 
-const textInput: View & MultiLineTextInput = {
-  id: 'multi-line-text-input',
-  testId: 'multi-line-text-input-test-id',
-  type: ViewType.MULTI_LINE_TEXT_INPUT,
-  args: {
-    labelConfig: {
-      label: 'Description',
-      localizationKey: 'first-name-key',
+describe('EnumInput Radio', () => {
+  const enumInputRadio: View & EnumInput = {
+    id: 'enum-input',
+    testId: 'enum-input-test-id',
+    type: ViewType.ENUM_INPUT,
+    args: {
+      labelConfig: {
+        label: 'Description',
+        localizationKey: 'first-name-key',
+      },
+      type: 'radio',
+      items: [
+        { value: 'val1', localizationKey: 'val1-key' },
+        { value: 'val2', localizationKey: 'val2-key' },
+        { value: 'val3', localizationKey: 'val3-key' },
+      ],
     },
-    placeholderConfig: {
-      value: 'Description',
-      localizationKey: 'first-name-key-2',
-    },
-    rows: 12,
-  },
-};
-
-describe('MultiLineTextInput', () => {
-  const setup = (view: View & MultiLineTextInput) => {
-    render(MultiLineTextInputComponent, { view });
   };
 
-  it('should render the multi-line text input', () => {
-    setup(textInput);
+  const setup = (view: View & EnumInput) => {
+    render(EnumInputComponent, { view });
+  };
 
-    const layoutContainer = screen.queryByTestId(
-      'multi-line-text-input-test-id'
-    );
+  it('should render the enum input', () => {
+    setup(enumInputRadio);
+
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
     expect(layoutContainer).not.toBeNull();
   });
 
-  it('should set the correct rows property', () => {
-    setup(textInput);
-    const layoutContainer = screen.queryByTestId(
-      'multi-line-text-input-test-id'
-    );
+  it('should have at least one radio input', () => {
+    setup(enumInputRadio);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
     const inputType = layoutContainer
-      .getElementsByTagName('textarea')
+      .getElementsByTagName('input')
       .item(0)
-      .getAttribute('rows');
+      .getAttribute('type');
 
-    expect(inputType).toBe('12');
+    expect(inputType).toBe('radio');
+  });
+
+  it('should have the current number of inputs', () => {
+    setup(enumInputRadio);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const inputsCount = layoutContainer.getElementsByTagName('input').length;
+
+    expect(inputsCount).toBe(enumInputRadio.args.items.length);
+  });
+});
+
+describe('EnumInput Select', () => {
+  const enumInputSelect: View & EnumInput = {
+    id: 'enum-input',
+    testId: 'enum-input-test-id',
+    type: ViewType.ENUM_INPUT,
+    args: {
+      labelConfig: {
+        label: 'Description',
+        localizationKey: 'first-name-key',
+      },
+      type: 'select',
+      items: [
+        { value: 'val1', localizationKey: 'val1-key' },
+        { value: 'val2', localizationKey: 'val2-key' },
+        { value: 'val3', localizationKey: 'val3-key' },
+      ],
+    },
+  };
+
+  const setup = (view: View & EnumInput) => {
+    render(EnumInputComponent, { view });
+  };
+
+  it('should render the enum input', () => {
+    setup(enumInputSelect);
+
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    expect(layoutContainer).not.toBeNull();
+  });
+
+  it('should have a select element', () => {
+    setup(enumInputSelect);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const inputType = layoutContainer.getElementsByTagName('select').item(0);
+
+    expect(inputType).not.toBeNull();
+  });
+
+  it('should have the correct number of options', () => {
+    setup(enumInputSelect);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const optionsCount = layoutContainer
+      .getElementsByTagName('select')
+      .item(0)
+      .getElementsByTagName('option').length;
+
+    expect(optionsCount).toBe(enumInputSelect.args.items.length);
+  });
+});
+
+describe('EnumInput MultiSelect', () => {
+  const enumInputSelect: View & EnumInput = {
+    id: 'enum-input',
+    testId: 'enum-input-test-id',
+    type: ViewType.ENUM_INPUT,
+    args: {
+      labelConfig: {
+        label: 'Description',
+        localizationKey: 'first-name-key',
+      },
+      type: 'multiselect',
+      items: [
+        { value: 'val1', localizationKey: 'val1-key' },
+        { value: 'val2', localizationKey: 'val2-key' },
+        { value: 'val3', localizationKey: 'val3-key' },
+      ],
+    },
+  };
+
+  const setup = (view: View & EnumInput) => {
+    render(EnumInputComponent, { view });
+  };
+
+  it('should render the enum input', () => {
+    setup(enumInputSelect);
+
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    expect(layoutContainer).not.toBeNull();
+  });
+
+  it('should have a select element', () => {
+    setup(enumInputSelect);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const inputType = layoutContainer.getElementsByTagName('select').item(0);
+
+    expect(inputType).not.toBeNull();
+  });
+
+  it('should have the multiple attribute', () => {
+    setup(enumInputSelect);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const inputType = layoutContainer
+      .getElementsByTagName('select')
+      .item(0)
+      .getAttribute('multiple');
+
+    expect(inputType).toBe('');
+  });
+
+  it('should have the correct number of options', () => {
+    setup(enumInputSelect);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const optionsCount = layoutContainer
+      .getElementsByTagName('select')
+      .item(0)
+      .getElementsByTagName('option').length;
+
+    expect(optionsCount).toBe(enumInputSelect.args.items.length);
   });
 });

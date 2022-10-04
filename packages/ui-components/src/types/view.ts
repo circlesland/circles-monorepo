@@ -121,10 +121,6 @@ export type EnumInput = {
       label: string;
       localizationKey: string;
     };
-    placeholderConfig: {
-      value: string;
-      localizationKey: string;
-    };
     type: EnumInputType;
     items: EnumInputItem[];
   };

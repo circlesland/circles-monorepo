@@ -4,7 +4,7 @@
   export let view: View & EnumInput;
 
   const { testId } = view;
-  const { labelConfig, placeholderConfig, type, items } = view.args;
+  const { labelConfig, type, items } = view.args;
 
   const inputClass = 'rounded-lg bg-secondary py-2 px-4 text-white';
   const labelClass = 'rounded-lg py-2 px-4 text-primary';

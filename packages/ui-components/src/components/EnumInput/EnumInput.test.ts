@@ -115,6 +115,16 @@ describe('EnumInput Select', () => {
 
     expect(optionsCount).toBe(enumInputSelect.args.items.length);
   });
+
+  it('should select the correct value', () => {
+    setup(enumInputSelect);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const select = layoutContainer.getElementsByTagName('select').item(0);
+
+    select.selectedIndex = 1;
+
+    expect(select.value).toBe(enumInputSelect.args.items[1].value);
+  });
 });
 
 describe('EnumInput MultiSelect', () => {

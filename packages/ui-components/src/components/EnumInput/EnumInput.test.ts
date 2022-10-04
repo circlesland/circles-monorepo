@@ -56,6 +56,15 @@ describe('EnumInput Radio', () => {
 
     expect(inputsCount).toBe(enumInputRadio.args.items.length);
   });
+
+  it('should check the input on click', () => {
+    setup(enumInputRadio);
+    const layoutContainer = screen.queryByTestId('enum-input-test-id');
+    const input = layoutContainer.getElementsByTagName('input').item(1);
+    input.click();
+
+    expect(input.checked).toBeTruthy();
+  });
 });
 
 describe('EnumInput Select', () => {

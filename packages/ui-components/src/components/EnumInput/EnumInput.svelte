@@ -3,7 +3,7 @@
 
   export let view: View & EnumInput;
 
-  const { testId } = view;
+  const { testId, id } = view;
   const { labelConfig, type, items } = view.args;
 
   const inputClass = 'rounded-lg bg-secondary py-2 px-4 text-white';
@@ -18,17 +18,16 @@
     {#if type === 'radio'}
       {#each items as item}
         {item.localizationKey}
-        <!-- TODO: Generate some kind of unqiue name -->
-        <input type="radio" value={item.value} name="random123" />
+        <input type="radio" value={item.value} name={id} {id} />
       {/each}
     {:else if type === 'multiselect'}
-      <select multiple>
+      <select multiple {id}>
         {#each items as item}
           <option value={item.value}>{item.localizationKey}</option>
         {/each}
       </select>
     {:else}
-      <select>
+      <select {id}>
         {#each items as item}
           <option value={item.value}>{item.localizationKey}</option>
         {/each}

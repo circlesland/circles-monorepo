@@ -69,7 +69,7 @@ export type TextInput = {
       label: string;
       localizationKey: string;
     };
-    placeholderConfig: {
+    placeholderConfig?: {
       value: string;
       localizationKey: string;
     };
@@ -84,7 +84,7 @@ export type NumericInput = {
       label: string;
       localizationKey: string;
     };
-    placeholderConfig: {
+    placeholderConfig?: {
       value: string;
       localizationKey: string;
     };
@@ -98,7 +98,7 @@ export type MultiLineTextInput = {
       label: string;
       localizationKey: string;
     };
-    placeholderConfig: {
+    placeholderConfig?: {
       value: string;
       localizationKey: string;
     };

@@ -12,7 +12,7 @@ describe('Boolean Editor', () => {
         render(BooleanEditor, { view });
     }
 
-    it('shoudl render a checkbox that can be checked', async () => {
+    it('should render a checkbox that can be checked', async () => {
         const testId = 'test-checkbox-id';
         const label = 'This is a checkbox';
         const view: View & ToggleType = {
@@ -39,5 +39,34 @@ describe('Boolean Editor', () => {
 
         const checkboxLabel = screen.getByText(label);
         expect(checkboxLabel).toBeDefined();
+    });
+
+    it('should render a toggle button that can be checked', async () => {
+        const testId = 'test-toggle-id';
+        const label = 'This is a toggle';
+        const view: View & ToggleType = {
+            id: 'test-toggle',
+            type: ViewType.BOOLEAN,
+            testId,
+            args: {
+                type: BooleanEditorType.Toggle,
+                labelConfig: {
+                    label,
+                    localizationKey: 'i18n-localization-key'
+                },
+                checked: false
+            }
+        };
+
+        setup(view);
+
+        const toggle = screen.getByTestId(testId) as HTMLInputElement;
+        expect(toggle.checked).toBeFalsy();
+
+        await fireEvent.click(toggle);
+        expect(toggle.checked).toBeTruthy();
+
+        const toggleLabel = screen.getByText(label);
+        expect(toggleLabel).toBeDefined();
     });
 });

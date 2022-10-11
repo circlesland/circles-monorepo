@@ -1,11 +1,19 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 export default {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
-  extensionsToTreatAsEsm: [".ts"],
-  globals: {
-    "ts-jest": {
-      useESM: true
-    }
-  }
+  transform: {
+    '^.+\\.svelte$': [
+      'svelte-jester',
+      {
+        preprocess: './svelte.config.test.cjs',
+      },
+    ],
+    '^.+\\.ts$': 'ts-jest',
+    '^.+\\.js$': 'babel-jest',
+  },
+  setupFilesAfterEnv: ['<rootDir>/jest-setup.ts'],
+  testEnvironmentOptions: {
+    testUrl: 'http://localhost/',
+  },
+  collectCoverageFrom: ['src/**/*.{ts,tsx,svelte,js,jsx}'],
+  transformIgnorePatterns: [],
 };

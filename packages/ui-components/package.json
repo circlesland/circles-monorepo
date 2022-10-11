@@ -13,7 +13,7 @@
     "build": "vite build && npm run build:svelte",
     "build:svelte": "svelte-strip strip src/ dist",
     "prepublishOnly": "npm run svelte-check && npm run build",
-    "test": "jest -u --watch",
+    "test": "jest --watch",
     "test:prod": "jest --passWithNoTests"
   },
   "keywords": [
@@ -23,5 +23,16 @@
   "files": [
     "src",
     "dist"
-  ]
+  ],
+  "workspaces": {
+    "nohoist": [
+      "@krowten/svelte-heroicons"
+    ]
+  },
+  "devDependencies": {
+    "@krowten/svelte-heroicons": "^0.0.6"
+  },
+  "dependencies": {
+    "@circlesland/xstate-validators": "1.0.0"
+  }
 }

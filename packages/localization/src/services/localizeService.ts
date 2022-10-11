@@ -1,5 +1,5 @@
 import type { ILocalizeService } from '../interfaces';
-import type { LocalizationMap } from '../types/localization-map';
+import type { LocalizationMap } from '../types/localizationMap';
 import moment from 'moment';
 
 class LocalizeService implements ILocalizeService {

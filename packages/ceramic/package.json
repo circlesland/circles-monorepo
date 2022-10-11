@@ -26,8 +26,8 @@
   "scripts": {
     "dev": "vite build -w",
     "build": "vite build",
-    "test": "NODE_OPTIONS=--experimental-vm-modules npx jest --watch",
-    "test:prod": "NODE_OPTIONS=--experimental-vm-modules npx jest --passWithNoTests"
+    "test": "jest -u --watch",
+    "test:prod": "jest --passWithNoTests"
   },
   "dependencies": {
     "key-did-provider-ed25519": "^2.0.1",

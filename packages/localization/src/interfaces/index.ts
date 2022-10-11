@@ -1,1 +1,1 @@
-export type { default as ILocalizeService } from './ilocalize-service';
+export type { default as ILocalizeService } from './ILocalizeService';

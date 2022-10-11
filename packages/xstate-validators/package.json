@@ -1,0 +1,21 @@
+{
+  "name": "@circlesland/xstate-validators",
+  "version": "1.0.0",
+  "description": "A library that defines support for xstate validators",
+  "svelte": "src/index.ts",
+  "module": "dist/index.mjs",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "vite build -w",
+    "build": "vite build",
+    "test": "jest -u --watch",
+    "test:prod": "jest --passWithNoTests"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "dependencies": {
+    "xstate": "^4.33.4"
+  }
+}

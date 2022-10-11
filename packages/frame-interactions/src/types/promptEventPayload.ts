@@ -1,4 +1,4 @@
-import type { NavigationInfo } from './navigation-info';
+import type { NavigationInfo } from './navigationInfo';
 import type { ViewType } from '@circlesland/ui-components';
 
 export interface PromptEventPayload {

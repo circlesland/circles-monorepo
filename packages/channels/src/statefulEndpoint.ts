@@ -2,7 +2,7 @@ import type { IStatefulEndpoint } from '@circlesland/interfaces-channels';
 import type { IUniqueEvent } from '@circlesland/interfaces-channels';
 import type { IEndpoint } from '@circlesland/interfaces-channels';
 import type { IRequest } from '@circlesland/interfaces-channels';
-import {IEvent} from "@circlesland/interfaces-channels/src";
+import type { IEvent } from "@circlesland/interfaces-channels";
 
 /**
  * A special endpoint that's used for request/response scenarios.

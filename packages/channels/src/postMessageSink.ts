@@ -1,23 +1,21 @@
 import type {IEvent, IEventSink} from "@circlesland/interfaces-channels";
-import type {DestroyEventSinkSubscription} from "@circlesland/interfaces-channels/src";
-import {IPostMessageWindow} from "../tests/mocks/MockWindow";
+import type {DestroyEventSinkSubscription} from "@circlesland/interfaces-channels";
 
 /**
  * Listens for events that arrive via 'postMessage' from the 'sourceWindow'.
  */
 export class PostMessageSink implements IEventSink {
 
-  readonly sourceWindow:IPostMessageWindow;
+  readonly sourceWindow:Window;
   readonly sinkOrigin:string;
 
-  constructor(sourceWindow:IPostMessageWindow, sinkOrigin:string) {
+  constructor(sourceWindow:Window, sinkOrigin:string) {
     this.sourceWindow = sourceWindow;
     this.sinkOrigin = sinkOrigin;
   }
 
   receive(type: string, handler: (event: IEvent) => void): DestroyEventSinkSubscription {
     const filterAndSink = (e: MessageEvent) => {
-      console.log(`${this.sourceWindow.location.origin} received event of type ${type}:`, e);
       if (!e.source) {
         return; // No source
       }
@@ -25,9 +23,12 @@ export class PostMessageSink implements IEventSink {
         return; // We sent this event and already know it
       }
 
-      if (!this.sinkOrigin.includes(e.origin, 0) || e.origin.length < this.sinkOrigin.length) {
-        return; // The message is not directed to us
-      }
+      // TODO: Is this valid? sinkOrigin is the framed app, while e.origin might be the frame container
+      // if (!this.sinkOrigin.includes(e.origin, 0) || e.origin.length < this.sinkOrigin.length) {
+      //   console.log("NUPII");
+      //   return; // The message is not directed to us
+      // }
+
       if (type != `*` && e.data.type !== type) {
         return; // Wrong type
       }

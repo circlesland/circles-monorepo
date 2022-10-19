@@ -1,5 +1,4 @@
 import type {IEvent, IEventSource} from "@circlesland/interfaces-channels";
-import {IPostMessageWindow} from "../tests/mocks/MockWindow";
 
 /**
  * Sends events via 'postMessage' to the 'sinkWindow'.
@@ -7,9 +6,9 @@ import {IPostMessageWindow} from "../tests/mocks/MockWindow";
 export class PostMessageSource implements IEventSource {
 
   readonly sinkOrigin:string;
-  readonly sinkWindow:IPostMessageWindow;
+  readonly sinkWindow:Window;
 
-  constructor(sinkWindow:IPostMessageWindow, sinkOrigin:string) {
+  constructor(sinkWindow:Window, sinkOrigin:string) {
     this.sinkWindow = sinkWindow;
     this.sinkOrigin = sinkOrigin;
   }

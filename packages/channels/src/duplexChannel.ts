@@ -1,5 +1,5 @@
 import type {IDuplexChannel, IChannel, IEndpoint} from "@circlesland/interfaces-channels";
-import {DestroyEventSinkSubscription, IEvent} from "@circlesland/interfaces-channels";
+import type { DestroyEventSinkSubscription, IEvent } from "@circlesland/interfaces-channels";
 
 export class DuplexChannel implements IDuplexChannel {
   private readonly leftToRight: IChannel;

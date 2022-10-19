@@ -17,6 +17,7 @@
     "dist"
   ],
   "dependencies": {
-    "@circlesland/ui-components": "1.0.0"
+    "@circlesland/ui-components": "1.0.0",
+    "@circlesland/channels": "1.0.0"
   }
 }

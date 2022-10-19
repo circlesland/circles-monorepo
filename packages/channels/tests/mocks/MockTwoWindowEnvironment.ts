@@ -1,7 +1,6 @@
-import {IPostMessageWindow, MockWindow} from "./MockWindow";
 import {PostMessageChannel} from "../../src";
 import {DuplexChannel} from "../../src";
-import {IChannel, IDuplexChannel, IEndpoint} from "@circlesland/interfaces-channels";
+import type {IChannel, IDuplexChannel, IEndpoint} from "@circlesland/interfaces-channels";
 
 export class MockTwoWindowEnvironment {
   constructor(leftOrigin:Window, rightOrigin:Window) {
@@ -17,8 +16,8 @@ export class MockTwoWindowEnvironment {
     this.rightEndpoint = this.duplexChannel.right;
   }
 
-  readonly leftWindow: IPostMessageWindow;
-  readonly rightWindow: IPostMessageWindow;
+  readonly leftWindow: Window;
+  readonly rightWindow: Window;
 
   readonly leftToRight: IChannel;
   readonly rightToLeft: IChannel;

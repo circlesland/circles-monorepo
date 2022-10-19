@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite build -w",
     "build": "vite build",
+    "build:dev": "vite build -w",
     "test": "jest -u --watch",
     "test:prod": "jest --passWithNoTests"
   },

@@ -1,3 +1,5 @@
+import type { CustomBooleanEditorTheme } from '..//components/BooleanEditor';
+import type { BooleanEditorType } from '../components/BooleanEditor';
 import type { ButtonTypes, CustomButtonTheme } from '../components/Button';
 import type { Validator } from './validator';
 
@@ -8,6 +10,7 @@ export enum ViewType {
   HORIZONTAL_LAYOUT = 'HorizontalLayout',
   VERTICAL_LAYOUT = 'VerticalLayout',
   BUTTON = 'Button',
+  BOOLEAN = 'Boolean',
   TEXT_INPUT = 'TextInput',
   NUMERIC_INPUT = 'NumericInput',
   MULTI_LINE_TEXT_INPUT = 'MultiLineTextInput',
@@ -34,6 +37,7 @@ export type View = {
   | MultiLineTextInput
   | EnumInput
   | PictureInput
+  | ToggleType
 );
 
 export type HorizontalLayoutType = {
@@ -44,6 +48,19 @@ export type HorizontalLayoutType = {
 export type VerticalLayout = {
   type: ViewType.VERTICAL_LAYOUT;
   children?: View[];
+};
+
+export type ToggleType = {
+  type: ViewType.BOOLEAN;
+  args?: {
+    type: BooleanEditorType;
+    checked?: boolean;
+    labelConfig?: {
+      label: string;
+      localizationKey: string;
+    };
+    customTheme?: CustomBooleanEditorTheme;
+  };
 };
 
 export type ButtonType = {

@@ -16880,6 +16880,11 @@ svelte-dev-helper@^1.1.9:
   resolved "https://registry.yarnpkg.com/svelte-dev-helper/-/svelte-dev-helper-1.1.9.tgz#7d187db5c6cdbbd64d75a32f91b8998bde3273c3"
   integrity sha512-oU+Xv7Dl4kRU2kdFjsoPLfJfnt5hUhsFUZtuzI3Ku/f2iAFZqBoEuXOqK3N9ngD4dxQOmN4OKWPHVi3NeAeAfQ==
 
+svelte-easy-crop@1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/svelte-easy-crop/-/svelte-easy-crop-1.0.7.tgz#710c108ea5d494c51fb98b5042dad62bfdfb954a"
+  integrity sha512-7+AJJsS38dRYDxdfpOvykRzZyRD0/NsthZTS/Ig5KWYM8W63ILWBhx1cu6i0RBA4898rfJMlTDldE81pfEw3yw==
+
 svelte-hmr@^0.14.12, svelte-hmr@^0.14.2:
   version "0.14.12"
   resolved "https://registry.yarnpkg.com/svelte-hmr/-/svelte-hmr-0.14.12.tgz#a127aec02f1896500b10148b2d4d21ddde39973f"

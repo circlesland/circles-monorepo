@@ -12,6 +12,7 @@ export enum ViewType {
   NUMERIC_INPUT = 'NumericInput',
   MULTI_LINE_TEXT_INPUT = 'MultiLineTextInput',
   ENUM_INPUT = 'EnumInput',
+  PICTURE_INPUT = 'PictureInput',
 }
 
 /**
@@ -32,6 +33,7 @@ export type View = {
   | NumericInput
   | MultiLineTextInput
   | EnumInput
+  | PictureInput
 );
 
 export type HorizontalLayoutType = {
@@ -123,5 +125,12 @@ export type EnumInput = {
     };
     type: EnumInputType;
     items: EnumInputItem[];
+  };
+};
+
+export type PictureInput = {
+  type: ViewType.PICTURE_INPUT;
+  args: {
+    defaultImage?: string;
   };
 };

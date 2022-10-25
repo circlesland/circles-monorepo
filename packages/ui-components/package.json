@@ -14,7 +14,8 @@
     "build:svelte": "svelte-strip strip src/ dist",
     "prepublishOnly": "npm run svelte-check && npm run build",
     "test": "jest --watch",
-    "test:prod": "jest --passWithNoTests"
+    "test:prod": "jest --passWithNoTests",
+    "test:cypress": "cypress open"
   },
   "keywords": [
     "component",
@@ -33,6 +34,9 @@
     "@krowten/svelte-heroicons": "^0.0.6"
   },
   "dependencies": {
-    "@circlesland/xstate-validators": "1.0.0"
+    "@circlesland/xstate-validators": "1.0.0",
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
   }
 }

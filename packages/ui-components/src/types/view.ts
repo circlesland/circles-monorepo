@@ -1,6 +1,6 @@
-import type { CustomBooleanEditorTheme } from "..//components/BooleanEditor";
-import type { BooleanEditorType } from "../components/BooleanEditor";
-import type { ButtonTypes, CustomButtonTheme } from "../components/Button";
+import type { CustomBooleanEditorTheme } from '..//components/BooleanEditor';
+import type { BooleanEditorType } from '../components/BooleanEditor';
+import type { ButtonTypes, CustomButtonTheme } from '../components/Button';
 import type { Validator } from './validator';
 
 /**
@@ -15,6 +15,7 @@ export enum ViewType {
   NUMERIC_INPUT = 'NumericInput',
   MULTI_LINE_TEXT_INPUT = 'MultiLineTextInput',
   ENUM_INPUT = 'EnumInput',
+  PICTURE_INPUT = 'PictureInput',
 }
 
 /**
@@ -35,6 +36,7 @@ export type View = {
   | NumericInput
   | MultiLineTextInput
   | EnumInput
+  | PictureInput
   | ToggleType
 );
 
@@ -51,15 +53,15 @@ export type VerticalLayout = {
 export type ToggleType = {
   type: ViewType.BOOLEAN;
   args?: {
-    type: BooleanEditorType,
-    checked?: boolean,
+    type: BooleanEditorType;
+    checked?: boolean;
     labelConfig?: {
       label: string;
       localizationKey: string;
-    }
-    customTheme?: CustomBooleanEditorTheme
-  }
-}
+    };
+    customTheme?: CustomBooleanEditorTheme;
+  };
+};
 
 export type ButtonType = {
   type: ViewType.BUTTON;
@@ -140,5 +142,12 @@ export type EnumInput = {
     };
     type: EnumInputType;
     items: EnumInputItem[];
+  };
+};
+
+export type PictureInput = {
+  type: ViewType.PICTURE_INPUT;
+  args: {
+    defaultImage?: string;
   };
 };

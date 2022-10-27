@@ -1,3 +1,5 @@
+export * from './IChannel';
+export * from './IDuplexChannel';
 export * from './IEndpoint';
 export * from './IEvent';
 export * from './IEventSink';

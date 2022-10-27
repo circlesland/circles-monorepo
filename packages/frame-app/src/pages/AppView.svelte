@@ -28,7 +28,7 @@
     const iframeEl = document.getElementById("appFrame") as HTMLIFrameElement;
     if (!frameCommunicator && iframeEl) {
       frameCommunicator = new FrameCommunicator();
-      frameCommunicatorDestroy = frameCommunicator.connect(iframeEl, window);
+      frameCommunicatorDestroy = frameCommunicator.connect(iframeEl);
 
       ceramicProfile = await fetchProfile();
 

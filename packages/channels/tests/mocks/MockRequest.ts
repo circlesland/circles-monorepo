@@ -9,11 +9,18 @@ export class MockIdCounter {
 
 export class MockRequest implements IUniqueEvent {
   id: string;
-  static readonly type: string = 'mock_request';
-  readonly type: string = MockRequest.type;
+  static readonly messageType: string = 'mock_request';
+  readonly type: string;
+  readonly source: string;
+  readonly origin: string;
+  readonly data: any;
 
-  constructor() {
+  constructor(source: string, origin: string, data: any) {
     this.id = MockIdCounter.next().toString();
+    this.source = source;
+    this.origin = origin;
+    this.data = data;
+    this.type = data.type;
   }
 }
 

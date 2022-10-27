@@ -7,7 +7,7 @@ import type {DestroyEventSinkSubscription} from "@circlesland/interfaces-channel
 export class PostMessageSink implements IEventSink {
 
   readonly sourceWindow:Window;
-  readonly sinkOrigin:string;
+readonly sinkOrigin:string;
 
   constructor(sourceWindow:Window, sinkOrigin:string) {
     this.sourceWindow = sourceWindow;
@@ -19,15 +19,17 @@ export class PostMessageSink implements IEventSink {
       if (!e.source) {
         return; // No source
       }
+
       if (e.source == this.sourceWindow) {
         return; // We sent this event and already know it
       }
 
       // TODO: Is this valid? sinkOrigin is the framed app, while e.origin might be the frame container
-      // if (!this.sinkOrigin.includes(e.origin, 0) || e.origin.length < this.sinkOrigin.length) {
-      //   console.log("NUPII");
-      //   return; // The message is not directed to us
-      // }
+      if (!this.sinkOrigin.includes(e.origin, 0) || e.origin.length < this.sinkOrigin.length) {
+        return; // The message is not directed to us
+      }
+
+      console.log(type, e.data.type);
 
       if (type != `*` && e.data.type !== type) {
         return; // Wrong type

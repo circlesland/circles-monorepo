@@ -6,7 +6,6 @@ import {MockRequest} from "./mocks/MockRequest";
 import {DuplexChannel, StatefulEndpoint} from "../src";
 import {MockTwoWindowEnvironment} from "./mocks/MockTwoWindowEnvironment";
 import {MockWindow} from "./mocks/MockWindow";
-import { JSDOM } from 'jsdom';
 
 describe("StatefulEndpoint", () => {
 
@@ -53,63 +52,46 @@ describe("StatefulEndpoint", () => {
     it('should respond to requests', function (done) {
       jest.setTimeout(1000 * 60 * 60);
 
-      const dom = new JSDOM('<!DOCTYPE html>', {
-        url: 'http://localhost:1234'
+      const eventPipeline = {};
+      const parentOrigin = 'http://localhost:1111';
+      const childOrigin = 'http://localhost:2222';
+      const parentWindow = new MockWindow(parentOrigin, childOrigin, {});
+      const childWindow = new MockWindow(childOrigin, parentOrigin, {});
+
+      const environment = new MockTwoWindowEnvironment(parentWindow as unknown as Window, childWindow as unknown as Window);
+
+      const leftEndpoint = new StatefulEndpoint(environment.leftEndpoint, 1000 * 2);
+      const rightEndpoint = new StatefulEndpoint(environment.rightEndpoint, 1000 * 2);
+
+      let calls =  0;
+      const doneHandler = () => {
+        calls++;
+        if (calls === 2) {
+          done();
+        }
+      }
+
+      const leftRequestPayload = 'left-payload-data';
+      const rightRequestPayload = 'right-payload-data';
+      environment.leftEndpoint.receive(`${MockRequest.messageType}-test`, (e) => {
+        console.log('AAAAAAA')
+        const { payload } = e;
+        expect(payload).toEqual(rightRequestPayload);
+        doneHandler();
       });
-      
-      const wind = dom.window;
-      const containerWindow = wind;
 
-      const frame:HTMLIFrameElement = containerWindow.document.createElement("iframe");
-      
-      frame.src = "http://localhost:8080/content.html";
-      containerWindow.document.body.appendChild(frame);
-      
-      const contentWindow = frame.contentWindow;
-
-      const env = new MockTwoWindowEnvironment(containerWindow as unknown as Window, contentWindow);
-      const request = new MockRequest();
-
-      const rightStatefulEndpoint = new StatefulEndpoint(env.leftEndpoint, 1000 * 2);
-
-      env.leftEndpoint.receive(MockRequest.type, (e) => {
-        console.log('AAAAA', e);
-        done();
+      environment.rightEndpoint.receive(MockRequest.messageType, (e) => {
+        console.log('BBBBBB')
+        const { payload } = e;
+        expect(payload).toEqual(leftRequestPayload);
+        doneHandler();
       });
 
-      env.rightEndpoint.receive(MockRequest.type, (e) => {
-        console.log('BBBBB', e);
-        done();
-      });
-
-      rightStatefulEndpoint.endpoint.send(request);
-
-      // // Setup an environment which links the left to the right window
-      // const env = new MockTwoWindowEnvironment(container, content);
-      // const mockRequest = new MockRequest();
-
-      // // Setup a stateful endpoint which can wait for specific events
-      // const rightStatefulEndpoint = new StatefulEndpoint(env.rightEndpoint, 1000 * 5);
-
-      // env.leftEndpoint.receive(MockRequest.type, (event) => {
-      //   console.info(`Received event at left endpoint!`, event);
-      // });
-
-      // env.rightEndpoint.receive(MockRequest.type, (event) => {
-      //   console.info(`Received event at right endpoint!`, event);
-      // });
-
-      // setTimeout(() => {
-
-      //   // Send the event from the left side ...
-      //   env.leftEndpoint.send(mockRequest);
-      // });
-
-      // // and expect it to appear on the right
-      // const receivedRightEvent = await rightStatefulEndpoint.receiveNext(MockRequest.type);
-
-
-      // expect((<any>receivedRightEvent).id == mockRequest.id);
+      const leftRequest = new MockRequest(parentOrigin, childOrigin, { type: MockRequest.messageType, payload: leftRequestPayload});
+      leftEndpoint.endpoint.send(leftRequest);
+      
+      const rightRequest = new MockRequest(childOrigin, parentOrigin, { type: `${MockRequest.messageType}-test`, payload: rightRequestPayload});
+      rightEndpoint.endpoint.send(rightRequest);
     });
   });
 /*

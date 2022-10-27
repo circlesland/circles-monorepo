@@ -1,4 +1,4 @@
 export interface IEvent {
   type: string;
-  data: any;
+  [key: string]: any;
 }

@@ -17,6 +17,7 @@ export enum ViewType {
   ENUM_INPUT = 'EnumInput',
   PICTURE_INPUT = 'PictureInput',
   LABEL = 'Label',
+  PICTURE_VIEW = 'PictureView',
 }
 
 /**
@@ -29,6 +30,7 @@ export type View = {
   args?: { [key: string]: any };
   validators?: Validator;
   children?: View[];
+  trigger?: string;
 } & (
   | HorizontalLayoutType
   | ButtonType
@@ -40,6 +42,7 @@ export type View = {
   | PictureInput
   | ToggleType
   | LabelType
+  | PictureView
 );
 
 export type HorizontalLayoutType = {
@@ -158,5 +161,12 @@ export type LabelType = {
   type: ViewType.LABEL;
   args: {
     text: string;
+  };
+};
+
+export type PictureView = {
+  type: ViewType.PICTURE_VIEW;
+  args: {
+    image: string;
   };
 };

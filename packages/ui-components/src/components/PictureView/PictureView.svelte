@@ -1,17 +1,15 @@
 <script lang="ts">
-  import type { View, LabelType } from '../../types';
+  import type { View, PictureView } from '../../types';
 
-  export let view: View & LabelType;
+  export let view: View & PictureView;
 
   const { testId } = view;
-  $: text = view.args.text;
+  $: image = view.args.image;
 
   const inputClass = 'rounded-full bg-secondary py-2 px-4';
   const labelClass = 'rounded-full bg-blue-500 py-2 px-4 text-primary';
 </script>
 
 {#if view}
-  <div data-testId={testId}>
-    {text}
-  </div>
+  <img src={image} data-testId={testId} on:click />
 {/if}

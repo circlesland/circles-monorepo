@@ -1,17 +1,24 @@
 <script lang="ts">
-  import { toggleMachine } from "./../../xstate/user-profile-machine";
-  import { interpret } from "xstate";
-  import { onDestroy, onMount } from "svelte";
-  import { link } from "svelte-spa-router";
-  import { getProfileFromCeramic, getWallet } from "../../utils/CeramicHelpers";
+  import { Methods } from './../../utils/FrameCommunicator.ts';
+  import { IChannel } from './../../../interfaces-channels/src/interfaces/IChannel.ts';
+  import type {
+    IChannel,
+    IDuplexChannel,
+  } from '@circlesland/interfaces-channels/src';
+  import { DuplexChannel, PostMessageChannel } from '@circlesland/channels/src';
+  import { toggleMachine } from './../../xstate/user-profile-machine';
+  import { interpret } from 'xstate';
+  import { onDestroy, onMount } from 'svelte';
+  import { link } from 'svelte-spa-router';
+  import { getProfileFromCeramic, getWallet } from '../../utils/CeramicHelpers';
   export let params = {};
 
-  import rootManifest from "../../apps/root.json";
-  import { FrameCommunicator, Methods } from "../../utils/FrameCommunicator";
+  import rootManifest from '../../apps/root.json';
+  import { FrameCommunicator, Methods } from '../../utils/FrameCommunicator';
 
-  import Center from "../components/Center.svelte";
-  import CompleteProfileForm from "../components/CompleteProfileForm.svelte";
-  import { fetchProfile } from "../../xstate/user-profile-machine";
+  import Center from '../components/Center.svelte';
+  import CompleteProfileForm from '../components/CompleteProfileForm.svelte';
+  import { fetchProfile } from '../../xstate/user-profile-machine';
   const toggleService = interpret(toggleMachine).start();
 
   let appManifest;
@@ -25,22 +32,72 @@
   });
 
   const onIframeLoad = async () => {
-    const iframeEl = document.getElementById("appFrame") as HTMLIFrameElement;
+    const iframeEl = document.getElementById('appFrame') as HTMLIFrameElement;
+
     if (!frameCommunicator && iframeEl) {
-      frameCommunicator = new FrameCommunicator();
-      frameCommunicatorDestroy = frameCommunicator.connect(iframeEl);
+      const outChannel: IChannel = new PostMessageChannel(
+        {
+          window,
+          origin: window.location.origin,
+        },
+        {
+          window: iframeEl.contentWindow,
+          origin: iframeEl.src,
+        }
+      );
 
-      ceramicProfile = await fetchProfile();
+      let inChannel: IChannel;
+      let duplexChannel: IDuplexChannel;
 
-      const [address] = getWallet();
+      outChannel.sink.receive(
+        'safeDappSdkMessage',
+        async (safeDappSdkMessage) => {
+          switch (safeDappSdkMessage.method) {
+            case Methods.init:
+              console.log('I am here 123 happy face');
 
-      frameCommunicator.on(Methods.init, () => {
-        return { address, ceramicProfile };
-      });
+              inChannel = new PostMessageChannel(
+                {
+                  window,
+                  origin: window.location.origin,
+                },
+                {
+                  window: iframeEl.contentWindow,
+                  origin: '*',
+                }
+              );
 
-      frameCommunicator.on(Methods.editProfile, () => {
-        isEditProfileOpen = true;
-      });
+              duplexChannel = new DuplexChannel(inChannel, outChannel);
+
+              const [address] = getWallet();
+              ceramicProfile = await fetchProfile();
+
+              duplexChannel.right.send({
+                type: 'safeDappSdkMessage',
+                method: Methods.init,
+                address,
+                ceramicProfile,
+              });
+
+              break;
+          }
+        }
+      );
+
+      // outChannel.frameCommunicator = new FrameCommunicator();
+      // frameCommunicatorDestroy = frameCommunicator.connect(iframeEl);
+
+      // ceramicProfile = await fetchProfile();
+
+      // const [address] = getWallet();
+
+      // frameCommunicator.on(Methods.init, () => {
+      //   return { address, ceramicProfile };
+      // });
+
+      // frameCommunicator.on(Methods.editProfile, () => {
+      //   isEditProfileOpen = true;
+      // });
     }
   };
 
@@ -51,11 +108,20 @@
   });
 </script>
 
-<div>AppView page for app {appManifest?.id} - <a href="/" use:link>go back to loader</a></div>
+<div>
+  AppView page for app {appManifest?.id} -
+  <a href="/" use:link>go back to loader</a>
+</div>
 
-{#if $toggleService?.value === "success"}
+{#if $toggleService?.value === 'success'}
   {#if appManifest}
-    <iframe src={appManifest?.url} frameborder="0" class="w-screen h-screen" id="appFrame" on:load={onIframeLoad} />
+    <iframe
+      src={appManifest?.url}
+      frameborder="0"
+      class="w-screen h-screen"
+      id="appFrame"
+      on:load={onIframeLoad}
+    />
   {/if}
 
   {#if isEditProfileOpen && ceramicProfile}

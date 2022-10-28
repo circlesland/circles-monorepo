@@ -1,4 +1,6 @@
-import {DestroyEventSinkSubscription, IEvent} from "@circlesland/interfaces-channels";
+import { IEvent } from "./IEvent";
+import { DestroyEventSinkSubscription } from "./IEventSink";
+
 
 export interface IEndpoint {
   send(event: IEvent):void;

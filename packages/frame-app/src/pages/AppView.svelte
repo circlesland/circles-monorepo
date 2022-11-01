@@ -1,11 +1,15 @@
 <script lang="ts">
-  import { Methods } from './../../utils/FrameCommunicator.ts';
-  import { IChannel } from './../../../interfaces-channels/src/interfaces/IChannel.ts';
   import type {
     IChannel,
     IDuplexChannel,
   } from '@circlesland/interfaces-channels/src';
-  import { DuplexChannel, PostMessageChannel } from '@circlesland/channels/src';
+  import {
+    DuplexChannel,
+    PostMessageChannel,
+    PostMessageSink,
+    PostMessageSource,
+    StatefulEndpoint,
+  } from '@circlesland/channels/src';
   import { toggleMachine } from './../../xstate/user-profile-machine';
   import { interpret } from 'xstate';
   import { onDestroy, onMount } from 'svelte';
@@ -19,6 +23,8 @@
   import Center from '../components/Center.svelte';
   import CompleteProfileForm from '../components/CompleteProfileForm.svelte';
   import { fetchProfile } from '../../xstate/user-profile-machine';
+  import type { IStatefulEndpoint } from '@circlesland/interfaces-channels';
+  import { log } from 'xstate/lib/actions';
   const toggleService = interpret(toggleMachine).start();
 
   let appManifest;
@@ -35,69 +41,38 @@
     const iframeEl = document.getElementById('appFrame') as HTMLIFrameElement;
 
     if (!frameCommunicator && iframeEl) {
-      const outChannel: IChannel = new PostMessageChannel(
-        {
-          window,
-          origin: window.location.origin,
-        },
-        {
-          window: iframeEl.contentWindow,
-          origin: iframeEl.src,
-        }
+      const source = new PostMessageSource(
+        iframeEl.contentWindow,
+        iframeEl.src
       );
+      const sink = new PostMessageSink(window, window.location.origin);
 
-      let inChannel: IChannel;
-      let duplexChannel: IDuplexChannel;
+      const duplexChannel: IDuplexChannel = new DuplexChannel(source, sink);
+      sink.receive('safeDappSdkMessage', async (safeDappSdkMessage) => {
+        console.log('got now', safeDappSdkMessage);
+        switch (safeDappSdkMessage.method) {
+          case Methods.init:
+            const [address] = getWallet();
+            ceramicProfile = await fetchProfile();
 
-      outChannel.sink.receive(
-        'safeDappSdkMessage',
-        async (safeDappSdkMessage) => {
-          switch (safeDappSdkMessage.method) {
-            case Methods.init:
-              console.log('I am here 123 happy face');
+            duplexChannel.endpoint.send({
+              type: 'safeDappSdkMessage',
+              method: Methods.init,
+              address,
+              ceramicProfile,
+              id: '1',
+              requestId: '123',
+            });
 
-              inChannel = new PostMessageChannel(
-                {
-                  window,
-                  origin: window.location.origin,
-                },
-                {
-                  window: iframeEl.contentWindow,
-                  origin: '*',
-                }
-              );
+            break;
 
-              duplexChannel = new DuplexChannel(inChannel, outChannel);
-
-              const [address] = getWallet();
-              ceramicProfile = await fetchProfile();
-
-              duplexChannel.right.send({
-                type: 'safeDappSdkMessage',
-                method: Methods.init,
-                address,
-                ceramicProfile,
-              });
-
-              break;
+          case Methods.editProfile: {
+            console.log('edit profile clicked');
+            isEditProfileOpen = true;
+            break;
           }
         }
-      );
-
-      // outChannel.frameCommunicator = new FrameCommunicator();
-      // frameCommunicatorDestroy = frameCommunicator.connect(iframeEl);
-
-      // ceramicProfile = await fetchProfile();
-
-      // const [address] = getWallet();
-
-      // frameCommunicator.on(Methods.init, () => {
-      //   return { address, ceramicProfile };
-      // });
-
-      // frameCommunicator.on(Methods.editProfile, () => {
-      //   isEditProfileOpen = true;
-      // });
+      });
     }
   };
 

@@ -1,6 +1,5 @@
 import { defineConfig } from "cypress";
 import postcss from './cypress/support/styles/postcss.config';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 export default defineConfig({
   component: {

@@ -35,3 +35,21 @@
 //     }
 //   }
 // }
+
+export async function waitForAsync(condition) {
+    return new Promise((res, rej) => {
+      let count = 0;
+      const interval = setInterval(() => {
+        if (condition() === true) {
+          clearInterval(interval);
+          res(true);
+        } else {
+          if (count < 300) {
+            count++;
+          } else {
+            rej(new Error(`timed out waiting for condition: ${condition}`,));
+          }
+        }
+      }, 10);
+    });
+  }

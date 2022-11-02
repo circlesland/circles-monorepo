@@ -1,36 +1,38 @@
 import { Button, ButtonType, ButtonTypes, View, ViewType } from '../../src';
+import { waitForAsync } from '../support/commands';
+
 
 describe('Button', () => {
   const buttonSelector = '[data-testId="button-test-id"]';
-  let initial = 0;
-  const callback = function () {
-    initial++;
-  };
-    it('should display a button with an icon', () => {
+  it('should display a button with an icon', async () => {
+    let clickCount = 0;
+    const clickCallback = function () {
+      clickCount++;
+    };
+    const view: View & ButtonType = {
+      id: 'button',
+      callback: clickCallback,
+      type: ViewType.BUTTON,
+      testId: 'button-test-id',
+      args: {
+        type: ButtonTypes.IconText,
+        labelConfig: {
+          label: 'Button',
+          localizationKey: 'button-localization-key',
+        },
+        icon: {
+          source: 'academic-cap',
+          solid: true,
+        },
+      },
+    };
 
-        const view: View & ButtonType = {
-            id: 'button',
-            callback: callback,
-            type: ViewType.BUTTON,
-            testId: 'button-test-id',
-            args: {
-              type: ButtonTypes.IconText,
-              labelConfig: {
-                label: 'Button',
-                localizationKey: 'button-localization-key'
-              },
-              icon: {
-                source: 'academic-cap',
-                solid: true
-              }
-            },
-          };
+    cy.mount(Button, { props: { view } });
 
-        cy.mount(Button, { props: { view }});
+    cy.get(buttonSelector).click();
 
-        cy.get(buttonSelector).click();
-        cy.wait(2000).then(() => {
-          expect(initial).equal(1);
-        });
-    });
+    await waitForAsync(() => clickCount === 1);
+
+    expect(clickCount).to.eq(1);
+  });
 });

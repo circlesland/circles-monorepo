@@ -1,2 +1,2 @@
 export type {ITrigger} from "./interfaces/ITrigger";
-export type {ITriggerEnvironment} from "./interfaces/ITriggerEnvironment";
+export type {ITriggerData} from "./interfaces/ITriggerData";

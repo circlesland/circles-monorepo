@@ -1,7 +1,8 @@
-import type { IEventSource } from './IEventSource';
-import type { IEventSink } from './IEventSink';
+import { IEvent } from "./IEvent";
+import { DestroyEventSinkSubscription } from "./IEventSink";
+
 
 export interface IEndpoint {
-  source: IEventSource;
-  sink: IEventSink;
+  send(event: IEvent):void;
+  receive(type: string, handler: (event: IEvent) => void): DestroyEventSinkSubscription;
 }

@@ -6,7 +6,7 @@
 
   export let view: View & ButtonType;
 
-  const { testId, args } = view;
+  const { testId, args, callback } = view;
   const { labelConfig, type, customTheme, icon } = args;
   const { localizationKey, label} = labelConfig || {};
 
@@ -42,26 +42,49 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
       default: return `${baseClass} font-bold py-2 px-4 rounded-full`;
     }
   };
+
+  function handleButtonClick() {
+    callback();
+  }
 </script>
 
 {#if view}
   {#if type === ButtonTypes.CircularWithIcon}
-    <button class={getButtonClass(type)} data-testId={testId}>
-      <Icon data-testid={`${testId}-icon`} class="ml-1 mt-1 w-6 h-6" name="{icon.source}" solid="{icon.solid}" />
+    <button
+      class={getButtonClass(type)}
+      data-testId={testId}
+      on:click={handleButtonClick}
+    >
+      <Icon
+        data-testid={`${testId}-icon`}
+        class="ml-1 mt-1 w-6 h-6"
+        name={icon.source}
+        solid={icon.solid}
+      />
     </button>
   {:else if type === ButtonTypes.IconText}
     <button
       class={getButtonClass(type)}
       data-testId={testId}
-      data-i18n-key={localizationKey}>
-        <Icon data-testid={`${testId}-icon`} class="mr-1.5 -ml-1.5 mt-1 w-6 h-6" name="{icon.source}" solid="{icon.solid}" />
-        {label}
+      data-i18n-key={localizationKey}
+      on:click={handleButtonClick}
+    >
+      <Icon
+        data-testid={`${testId}-icon`}
+        class="mr-1.5 -ml-1.5 mt-1 w-6 h-6"
+        name={icon.source}
+        solid={icon.solid}
+      />
+      {label}
     </button>
-    
   {:else}
-      <button
+    <button
       class={getButtonClass(type)}
       data-testId={testId}
-      data-i18n-key={localizationKey}>{label}</button>
+      data-i18n-key={localizationKey}
+      on:click={handleButtonClick}
+    >
+      {label}</button
+    >
   {/if}
 {/if}

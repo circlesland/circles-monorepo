@@ -14,7 +14,8 @@
     "build:svelte": "svelte-strip strip src/ dist",
     "prepublishOnly": "npm run svelte-check && npm run build",
     "test": "jest --watch",
-    "test:prod": "jest --passWithNoTests"
+    "test:prod": "jest --passWithNoTests",
+    "test:cypress": "cypress open"
   },
   "keywords": [
     "component",
@@ -34,8 +35,11 @@
   },
   "dependencies": {
     "@circlesland/xstate-validators": "1.0.0",
-    "svelte-easy-crop": "1.0.7",
     "@circlesland/channels": "1.0.0",
-    "@circlesland/interfaces-channels": "1.0.0"
+    "@circlesland/interfaces-channels": "1.0.0",
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
+    "svelte-easy-crop": "1.0.7"
   }
 }

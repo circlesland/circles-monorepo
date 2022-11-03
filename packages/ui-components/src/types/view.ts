@@ -26,6 +26,7 @@ export enum ViewType {
 export type View = {
   id: string;
   testId: string;
+  callback: any;
   type: ViewType;
   args?: { [key: string]: any };
   validators?: Validator;

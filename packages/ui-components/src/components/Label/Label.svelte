@@ -5,9 +5,6 @@
 
   const { testId } = view;
   $: text = view.args.text;
-
-  const inputClass = 'rounded-full bg-secondary py-2 px-4';
-  const labelClass = 'rounded-full bg-blue-500 py-2 px-4 text-primary';
 </script>
 
 {#if view}

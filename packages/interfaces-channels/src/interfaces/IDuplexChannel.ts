@@ -1,6 +1,5 @@
-import {IEndpoint} from "./IEndpoint";
+import { IEndpoint } from './IEndpoint';
 
 export interface IDuplexChannel {
-  left: IEndpoint;
-  right: IEndpoint;
+  endpoint: IEndpoint;
 }

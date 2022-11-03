@@ -16,6 +16,8 @@ export enum ViewType {
   MULTI_LINE_TEXT_INPUT = 'MultiLineTextInput',
   ENUM_INPUT = 'EnumInput',
   PICTURE_INPUT = 'PictureInput',
+  LABEL = 'Label',
+  PICTURE_VIEW = 'PictureView',
 }
 
 /**
@@ -29,6 +31,7 @@ export type View = {
   args?: { [key: string]: any };
   validators?: Validator;
   children?: View[];
+  trigger?: string;
 } & (
   | HorizontalLayoutType
   | ButtonType
@@ -39,6 +42,8 @@ export type View = {
   | EnumInput
   | PictureInput
   | ToggleType
+  | LabelType
+  | PictureView
 );
 
 export type HorizontalLayoutType = {
@@ -150,5 +155,19 @@ export type PictureInput = {
   type: ViewType.PICTURE_INPUT;
   args: {
     defaultImage?: string;
+  };
+};
+
+export type LabelType = {
+  type: ViewType.LABEL;
+  args: {
+    text: string;
+  };
+};
+
+export type PictureView = {
+  type: ViewType.PICTURE_VIEW;
+  args: {
+    image: string;
   };
 };

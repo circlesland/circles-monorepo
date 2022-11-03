@@ -35,6 +35,8 @@
   },
   "dependencies": {
     "@circlesland/xstate-validators": "1.0.0",
+    "@circlesland/channels": "1.0.0",
+    "@circlesland/interfaces-channels": "1.0.0",
     "autoprefixer": "^10.4.8",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8",

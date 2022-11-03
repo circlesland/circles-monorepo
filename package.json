@@ -5,7 +5,8 @@
     "packages": [
       "apps/*",
       "packages/*",
-      "scratchpad/*"
+      "scratchpad/*",
+      "packages/interfaces/*"
     ]
   },
   "devDependencies": {

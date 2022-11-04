@@ -9,7 +9,7 @@
     PostMessageSink,
     PostMessageSource,
     StatefulEndpoint,
-  } from '@circlesland/channels/src';
+  } from '@circlesland/channels';
   import { toggleMachine } from './../../xstate/user-profile-machine';
   import { interpret } from 'xstate';
   import { onDestroy, onMount } from 'svelte';

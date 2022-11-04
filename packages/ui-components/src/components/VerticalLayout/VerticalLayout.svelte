@@ -8,7 +8,7 @@
     DuplexChannel,
     PostMessageSink,
     PostMessageSource,
-  } from '@circlesland/channels/src';
+  } from '@circlesland/channels';
   import type { View } from '../../types';
   import { SupportedViews } from '../../types/supported';
 

@@ -6,7 +6,7 @@
 
   export let view: View & ButtonType;
 
-  const { testId, args, callback } = view;
+  const { testId, args, trigger } = view;
   const { labelConfig, type, customTheme, icon } = args;
   const { localizationKey, label} = labelConfig || {};
 
@@ -42,15 +42,18 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
       default: return `${baseClass} font-bold py-2 px-4 rounded-full`;
     }
   };
-
-  function handleButtonClick() {
-    callback();
+  
+  let buttonRef;
+  function handleButtonClick(e) {
+    const eventName = trigger ?? 'trigger';
+    buttonRef.dispatchEvent(new CustomEvent(eventName, { detail: { view, eventDetails: e }}))
   }
 </script>
 
 {#if view}
   {#if type === ButtonTypes.CircularWithIcon}
     <button
+      bind:this={buttonRef}
       class={getButtonClass(type)}
       data-testId={testId}
       on:click={handleButtonClick}
@@ -64,6 +67,7 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
     </button>
   {:else if type === ButtonTypes.IconText}
     <button
+      bind:this={buttonRef}
       class={getButtonClass(type)}
       data-testId={testId}
       data-i18n-key={localizationKey}
@@ -79,6 +83,7 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
     </button>
   {:else}
     <button
+      bind:this={buttonRef}
       class={getButtonClass(type)}
       data-testId={testId}
       data-i18n-key={localizationKey}

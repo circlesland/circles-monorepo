@@ -4,14 +4,10 @@ import { waitForAsync } from '../support/commands';
 
 describe('Button', () => {
   const buttonSelector = '[data-testId="button-test-id"]';
-  it('should display a button with an icon', async () => {
-    let clickCount = 0;
-    const clickCallback = () => {
-      clickCount++;
-    };
-    const view: View & ButtonType = {
+  it('should display a button with an icon', (done) => {
+    const buttonView: View & ButtonType = {
       id: 'button',
-      callback: clickCallback,
+      trigger: 'test-trigger-name',
       type: ViewType.BUTTON,
       testId: 'button-test-id',
       args: {
@@ -27,22 +23,57 @@ describe('Button', () => {
       },
     };
 
-    cy.mount(Button, { props: { view } });
-    cy.get(buttonSelector).click();
+    cy.mount(Button, { props: { view: buttonView } });
+    
+    cy.get(buttonSelector).then((jQueryButton) => {
+      const buttonElement = jQueryButton[0];
+      buttonElement.addEventListener('test-trigger-name', (e) => {
+        const { view, eventDetails } = e.detail;
 
-    await waitForAsync(() => clickCount === 1);
-    expect(clickCount).to.eq(1);
+        expect(eventDetails).to.not.be.undefined;
+        expect(buttonView.id).to.eq(view.id);
+        done();
+      });
+    });
+
+    cy.get(buttonSelector).click();
   });
 
-  it('should display a circular icon button', async () => {
-    let clickCount = 0;
-    const clickCallback = () => {
-      clickCount++;
+  it('should display a button with text', (done) => {
+    const buttonView: View & ButtonType = {
+      id: 'button',
+      trigger: 'test-trigger-name',
+      type: ViewType.BUTTON,
+      testId: 'button-test-id',
+      args: {
+        type: ButtonTypes.Default,
+        labelConfig: {
+          label: 'Button',
+          localizationKey: 'button-localization-key',
+        }
+      },
     };
 
-    const view: View & ButtonType = {
+    cy.mount(Button, { props: { view: buttonView } });
+    
+    cy.get(buttonSelector).then((jQueryButton) => {
+      const buttonElement = jQueryButton[0];
+      buttonElement.addEventListener('test-trigger-name', (e) => {
+        const { view, eventDetails } = e.detail;
+
+        expect(eventDetails).to.not.be.undefined;
+        expect(buttonView.id).to.eq(view.id);
+        done();
+      });
+    });
+
+    cy.get(buttonSelector).click();
+  });
+
+  it('should display a circular icon button', (done) => {
+    const buttonView: View & ButtonType = {
       id: 'button',
-      callback: clickCallback,
+      trigger: 'test-trigger-name',
       type: ViewType.BUTTON,
       testId: 'button-test-id',
       args: {
@@ -54,10 +85,19 @@ describe('Button', () => {
       },
     };
 
-    cy.mount(Button, { props: { view } });
-    cy.get(buttonSelector).click();
+    cy.mount(Button, { props: { view: buttonView } });
+    
+    cy.get(buttonSelector).then((jQueryButton) => {
+      const buttonElement = jQueryButton[0];
+      buttonElement.addEventListener('test-trigger-name', (e) => {
+        const { view, eventDetails } = e.detail;
 
-    await waitForAsync(() => clickCount === 1);
-    expect(clickCount).to.eq(1);
+        expect(eventDetails).to.not.be.undefined;
+        expect(buttonView.id).to.eq(view.id);
+        done();
+      });
+    });
+
+    cy.get(buttonSelector).click();
   });
 });

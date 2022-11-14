@@ -1,16 +1,19 @@
 <script lang="ts">
+	import { TRIGGER_EVENT_NAME } from './../../constants';
   import type { ToggleType, View } from '../../types';
   import { BooleanEditorType } from './types/booleanEditorType';
 
   export let view: View & ToggleType;
 
-  const { id, testId, args } = view;
+  const { id, testId, args, trigger } = view;
   const { type, labelConfig, checked } = args;
 
   let value = checked;
 
-  function onValueChange() {
-    // TODO: Dispatch event
+  let editorRef;
+  function onValueChange(e: Event) {
+    const eventName = trigger ?? TRIGGER_EVENT_NAME;
+    editorRef.dispatchEvent(new CustomEvent(eventName, { detail: { view, eventDetails: e, value }}))
   }
 </script>
 
@@ -20,6 +23,7 @@
       {id}
       data-testId={testId}
       type="checkbox"
+      bind:this={editorRef}
       bind:checked={value}
       on:change={onValueChange}
       class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
@@ -38,6 +42,7 @@
       data-testId={testId}
       type="checkbox"
       class="sr-only peer"
+      bind:this={editorRef}
       bind:checked={value}
       on:change={onValueChange}
     />

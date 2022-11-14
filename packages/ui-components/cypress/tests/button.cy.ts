@@ -1,6 +1,4 @@
 import { Button, ButtonType, ButtonTypes, View, ViewType } from '../../src';
-import { waitForAsync } from '../support/commands';
-
 
 describe('Button', () => {
   const buttonSelector = '[data-testId="button-test-id"]';

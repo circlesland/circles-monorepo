@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { TRIGGER_EVENT_NAME } from '../../constants';
 	import { DEFAULT_CIRCULAR_BUTTON_WIDTH, DEFAULT_CIRCULAR_BUTTON_HEIGHT} from './constants';
   import type { View, ButtonType } from "../../types";
   import { ButtonTypes, type CustomButtonTheme } from "./types";
@@ -45,7 +46,7 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
   
   let buttonRef;
   function handleButtonClick(e) {
-    const eventName = trigger ?? 'trigger';
+    const eventName = trigger ?? TRIGGER_EVENT_NAME;
     buttonRef.dispatchEvent(new CustomEvent(eventName, { detail: { view, eventDetails: e }}))
   }
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { TRIGGER_EVENT_NAME } from './../../constants';
+	import { TRIGGER_EVENT_NAME } from '../../constants';
   import type { ToggleType, View } from '../../types';
-  import { BooleanEditorType } from './types/booleanEditorType';
+  import { BooleanInputType } from './types/booleanInputType';
 
   export let view: View & ToggleType;
 
@@ -17,7 +17,7 @@
   }
 </script>
 
-{#if type === BooleanEditorType.Checkbox}
+{#if type === BooleanInputType.Checkbox}
   <div class="flex items-center mb-4">
     <input
       {id}

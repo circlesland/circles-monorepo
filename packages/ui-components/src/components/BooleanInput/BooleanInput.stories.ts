@@ -1,14 +1,14 @@
 import { ViewType } from "../../types";
-import BooleanEditor from "./BooleanEditor.svelte";
-import { BooleanEditorType } from "./types/booleanEditorType";
+import BooleanInput from "./BooleanInput.svelte";
+import { BooleanInputType } from "./types/booleanInputType";
 
 export default {
-    component: BooleanEditor,
-    title: 'UIComponents/BooleanEditor'
+    component: BooleanInput,
+    title: 'UIComponents/BooleanInput'
 };
 
 const Template = ({ ...args }) => ({
-    Component: BooleanEditor,
+    Component: BooleanInput,
     props: args
 });
 
@@ -18,7 +18,7 @@ Checkbox.args = {
         id: 'a-checkbox',
         type: ViewType.BOOLEAN,
         args: {
-            type: BooleanEditorType.Checkbox,
+            type: BooleanInputType.Checkbox,
             checked: true,
             labelConfig: {
                 label: `I'm a checkbox`,
@@ -33,7 +33,7 @@ Toggle.args = {
     view: {
         type: ViewType.BOOLEAN,
         args: {
-            type: BooleanEditorType.Toggle,
+            type: BooleanInputType.Toggle,
             checked: true,
             labelConfig: {
                 label: `I'm a toggle`,

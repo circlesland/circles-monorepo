@@ -4,12 +4,12 @@
 
 import { render, screen, fireEvent } from '@testing-library/svelte';
 import { ToggleType, View, ViewType  } from '../../types';
-import BooleanEditor from './BooleanEditor.svelte';
-import { BooleanEditorType } from './types';
+import BooleanInput from './BooleanInput.svelte';
+import { BooleanInputType } from './types';
 
 describe('Boolean Editor', () => {
     const setup = (view: View & ToggleType) => {
-        render(BooleanEditor, { view });
+        render(BooleanInput, { view });
     }
 
     it('should render a checkbox that can be checked', async () => {
@@ -20,7 +20,7 @@ describe('Boolean Editor', () => {
             type: ViewType.BOOLEAN,
             testId,
             args: {
-                type: BooleanEditorType.Checkbox,
+                type: BooleanInputType.Checkbox,
                 labelConfig: {
                     label,
                     localizationKey: 'i-18n-localization-key'
@@ -49,7 +49,7 @@ describe('Boolean Editor', () => {
             type: ViewType.BOOLEAN,
             testId,
             args: {
-                type: BooleanEditorType.Toggle,
+                type: BooleanInputType.Toggle,
                 labelConfig: {
                     label,
                     localizationKey: 'i18n-localization-key'

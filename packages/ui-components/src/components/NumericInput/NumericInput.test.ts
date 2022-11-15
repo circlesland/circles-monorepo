@@ -7,9 +7,9 @@ import { render, screen } from '@testing-library/svelte';
 import { ViewType } from '../../types';
 import NumericInputComponent from './NumericInput.svelte';
 
-import type { View, NumericInput } from '../../types';
+import type { View, NumericInputType } from '../../types';
 
-const numericInput: View & NumericInput = {
+const numericInput: View & NumericInputType = {
   id: 'numeric-input',
   testId: 'numeric-input-test-id',
   type: ViewType.NUMERIC_INPUT,
@@ -26,7 +26,7 @@ const numericInput: View & NumericInput = {
 };
 
 describe('NumericInput', () => {
-  const setup = (view: View & NumericInput) => {
+  const setup = (view: View & NumericInputType) => {
     render(NumericInputComponent, { view });
   };
 

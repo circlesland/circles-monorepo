@@ -36,7 +36,7 @@ export type View = {
   | ButtonType
   | VerticalLayout
   | TextInput
-  | NumericInput
+  | NumericInputType
   | MultiLineTextInput
   | EnumInput
   | PictureInput
@@ -101,9 +101,10 @@ export type TextInput = {
   };
 };
 
-export type NumericInput = {
+export type NumericInputType = {
   type: ViewType.NUMERIC_INPUT;
   args: {
+    initialvalue?: number;
     labelConfig: {
       label: string;
       localizationKey: string;

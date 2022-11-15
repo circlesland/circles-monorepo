@@ -1,7 +1,7 @@
 import { View, ToggleType, ViewType } from "../../src";
-import { BooleanEditor, BooleanEditorType } from "../../src/components/BooleanEditor";
+import { BooleanInput, BooleanInputType } from "../../src/components/BooleanInput";
 
-describe('BooleanEditor', () => {
+describe('BooleanInput', () => {
     const selector = '[data-testId="editor-test-id"]';
 
     it('should display a boolean editor in form of a checkbox', (done) => {
@@ -11,7 +11,7 @@ describe('BooleanEditor', () => {
             type: ViewType.BOOLEAN,
             testId: 'editor-test-id',
             args: {
-                type: BooleanEditorType.Checkbox,
+                type: BooleanInputType.Checkbox,
                 checked: false,
                 labelConfig: {
                     label: 'Test Label',
@@ -20,7 +20,7 @@ describe('BooleanEditor', () => {
             }
         };
 
-        cy.mount(BooleanEditor, { props: { view: toggleView }});
+        cy.mount(BooleanInput, { props: { view: toggleView }});
 
         cy.get(selector).then((jQueryToggle) => {
             const checkboxElement = jQueryToggle[0];
@@ -45,7 +45,7 @@ describe('BooleanEditor', () => {
             type: ViewType.BOOLEAN,
             testId: 'editor-test-id',
             args: {
-                type: BooleanEditorType.Toggle,
+                type: BooleanInputType.Toggle,
                 checked: false,
                 labelConfig: {
                     label: 'Test Label',
@@ -54,7 +54,7 @@ describe('BooleanEditor', () => {
             }
         };
 
-        cy.mount(BooleanEditor, { props: { view: toggleView }});
+        cy.mount(BooleanInput, { props: { view: toggleView }});
 
         cy.get(selector).then((jQueryToggle) => {
             const toggleElement = jQueryToggle[0];

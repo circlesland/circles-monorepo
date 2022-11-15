@@ -1,5 +1,5 @@
-import type { CustomBooleanEditorTheme } from '..//components/BooleanEditor';
-import type { BooleanEditorType } from '../components/BooleanEditor';
+import type { CustomBooleanInputTheme } from '../components/BooleanInput';
+import type { BooleanInputType } from '../components/BooleanInput';
 import type { ButtonTypes, CustomButtonTheme } from '../components/Button';
 import type { Validator } from './validator';
 
@@ -58,13 +58,13 @@ export type VerticalLayout = {
 export type ToggleType = {
   type: ViewType.BOOLEAN;
   args?: {
-    type: BooleanEditorType;
+    type: BooleanInputType;
     checked?: boolean;
     labelConfig?: {
       label: string;
       localizationKey: string;
     };
-    customTheme?: CustomBooleanEditorTheme;
+    customTheme?: CustomBooleanInputTheme;
   };
 };
 

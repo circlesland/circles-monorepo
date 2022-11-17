@@ -23,8 +23,7 @@
   import Center from '../components/Center.svelte';
   import CompleteProfileForm from '../components/CompleteProfileForm.svelte';
   import { fetchProfile } from '../../xstate/user-profile-machine';
-  import type { IStatefulEndpoint } from '@circlesland/interfaces-channels';
-  import { log } from 'xstate/lib/actions';
+  import FlowService from '../../services/FlowsService';
   const toggleService = interpret(toggleMachine).start();
 
   let appManifest;
@@ -35,6 +34,14 @@
   onMount(() => {
     // @ts-ignore
     appManifest = rootManifest.find((app) => app.id === params.appId);
+
+    (async () => {
+      const flowService = new FlowService();
+      const fetchProfileService = await flowService.execute({
+        flowId: 'xstate-flows.frame.fetch_profile',
+        context: { profile: undefined, error: undefined },
+      });
+    })();
   });
 
   const onIframeLoad = async () => {

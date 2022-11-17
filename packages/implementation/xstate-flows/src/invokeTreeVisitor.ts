@@ -1,43 +1,42 @@
-import type {InvokeConfig, StateNodeConfig} from "xstate";
-import type {InvokeSourceDefinition} from "xstate/lib/types";
-import type {IFlowVisitor,Invocation} from "@circlesland/interfaces-flow-repository";
+import type { InvokeConfig, StateNodeConfig } from 'xstate';
+import type { InvokeSourceDefinition } from 'xstate/lib/types';
+import type {
+  IFlowVisitor,
+  Invocation,
+} from '@circlesland/interfaces-flow-repository';
 
 /**
  * Walks down the invocation (invoke:{src:"x"},...) tree of a IFlowManifest's flow and collects all FlowDependencies dependencies.
  */
 export class InvokeTreeVisitor implements IFlowVisitor {
-  constructor() {
-  }
+  constructor() {}
 
   /**
    * Gets the collected dependencies.
    */
-  getDependencies() : {
-    [flowId: string]: Invocation
+  getDependencies(): {
+    [flowId: string]: Invocation;
   } {
     return this._dependencies;
   }
   private readonly _dependencies: {
-    [flowId: string]: Invocation
+    [flowId: string]: Invocation;
   } = {};
 
-  visitInvoke(
-    flowId: string,
-    invokeNode: InvokeConfig<any, any>): void {
+  visitInvoke(flowId: string, invokeNode: InvokeConfig<any, any>): void {
     // TODO: Check if we ever use arrays at this point...
-    const invokeSourceDefinitions: (string | InvokeSourceDefinition)[] = Array.isArray(invokeNode)
-      ? invokeNode.map(o => o.src)
-      : [invokeNode.src];
+    const invokeSourceDefinitions: (string | InvokeSourceDefinition)[] =
+      Array.isArray(invokeNode)
+        ? invokeNode.map((o) => o.src)
+        : [invokeNode.src];
 
-    invokeSourceDefinitions.forEach(o => {
-      const invokeId = typeof o === "string"
-        ? o
-        : o.type;
+    invokeSourceDefinitions.forEach((o) => {
+      const invokeId = typeof o === 'string' ? o : o.type;
 
       if (!this._dependencies[flowId]) {
         this._dependencies[flowId] = {
           flowId: flowId,
-          dependencies: {}
+          dependencies: {},
         };
       }
 
@@ -45,6 +44,5 @@ export class InvokeTreeVisitor implements IFlowVisitor {
     });
   }
 
-  visitState(_: string, __: StateNodeConfig<any, any, any, any>): void {
-  }
+  visitState(_: string, __: StateNodeConfig<any, any, any, any>): void {}
 }

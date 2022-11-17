@@ -33,6 +33,8 @@
     "@circlesland/ceramic": "1.0.0",
     "@circlesland/tailwindcss": "1.0.0",
     "@circlesland/channels": "1.0.0",
-    "@circlesland/interfaces-channels": "1.0.0"
+    "@circlesland/interfaces-channels": "1.0.0",
+    "@circlesland/interfaces-flow-repository": "1.0.0",
+    "@circlesland/xstate-flows": "1.0.0"
   }
 }

@@ -54,7 +54,7 @@ export class FlowDependencySearch {
 
       Object.values(flowDependencies)
         .flatMap((o) => Object.keys(o.dependencies))
-        .filter((e) => !!e && e !== 'undefined')
+        .filter((e) => !!e && e !== 'undefined') // TODO: Remove this
         .forEach((o) => dependencyScanBacklog.push(o));
     }
 

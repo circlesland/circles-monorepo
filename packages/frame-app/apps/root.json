@@ -12,5 +12,12 @@
     "icon": "https://circles.land/logos/circles.png",
     "url": "https://circles.land",
     "manifest": "https://dummyjson.com/products/1"
+  },
+  {
+    "id": "122456",
+    "label": "Banking",
+    "icon": "https://circles.land/logos/circles.png",
+    "url": "http://localhost:5000",
+    "manifest": "https://dummyjson.com/products/1"
   }
 ]

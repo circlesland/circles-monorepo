@@ -5,6 +5,8 @@
     // TODO: Get this information from the profile
     let balance = 200;
     let balanceCurrency = Currency.EUR;
+
+    // Configure the channel communication
 </script>
 
 <div class="flex flex-col h-full">

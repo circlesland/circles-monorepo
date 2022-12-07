@@ -14,6 +14,7 @@
   import { toggleMachine } from '../../xstate/user-profile-machine';
 
   const toggleService = interpret(toggleMachine).start();
+
 </script>
 
 <div class="bg-maximus">
@@ -31,3 +32,5 @@
     </div>
   {/if}
 </div>
+
+

@@ -88,7 +88,7 @@
   <a href="/" use:link>go back to loader</a>
 </div>
 
-{#if $toggleService?.value === 'success'}
+<!-- {#if $toggleService?.value === 'success'} TODO: Remove when required-->
   {#if appManifest}
     <iframe
       src={appManifest?.url}
@@ -109,4 +109,4 @@
       <CompleteProfileForm profile={ceramicProfile} />
     </Center>
   {/if}
-{/if}
+<!-- {/if} -->

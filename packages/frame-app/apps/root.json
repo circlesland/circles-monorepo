@@ -17,7 +17,7 @@
     "id": "122456",
     "label": "Banking",
     "icon": "https://circles.land/logos/circles.png",
-    "url": "http://localhost:5000",
+    "url": "http://127.0.0.1:5000",
     "manifest": "https://dummyjson.com/products/1"
   }
 ]

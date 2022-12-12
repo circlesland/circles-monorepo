@@ -45,9 +45,10 @@ function getCircularButtonWidth(customTheme: CustomButtonTheme): number {
   };
   
   let buttonRef;
+
   function handleButtonClick(e) {
     const eventName = trigger ?? TRIGGER_EVENT_NAME;
-    buttonRef.dispatchEvent(new CustomEvent(eventName, { detail: { view, eventDetails: e }}))
+    document.dispatchEvent(new CustomEvent(eventName, { detail: { view, eventDetails: e }, bubbles: true }));
   }
 </script>
 

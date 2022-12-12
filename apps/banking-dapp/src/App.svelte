@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button, ViewType } from '@circlesland/ui-components';
 	import { DuplexChannel, PostMessageSink, PostMessageSource } from '@circlesland/channels';
     import type { IDuplexChannel } from '@circlesland/interfaces-channels';
     import { onMount } from 'svelte';
@@ -22,21 +23,37 @@
         window.removeEventListener('message', handleInitialization);
     }
 
-    setTimeout(() => {
+    onMount(() => {
+        window.addEventListener('message', handleInitialization);
+    });
+
+    const buttonView = {
+        id: 'edit-funds-button',
+        testId: 'edit-funds-button',
+        type: ViewType.Button,
+        args: {
+            labelConfig: {
+                label: 'Click me to send an event',
+                localizationKey: 'button'
+            }
+        },
+        trigger: 'edit-funds-button'
+    };
+
+    function handleButtonClick() {
         channel.endpoint.send({
             type: 'safeDappSdkMessage',
             id: '15'
         });
-    }, 3000);
+    }
 
-    onMount(() => {
-        const listener = window.addEventListener('message', handleInitialization);
-    });
+    document.addEventListener(buttonView.trigger, handleButtonClick);
 </script>
 
 <div class="flex flex-col h-full">
     <div class="basis-1/5 bg-gradient-to-r from-blue-500 to-green-500">
         <FundsLabel balance={balance} balanceCurrency={balanceCurrency}></FundsLabel>
     </div>
+    <Button view={buttonView}></Button>
     <div class="bg-blue-200 grow"></div>
 </div>

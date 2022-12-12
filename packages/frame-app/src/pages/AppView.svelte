@@ -35,6 +35,8 @@
   onMount(() => {
     // @ts-ignore
     appManifest = rootManifest.find((app) => app.id === params.appId);
+
+    document.addEventListener('edit-button-funds', () => console.log("haide mai odata"));
   });
 
   const onIframeLoad = async () => {

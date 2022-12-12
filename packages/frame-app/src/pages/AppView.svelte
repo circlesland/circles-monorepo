@@ -39,7 +39,13 @@
 
   const onIframeLoad = async () => {
     const iframeEl = document.getElementById('appFrame') as HTMLIFrameElement;
-
+    
+    const initializationData = {
+      // TODO: Take this from the manifest
+      sinkOrigin: 'http://localhost:3000'
+    };
+    iframeEl.contentWindow.postMessage(initializationData, appManifest?.url);
+  
     if (!frameCommunicator && iframeEl) {
       const source = new PostMessageSource(
         iframeEl.contentWindow,
@@ -48,7 +54,7 @@
       const sink = new PostMessageSink(window, window.location.origin);
 
       const duplexChannel: IDuplexChannel = new DuplexChannel(source, sink);
-      sink.receive('safeDappSdkMessage', async (safeDappSdkMessage) => {
+      duplexChannel.endpoint.receive('safeDappSdkMessage', async (safeDappSdkMessage) => {
         console.log('got now', safeDappSdkMessage);
         switch (safeDappSdkMessage.method) {
           case Methods.init:
